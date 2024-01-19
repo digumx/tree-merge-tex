@@ -21,7 +21,16 @@
 %\newcommand{\scl}{1}
 %\tikzset{>=stealth}
 
+%% Use the following for comments
 \newcommand{\dmcmt}[1]{\textcolor{blue}{#1}}
+\newcommand{\kmcmt}[1]{\textcolor{red}{#1}}
+\newcommand{\sncmt}[1]{\textcolor{green}{#1}}
+
+%% Common stuff like ReLU
+% TODO refactor to use this
+\newcommand{\relu}{\textit{ReLU}}
+\newcommand{\cnc}{$\mathcal{N}$}
+\newcommand{\abs}{$\mathcal{N'}$}
 
 \title{}
 
@@ -34,7 +43,7 @@
 \section{Introduction}
 
 Advances in Deep Neural Networks (DNNs) have enabled the scalable solution
-of several previously intractable problems like image recognition.\dmcmt{todo
+of several previously intractable problems like image recognition.\dmcmt{TODO
 cite} Due to this, DNNs have been increasingly assumed a central role across
 various domains. These include several safety critical domains like healthcare
 \cite{b1},
@@ -47,81 +56,72 @@ recognition and decision-making \cite{b3}.
 %that these applications operate in safety-critical settings, necessitating DNNs
 %to exhibit correct and accurate behavior.}
 
-However, DNNs are well known to be vulnerable to adversarial attacks \dmcmt{todo
+However, DNNs are well known to be vulnerable to adversarial attacks \dmcmt{TODO
 cite} and can produce unexpected behaviours which in safety critical domains can
 lead to unsafe situations. Therefore, there is a critical need to guarantee the
 precise functionality and safety of these DNNs that are deployed in
 safety-critical environments, to build trust on the systems that utilize these
 DNNs.
 
-\dmcmt{Combine next 3 paras into 1, briefly mention other methods like abs
-    interp
-    etc. What we do is extend scalability of existing methods via structural
-    abstraction refinement, like elboher. -- where our work places, talk briefly
-    about CEGAR here
-}
+A number of verification techniques have been proposed to validate
+the reliability of DNNs in safety-critical settings \cite{b4, b5}, including
+those based on abstract interpretation, branch and bound, etc. \dmcmt{ TODO cite
+} However, verification techniques for DNNs often
+face scalability issues due to the exponential blowup in the number of
+possible branches required to handle the non-linearity introduced by activation
+functions like \relu. \dmcmt{Is talking about blowup, non-linearity, etc here
+necessary?} Our work is based on counterexample guided abstraction refinement
+\cite{cegar-nn} and aims to alleviate this issue by reducing the verification
+problem for a large \textit{concrete} DNN \cnc into an over-approximate query
+involving a smaller \textit{abstract} DNN \abs. This is done by \textit{merging}
+groups of neurons belonging to the same \textit{merge group} in \cnc into single
+neurons in \abs. \dmcmt{Is level of detail here okay?} Then, this smaller query
+may be dispatched using any existing technique, thus extending the scalability
+of that technique. 
+\dmcmt{ Is something like this needed here: if this over-approximate
+query returns a \textit{spurious} counterexample that does not witness the
+violation of the property in \cnc, we \textit{refine} \abs to obtain a less
+over-approximate network }
 
-Consequently, a lot of verification procedures have been proposed to validate
-the reliability of DNNs in safety-critical settings \cite{b4, b5}, providing
-assurance against potential adversarial attacks and other unexpected behavior. The verification
-processes for Feed Forward Neural Networks often face scalability issues
-attributed to the nonlinearity introduced by the ReLU activation function. The
-presence of this nonlinearity in these networks renders the verification problem
-for these systems NP-Hard. Therefore it is difficult to verify systems that
-utilize these networks.
+While counterexample guided abstraction refinement based on structural
+abstraction has been proposed \cite{cegar-nn} \dmcmt{TODO cite others}, in
+several cases these techniques are forced to refine all the way to the original
+network, resulting in a query that is as complicated as the original
+verification problem we started with. \dmcmt{Does the meaning of refinement in a
+general CEGAR setting need to be explained somewhere? For example, as in the
+comment above?} We posit that this is because the refinement process does not
+identify which merges should be prioritised based on the semantics of the
+network, instead removing a single node from a merge group, leaving potentially
+equally over-approximate merges in the network. This leads to situations where,
+after several refinement steps, \abs has a large number of singleton merge
+groups, leading to a large yet over-approximate abstract network. 
+\dmcmt{TODO refer to later sections with eg demoing this.} 
 
-Two categories of verification procedures have been proposed to facilitate the
-verification of these systems: 1. \textbf{Sound and Complete Methods} and 2.
-\textbf{Sound and Incomplete Methods}. The first category of methods encounters
-scalability issues, while the second category may yield false positives. Within
-the second category, methods operate by over-approximating the state-space,
-enabling scalability. This category consists of two types of methods: 1. Those
-that involve changing the structure of the neural network, such as reducing the
-size of the neural network to aid in verification, and 2. Those based on bound
-propagation methods, where linear upper and lower bounds on neurons are
-determined to assist in the verification process.
-
-Our approach extends the first method, specifically altering the neural network
-structure by reducing its size through the elimination of redundant neurons to
-enhance the verification process. We expand upon the findings of \cite{b6}, who
-over-approximated the network by combining neurons. A drawback of their
-methodology was substantial over-approximation, resulting in spurious
-counterexamples. These counterexamples were then employed to refine the network
-if deemed spurious.
+In this work we utilise measures of similarities between neurons explored in
+\dmcmt{TODO cite, check Jan Kretinsky's and others works} to build a partial
+order of possible merges in each layer capturing the priority each merge should
+get during the refinement process. This allows us to use the information from a
+spurious counterexample to cut a merge group in a manner that eliminates the
+merge operation that has been estimated to contribute most to the
+over-approximation. This avoids the proliferation of singleton merge groups in
+\abs, and leads to a smaller and a tighter abstraction.
 
 \dmcmt{
-    1. Elboher doesn't have a good way of prioritising merges based on semantics
-       , refinement goes all the way to top
-    2. Further, when they refine, a single node is pulled out of a merge group,
-       while other equally bad merge operations may remain.
-    2. We utilise a similarity measure based on the behavior of the network on
-       a set of inputs, similar to existing works by Jan Kretinsky ( check and
-       cite ), to build a partial order. This we use to prioritise certain
-       merges over others.
-    4. Specifically, this allows us to do a refinement where the info from a cex
-       is used to not just remove a single neuron from a merge group, but to cut
-       a merge group in a way that eliminates the worst merge operations. This
-       gives us a smaller refined network with less over-approximation.
-    5. We have an efficient implementation of this using a tree based data
-       structure that allows us to search and screen several possible
-       refinements fast before committing to a solver call
-} 
+    At some point in FSTTCS we discussed propagating multiple potential cexes
+    (samples), and looking at improvement in all of them to guide the refinement
+    process. From what I understand, some preliminary code to be able to do this
+    is already in place (correct me if I'm misunderstanding @Sanaa). In that
+    case, if we are able to run some experiments with that, maybe a few lines
+    describing that here?
+}
 
- We present a new approach to merging neurons, exploiting behavioral similarity
- as a heuristic to minimize over-approximation. When merging two neurons,  `a'
- and `b', we ensure that no third neuron `c' exhibits behavior significantly
- more similar to the observable behaviors of `a' and `b'. We create a tree in a
- bottom up fashion which essentially corresponds to the order in which neurons
- should be merged.  The creation of a tree-like structure representing the order
- of neuron merging proves highly beneficial in the refinement process. This
- structure helps reduce the number of refinement step. Upon identifying a
- problematic neuron (one causing significant over-approximation), we attempt to
- undo merges dependent on this neuron. If the neuron is problematic, any merge
- group containing it is also problematic due to the substantial
- over-approximation it introduces. We utilize this precise fact in order to make
- our verification queries faster. We also get added benefit getting smaller
- neural network can precisely do the same job as the our original neural
- network. So we can use this as a method for pruning our networks as well.
+We describe a way to efficiently implement this partial order based refinement
+procedure to be able to iterate through potential refinements with minimal
+computational overheads. We do this by creating tree-based data structures that
+allows us to pre-compute a significant portion of the relevant information at
+the beginning of the refinement loop. Then, refinement operations can be
+performed via very quick index manipulations. This allows us to iterate through
+and screen several possible refinements fast before committing to a solver call.
 
 \section{Background}
 
