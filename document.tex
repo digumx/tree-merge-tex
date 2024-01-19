@@ -34,9 +34,10 @@
 \section{Introduction}
 
 Advances in Deep Neural Networks (DNNs) have enabled the scalable solution
-of several previously intractable problems like image recognition. Due to this,
-DNNs have been increasingly assumed a central role across various domains.
-These include several safety critical domains like healthcare \cite{b1},
+of several previously intractable problems like image recognition.\dmcmt{todo
+cite} Due to this, DNNs have been increasingly assumed a central role across
+various domains. These include several safety critical domains like healthcare
+\cite{b1},
 where they contribute significantly to medical diagnostics and predictive
 analysis \cite{b2}, and autonomous vehicles, where DNNs serve as the
 backbone for sophisticated perception systems, supporting tasks such as object
@@ -52,6 +53,13 @@ lead to unsafe situations. Therefore, there is a critical need to guarantee the
 precise functionality and safety of these DNNs that are deployed in
 safety-critical environments, to build trust on the systems that utilize these
 DNNs.
+
+\dmcmt{Combine next 3 paras into 1, briefly mention other methods like abs
+    interp
+    etc. What we do is extend scalability of existing methods via structural
+    abstraction refinement, like elboher. -- where our work places, talk briefly
+    about CEGAR here
+}
 
 Consequently, a lot of verification procedures have been proposed to validate
 the reliability of DNNs in safety-critical settings \cite{b4, b5}, providing
@@ -81,6 +89,24 @@ methodology was substantial over-approximation, resulting in spurious
 counterexamples. These counterexamples were then employed to refine the network
 if deemed spurious.
 
+\dmcmt{
+    1. Elboher doesn't have a good way of prioritising merges based on semantics
+       , refinement goes all the way to top
+    2. Further, when they refine, a single node is pulled out of a merge group,
+       while other equally bad merge operations may remain.
+    2. We utilise a similarity measure based on the behavior of the network on
+       a set of inputs, similar to existing works by Jan Kretinsky ( check and
+       cite ), to build a partial order. This we use to prioritise certain
+       merges over others.
+    4. Specifically, this allows us to do a refinement where the info from a cex
+       is used to not just remove a single neuron from a merge group, but to cut
+       a merge group in a way that eliminates the worst merge operations. This
+       gives us a smaller refined network with less over-approximation.
+    5. We have an efficient implementation of this using a tree based data
+       structure that allows us to search and screen several possible
+       refinements fast before committing to a solver call
+} 
+
  We present a new approach to merging neurons, exploiting behavioral similarity
  as a heuristic to minimize over-approximation. When merging two neurons,  `a'
  and `b', we ensure that no third neuron `c' exhibits behavior significantly
@@ -96,6 +122,20 @@ if deemed spurious.
  our verification queries faster. We also get added benefit getting smaller
  neural network can precisely do the same job as the our original neural
  network. So we can use this as a method for pruning our networks as well.
+
+\section{Background}
+
+\dmcmt{ 
+    An example of Elboher's Refinement where we get a lot of singletons
+}
+
+\section{Our Method}
+
+\dmcmt{
+    In same example, we immediately arrive at a better picture. 
+    This picture is equivalent to refining and merging back in the Elboher's
+    setting.
+} 
 
 %\section{Background}
 %\subsection{Neural Network}
