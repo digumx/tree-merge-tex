@@ -70,18 +70,19 @@ those based on abstract interpretation, branch and bound, etc. \dmcmt{ TODO cite
 face scalability issues due to the exponential blowup in the number of
 possible branches required to handle the non-linearity introduced by activation
 functions like \relu. \dmcmt{Is talking about blowup, non-linearity, etc here
-necessary?} Our work is based on counterexample guided abstraction refinement
+necessary? No, talk about NP hard instead of nonlinearity etc.} Our work is based on counterexample guided abstraction refinement
 \cite{cegar-nn} and aims to alleviate this issue by reducing the verification
 problem for a large \textit{concrete} DNN \cnc into an over-approximate query
 involving a smaller \textit{abstract} DNN \abs. This is done by \textit{merging}
 groups of neurons belonging to the same \textit{merge group} in \cnc into single
-neurons in \abs. \dmcmt{Is level of detail here okay?} Then, this smaller query
+neurons in \abs. \dmcmt{Is level of detail here okay?, Yes, appeal to later
+sections via ref.} Then, this smaller query
 may be dispatched using any existing technique, thus extending the scalability
 of that technique. 
 \dmcmt{ Is something like this needed here: if this over-approximate
 query returns a \textit{spurious} counterexample that does not witness the
 violation of the property in \cnc, we \textit{refine} \abs to obtain a less
-over-approximate network }
+over-approximate network ... No, }
 
 While counterexample guided abstraction refinement based on structural
 abstraction has been proposed \cite{cegar-nn} \dmcmt{TODO cite others}, in
