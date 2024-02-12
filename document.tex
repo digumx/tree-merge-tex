@@ -42,6 +42,8 @@
     
 \section{Introduction}
 
+\dmcmt{ TODO Re-work wrt new experiments section }
+
 Advances in Deep Neural Networks (DNNs) have enabled the scalable solution
 of several previously intractable problems like image recognition.\dmcmt{TODO
 cite} Due to this, DNNs have been increasingly assumed a central role across
@@ -66,31 +68,23 @@ DNNs.
 A number of verification techniques have been proposed to validate
 the reliability of DNNs in safety-critical settings \cite{b4, b5}, including
 those based on abstract interpretation, branch and bound, etc. \dmcmt{ TODO cite
-} However, verification techniques for DNNs often
-face scalability issues due to the exponential blowup in the number of
-possible branches required to handle the non-linearity introduced by activation
-functions like \relu. \dmcmt{Is talking about blowup, non-linearity, etc here
-necessary? No, talk about NP hard instead of nonlinearity etc.} Our work is based on counterexample guided abstraction refinement
-\cite{cegar-nn} and aims to alleviate this issue by reducing the verification
-problem for a large \textit{concrete} DNN \cnc into an over-approximate query
-involving a smaller \textit{abstract} DNN \abs. This is done by \textit{merging}
-groups of neurons belonging to the same \textit{merge group} in \cnc into single
-neurons in \abs. \dmcmt{Is level of detail here okay?, Yes, appeal to later
-sections via ref.} Then, this smaller query
-may be dispatched using any existing technique, thus extending the scalability
-of that technique. 
-\dmcmt{ Is something like this needed here: if this over-approximate
-query returns a \textit{spurious} counterexample that does not witness the
-violation of the property in \cnc, we \textit{refine} \abs to obtain a less
-over-approximate network ... No, }
+} However, since DNN verification is NP-Hard \dmcmt{TODO cite}, verification
+techniques for DNNs often face scalability issues. Our work is based on
+counterexample guided abstraction refinement \cite{cegar-nn} and aims to
+alleviate this issue by reducing the verification problem for a large
+\textit{concrete} DNN \cnc into an over-approximate query involving a smaller
+\textit{abstract} DNN \abs. This is done by \textit{merging} groups of neurons
+belonging to the same \textit{merge group} in \cnc into single neurons in \abs.
+\dmcmt{TODO appeal to later sections via ref.}
+Then, this smaller query may be dispatched using any existing technique, thus
+extending the scalability of that technique. 
 
 While counterexample guided abstraction refinement based on structural
 abstraction has been proposed \cite{cegar-nn} \dmcmt{TODO cite others}, in
 several cases these techniques are forced to refine all the way to the original
 network, resulting in a query that is as complicated as the original
-verification problem we started with. \dmcmt{Does the meaning of refinement in a
-general CEGAR setting need to be explained somewhere? For example, as in the
-comment above?} We posit that this is because the refinement process does not
+verification problem we started with. We posit that this is because the
+refinement process does not
 identify which merges should be prioritised based on the semantics of the
 network, instead removing a single node from a merge group, leaving potentially
 equally over-approximate merges in the network. This leads to situations where,
@@ -107,15 +101,6 @@ merge operation that has been estimated to contribute most to the
 over-approximation. This avoids the proliferation of singleton merge groups in
 \abs, and leads to a smaller and a tighter abstraction.
 
-\dmcmt{
-    At some point in FSTTCS we discussed propagating multiple potential cexes
-    (samples), and looking at improvement in all of them to guide the refinement
-    process. From what I understand, some preliminary code to be able to do this
-    is already in place (correct me if I'm misunderstanding @Sanaa). In that
-    case, if we are able to run some experiments with that, maybe a few lines
-    describing that here?
-}
-
 We describe a way to efficiently implement this partial order based refinement
 procedure to be able to iterate through potential refinements with minimal
 computational overheads. We do this by creating tree-based data structures that
@@ -123,6 +108,7 @@ allows us to pre-compute a significant portion of the relevant information at
 the beginning of the refinement loop. Then, refinement operations can be
 performed via very quick index manipulations. This allows us to iterate through
 and screen several possible refinements fast before committing to a solver call.
+
 
 \section{Background}
 
