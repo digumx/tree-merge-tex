@@ -1,0 +1,131 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{b1}{article}{}
+      \name{author}{3}{}{%
+        {{hash=40ecd2ef1522566ec4bc3db84202033e}{%
+           family={Djavanshir},
+           familyi={D\bibinitperiod},
+           given={G.\bibnamedelimi Reza},
+           giveni={G\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=6a1abb1cd12aca133376c65305c20edc}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Xinrui},
+           giveni={X\bibinitperiod}}}%
+        {{hash=952145c9e7d24343112e3aae9b78210d}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Wenhao},
+           giveni={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{ce30ed9c42de5a50480f896a6d923827}
+      \strng{fullhash}{ce30ed9c42de5a50480f896a6d923827}
+      \strng{bibnamehash}{ce30ed9c42de5a50480f896a6d923827}
+      \strng{authorbibnamehash}{ce30ed9c42de5a50480f896a6d923827}
+      \strng{authornamehash}{ce30ed9c42de5a50480f896a6d923827}
+      \strng{authorfullhash}{ce30ed9c42de5a50480f896a6d923827}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IT Professional}
+      \field{number}{3}
+      \field{title}{A Review of Artificial Intelligence's Neural Networks (Deep Learning) Applications in Medical Diagnosis and Prediction}
+      \field{volume}{23}
+      \field{year}{2021}
+      \field{pages}{58\bibrangedash 62}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1109/MITP.2021.3073665
+      \endverb
+    \endentry
+    \entry{cegar-nn}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=e7d6411f076f6b03d474d72999cf94ea}{%
+           family={Elboher},
+           familyi={E\bibinitperiod},
+           given={Yizhak\bibnamedelima Yisrael},
+           giveni={Y\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+        {{hash=4c467790d19b35e04bcebcce1bc29e2d}{%
+           family={Gottschlich},
+           familyi={G\bibinitperiod},
+           given={Justin},
+           giveni={J\bibinitperiod}}}%
+        {{hash=21b36446cbbfe1c925836bd0a6ab5f54}{%
+           family={Katz},
+           familyi={K\bibinitperiod},
+           given={Guy},
+           giveni={G\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=9a06920f8645e691220f4461275d91f3}{%
+           family={Lahiri},
+           familyi={L\bibinitperiod},
+           given={Shuvendu\bibnamedelima K.},
+           giveni={S\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=3ad93e4c675a68a22a9c2c52b38e2751}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Chao},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{0568570ad3113b9cdca846f78f91668f}
+      \strng{fullhash}{0568570ad3113b9cdca846f78f91668f}
+      \strng{bibnamehash}{0568570ad3113b9cdca846f78f91668f}
+      \strng{authorbibnamehash}{0568570ad3113b9cdca846f78f91668f}
+      \strng{authornamehash}{0568570ad3113b9cdca846f78f91668f}
+      \strng{authorfullhash}{0568570ad3113b9cdca846f78f91668f}
+      \strng{editorbibnamehash}{7625318d7320174ab5094a59635a0d3c}
+      \strng{editornamehash}{7625318d7320174ab5094a59635a0d3c}
+      \strng{editorfullhash}{7625318d7320174ab5094a59635a0d3c}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Computer Aided Verification - 32nd International Conference, {CAV} 2020, Los Angeles, CA, USA, July 21-24, 2020, Proceedings, Part {I}}
+      \field{series}{Lecture Notes in Computer Science}
+      \field{title}{An Abstraction-Based Framework for Neural Network Verification}
+      \field{volume}{12224}
+      \field{year}{2020}
+      \field{pages}{43\bibrangedash 65}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1007/978-3-030-53288-8\_3
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-030-53288-8\_3
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-030-53288-8%5C_3
+      \endverb
+    \endentry
+  \enddatalist
+  \missing{b2}
+  \missing{b3}
+  \missing{b4}
+  \missing{b5}
+\endrefsection
+\endinput
+
