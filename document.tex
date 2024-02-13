@@ -4,14 +4,16 @@
 \usepackage{blindtext}
 \usepackage{amsmath}
 %\usepackage{amssymb}
+\usepackage{xspace}
 \usepackage{graphicx}
-\usepackage{biblatex}
+\usepackage[texencoding=ascii]{biblatex}
 \usepackage{tikz}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 
 \graphicspath{ {./} }
 \addbibresource{bibliography.bib}
+\addbibresource{bib2.bib}
 
 %\usetikzlibrary{positioning}
 %\usetikzlibrary{shapes}
@@ -32,15 +34,15 @@
 
 %% Common stuff like ReLU
 % TODO refactor to use this
-\newcommand{\relu}{\textit{ReLU}}
-\newcommand{\cnc}{$\mathcal{N}$}
-\newcommand{\abs}{$\mathcal{N'}$}
+\newcommand{\relu}{\textit{ReLU}\xspace}
+\newcommand{\cnc}{$\mathcal{N}$\xspace}
+\newcommand{\abs}{$\mathcal{N'}$\xspace}
 \newcommand{\abcrown}{$\alpha\beta-CROWN$ \todo{cite}}
 \newcommand{\acasxu}{ACAS Xu \todo{cite}}
 \newcommand{\mnist}{VNNComp MNIST \todo{cite}}
 \newcommand{\pgd}{PGD-attack \todo{cite}}
 \newcommand{\cegar}{CEGAR \todo{cite}}
-\newcommand{\dnn}{DNN}
+\newcommand{\dnn}{DNN\xspace}
 
 \title{Title}
 \author{Sanaa Siddiqui, Diganta Mukhopadhyay, Afzal Mohammed, Hrishikesh
@@ -52,75 +54,9 @@ Karmarkar, Kumar Madhukar }
 \todo{ Add affiliations}
 
 \input{abstract.tex}
-    
-\section{Introduction}
 
-\todo{ Re-work wrt new experiments section }
+\input{intro.tex}
 
-Advances in Deep Neural Networks (DNNs) have enabled the scalable solution
-of several previously intractable problems like image recognition.\todo{
-cite} Due to this, DNNs have been increasingly assumed a central role across
-various domains. These include several safety critical domains like healthcare
-\cite{b1},
-where they contribute significantly to medical diagnostics and predictive
-analysis \cite{b2}, and autonomous vehicles, where DNNs serve as the
-backbone for sophisticated perception systems, supporting tasks such as object
-recognition and decision-making \cite{b3}. 
-
-%\hide{However, it is crucial to acknowledge
-%that these applications operate in safety-critical settings, necessitating DNNs
-%to exhibit correct and accurate behavior.}
-
-However, DNNs are well known to be vulnerable to adversarial attacks \todo{
-cite} and can produce unexpected behaviours which in safety critical domains can
-lead to unsafe situations. Therefore, there is a critical need to guarantee the
-precise functionality and safety of these DNNs that are deployed in
-safety-critical environments, to build trust on the systems that utilize these
-DNNs.
-
-A number of verification techniques have been proposed to validate
-the reliability of DNNs in safety-critical settings \cite{b4, b5}, including
-those based on abstract interpretation, branch and bound, etc. \todo{ cite
-} However, since DNN verification is NP-Hard \todo{ cite}, verification
-techniques for DNNs often face scalability issues. Our work is based on
-counterexample guided abstraction refinement \cite{cegar-nn} and aims to
-alleviate this issue by reducing the verification problem for a large
-\textit{concrete} DNN \cnc into an over-approximate query involving a smaller
-\textit{abstract} DNN \abs. This is done by \textit{merging} groups of neurons
-belonging to the same \textit{merge group} in \cnc into single neurons in \abs.
-\todo{ appeal to later sections via ref.}
-Then, this smaller query may be dispatched using any existing technique, thus
-extending the scalability of that technique. 
-
-While counterexample guided abstraction refinement based on structural
-abstraction has been proposed \cite{cegar-nn} \todo{ cite others}, in
-several cases these techniques are forced to refine all the way to the original
-network, resulting in a query that is as complicated as the original
-verification problem we started with. We posit that this is because the
-refinement process does not
-identify which merges should be prioritised based on the semantics of the
-network, instead removing a single node from a merge group, leaving potentially
-equally over-approximate merges in the network. This leads to situations where,
-after several refinement steps, \abs has a large number of singleton merge
-groups, leading to a large yet over-approximate abstract network. 
-\todo{ refer to later sections with eg demoing this.} 
-
-In this work we utilise measures of similarities between neurons explored in
-\todo{ cite, check Jan Kretinsky's and others works} to build a partial
-order of possible merges in each layer capturing the priority each merge should
-get during the refinement process. This allows us to use the information from a
-spurious counterexample to cut a merge group in a manner that eliminates the
-merge operation that has been estimated to contribute most to the
-over-approximation. This avoids the proliferation of singleton merge groups in
-\abs, and leads to a smaller and a tighter abstraction.
-
-We describe a way to efficiently implement this partial order based refinement
-procedure to be able to iterate through potential refinements with minimal
-computational overheads. We do this by creating tree-based data structures that
-allows us to pre-compute a significant portion of the relevant information at
-the beginning of the refinement loop. Then, refinement operations can be
-performed via very quick index manipulations. This allows us to iterate through
-and screen several possible refinements fast before committing to a solver call.
 
 
 \section{Background}
