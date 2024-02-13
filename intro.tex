@@ -1,0 +1,80 @@
+
+\section{Introduction}
+
+\todo{ Re-work wrt new experiments section }
+
+Advances in Deep Neural Networks (\dnn) have enabled the scalable solution
+of several previously intractable problems like image recognition.\todo{ add
+more egs, cite} Due to this, \dnn have been increasingly assumed a central role
+across various domains. These include several safety critical domains like
+healthcare \cite{b1}, where they contribute significantly to medical diagnostics
+and predictive analysis \cite{b2}, and autonomous vehicles, where DNNs serve as
+the backbone for sophisticated perception systems, supporting tasks such as
+object recognition and decision-making \cite{b3}. 
+
+However, \dnn are well known to be vulnerable to adversarial attacks \todo{
+cite} and, being generally un-interpretable, can often produce unexpected
+behaviours. Therefore, to build trust on safety critical systems that utilize
+\dnn, it is \dmcmt{has become?} critical to understand, interpret and validate
+the possible behaviors of these \dnn via formal analysis. \dmcmt{ Cite some dnn
+verif case studies, like nn-lander-verif, Prof Deepak's work, etc? Mention
+verification / interpretability here?}
+
+A number of techniques have been proposed to build trust on the reliability
+of \dnn in safety-critical settings, including verification \cite{reluplex,
+deeppoly} \todo{cite others}, formal explainability \cite{overview-fxai,
+minimal-image-fxai} and others \todo{cite}. For most of these
+techniques, it is necessary to make queries to neural network verification
+solvers (such as \cite{reluplex}) to ascertain the trustworthy-ness of the \dnn.
+\dmcmt{What I mean here is to get verif / produce the interpretation. Is wording
+okay?} However, since solving these queries is NP-Hard (see appendix of
+\cite{reluplex}) \dmcmt{Should I point to appendix?}, formal analysis of \dnn
+often faces scalability issues, and is highly sensitive to the size of the \dnn.
+
+Structural abstraction based on the \textit{syntax} (the local weights and biases at each
+node of the \dnn) form the basis of several techniques attempting to alleviate
+this issue \cite{cegar-nn, cegarette, cleverest-nn, conv-abs-gk}. These
+techniques work by converting a large \textit{concrete} \dnn \cnc into a smaller
+\textit{abstract} DNN \abs via \textit{merging} groups of neurons belonging to
+the same \textit{merge group} in \cnc into single neurons in \abs. Each such
+merge step is done in a way that ensures that there are strong, formal
+\textit{soundness} guarantees linking the behavior of \cnc and \abs. Then, one
+can make queries on \abs, and using the strong \textit{soundness} guarantees,
+lift the results to \cnc argue about it's reliability. However, these techniques
+do not take into account the global \textit{semantic} behavior of the network,
+thus producing potentially sub-optimal abstractions potentially sub-optimal
+abstractions. \dmcmt{This last bit is not necessarily exposed by our
+experiments..}
+
+On the other hand, neural network compression techniques \todo{cite} and
+semantic abstraction techniques \cite{deep-abstract, lin-comb-abs-jan}
+
+While counterexample guided abstraction refinement based on structural
+abstraction has been proposed \cite{cegar-nn} \todo{ cite others}, in
+several cases these techniques are forced to refine all the way to the original
+network, resulting in a query that is as complicated as the original
+verification problem we started with. We posit that this is because the
+refinement process does not
+identify which merges should be prioritised based on the semantics of the
+network, instead removing a single node from a merge group, leaving potentially
+equally over-approximate merges in the network. This leads to situations where,
+after several refinement steps, \abs has a large number of singleton merge
+groups, leading to a large yet over-approximate abstract network. 
+\todo{ refer to later sections with eg demoing this.} 
+
+In this work we utilise measures of similarities between neurons explored in
+\todo{ cite, check Jan Kretinsky's and others works} to build a partial
+order of possible merges in each layer capturing the priority each merge should
+get during the refinement process. This allows us to use the information from a
+spurious counterexample to cut a merge group in a manner that eliminates the
+merge operation that has been estimated to contribute most to the
+over-approximation. This avoids the proliferation of singleton merge groups in
+\abs, and leads to a smaller and a tighter abstraction.
+
+We describe a way to efficiently implement this partial order based refinement
+procedure to be able to iterate through potential refinements with minimal
+computational overheads. We do this by creating tree-based data structures that
+allows us to pre-compute a significant portion of the relevant information at
+the beginning of the refinement loop. Then, refinement operations can be
+performed via very quick index manipulations. This allows us to iterate through
+and screen several possible refinements fast before committing to a solver call.
