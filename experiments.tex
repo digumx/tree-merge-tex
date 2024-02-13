@@ -213,3 +213,40 @@ certain `critical` classes for which a false negative classification is far more
 dangerous than a false positive one. For example, for medical diagnosis and
 collision detection, a false negative is far more dangerous than a false
 positive.
+
+Safety critical analysis of neural networks is highly sensitive to the size of
+the network. While several neural network compression techniques exist
+\todo{cite}, they provide limited formal guarantees \dmcmt{ Talk about Jan? How?
+} connecting the behavior
+of the compressed network and the original network. Thus, any analysis,
+including, for example, formal explainability or verification, done on the
+compressed network cannot easily be lifted to the original network. This lack of
+guarantees also limits the usefulness of these compression techniques as
+optimisation steps when deploying a network to a resource-constrained
+environment. 
+
+Our theoretical framework for abstraction allows us to produce compressed
+networks with the formal guarantee that the abstraction process will not
+introduce any new false negative. We do this by marking the output neuron $n_c$
+corresponding to the critical class in the output layer as inc, and all other
+neurons in that layer as dec.  Then, for any input that the concrete network
+classified into the critical class, $n_c$ will have the largest value in the
+output layer, and as it has been marked as inc, it will continue to have the
+larges value in the output layer for the abstract network as well. Thus, the
+abstract network will also classify this input as critical.
+
+\begin{figure}
+    \includegraphics[scale=0.6]{figs/mnist_2_256_class_samples.png}
+    \caption{Accuracy and True/False Positive/Negative Rates vs Reduction Rate
+        plot for \mnist of size $2 \times 256$ with critical class 0. Refinement
+        done via the 'samples' method.}
+    \label{f:mnist-class-samples}
+\end{figure}
+
+We demonstrate the effectiveness of our abstraction method as such a compression
+with guarantees technique via some experiments on \mnist and show the results in
+figure \ref{f:mnist-class-samples}. We set the class '0'
+as the critical class, and use our abstraction technique to obtain a compressed
+network. Then, we use the 'samples' method described previously to progressively
+refine the network (moving right to left) , plotting the accuracy, false/true
+positive/negative rates as we go along.
