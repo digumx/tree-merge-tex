@@ -45,9 +45,9 @@ Consider Figure \ref{Figure 2}, illustrating the merging sequence of neurons $(n
 
 \subsection{Culprit Neurons} 
 
-
 A neuron, denoted as $\gamma$, is designated as a culprit neuron within a specific layer when absolute value of the product of the difference between $(v_{Rep(\gamma)}$ and $v_{\gamma})$ and the effective weight is maximized.
 \todo{Add the 3 different methods generating counter-examples. Scores should be avg over $\beta$ for a particular $\gamma$.}
+A neuron, denoted as $\gamma$, is designated as a culprit neuron within a specific layer when absolute value of the product of the difference between $(v_{Rep(\gamma)}$ and $v_{\gamma})$ and the effective weight is maximized.
 
 $||(v_{Rep(\gamma)} - v_{\gamma})||_{2} \cdot |(\textit{effective\_weight})|$
 
@@ -113,6 +113,7 @@ For example, in Figure \ref{Figure: Order Of Merging}, we conducted a simulation
 \begin{figure}[H]
     \centering
     \includegraphics[width = 0.5\textwidth]{diagrams/good_vs_bad_merges.pdf}
+    \includegraphics[width = 0.9\textwidth]{good_vs_bad_merges.pdf}
     \caption{Ways of Merging}
     \label{Figure 3}
 \end{figure}
