@@ -25,27 +25,34 @@
 \newcommand{\dmcmt}[1]{\textcolor{blue}{#1}}
 \newcommand{\kmcmt}[1]{\textcolor{red}{#1}}
 \newcommand{\sncmt}[1]{\textcolor{green}{#1}}
+\newcommand{\todo}[1]{\textcolor{orange}{TODO: #1}}
 
 %% Common stuff like ReLU
 % TODO refactor to use this
 \newcommand{\relu}{\textit{ReLU}}
 \newcommand{\cnc}{$\mathcal{N}$}
 \newcommand{\abs}{$\mathcal{N'}$}
+\newcommand{\abcrown}{$\alpha\beta-CROWN$ \todo{cite}}
+\newcommand{\acasxu}{ACAS Xu \todo{cite}}
+\newcommand{\mnist}{VNNComp MNIST \todo{cite}}
+\newcommand{\pgd}{PGD-attack \todo{cite}}
 
-\title{}
+\title{Title}
+\author{Sanaa Siddiqui, Diganta Mukhopadhyay, Afzal Mohammed, Hrishikesh
+Karmarkar, Kumar Madhukar }
 
 \begin{document}
 
 \maketitle
-
+\todo{ Add affiliations}
 %\begin{flushleft}
     
 \section{Introduction}
 
-\dmcmt{ TODO Re-work wrt new experiments section }
+\todo{ Re-work wrt new experiments section }
 
 Advances in Deep Neural Networks (DNNs) have enabled the scalable solution
-of several previously intractable problems like image recognition.\dmcmt{TODO
+of several previously intractable problems like image recognition.\todo{
 cite} Due to this, DNNs have been increasingly assumed a central role across
 various domains. These include several safety critical domains like healthcare
 \cite{b1},
@@ -58,7 +65,7 @@ recognition and decision-making \cite{b3}.
 %that these applications operate in safety-critical settings, necessitating DNNs
 %to exhibit correct and accurate behavior.}
 
-However, DNNs are well known to be vulnerable to adversarial attacks \dmcmt{TODO
+However, DNNs are well known to be vulnerable to adversarial attacks \todo{
 cite} and can produce unexpected behaviours which in safety critical domains can
 lead to unsafe situations. Therefore, there is a critical need to guarantee the
 precise functionality and safety of these DNNs that are deployed in
@@ -67,20 +74,20 @@ DNNs.
 
 A number of verification techniques have been proposed to validate
 the reliability of DNNs in safety-critical settings \cite{b4, b5}, including
-those based on abstract interpretation, branch and bound, etc. \dmcmt{ TODO cite
-} However, since DNN verification is NP-Hard \dmcmt{TODO cite}, verification
+those based on abstract interpretation, branch and bound, etc. \todo{ cite
+} However, since DNN verification is NP-Hard \todo{ cite}, verification
 techniques for DNNs often face scalability issues. Our work is based on
 counterexample guided abstraction refinement \cite{cegar-nn} and aims to
 alleviate this issue by reducing the verification problem for a large
 \textit{concrete} DNN \cnc into an over-approximate query involving a smaller
 \textit{abstract} DNN \abs. This is done by \textit{merging} groups of neurons
 belonging to the same \textit{merge group} in \cnc into single neurons in \abs.
-\dmcmt{TODO appeal to later sections via ref.}
+\todo{ appeal to later sections via ref.}
 Then, this smaller query may be dispatched using any existing technique, thus
 extending the scalability of that technique. 
 
 While counterexample guided abstraction refinement based on structural
-abstraction has been proposed \cite{cegar-nn} \dmcmt{TODO cite others}, in
+abstraction has been proposed \cite{cegar-nn} \todo{ cite others}, in
 several cases these techniques are forced to refine all the way to the original
 network, resulting in a query that is as complicated as the original
 verification problem we started with. We posit that this is because the
@@ -90,10 +97,10 @@ network, instead removing a single node from a merge group, leaving potentially
 equally over-approximate merges in the network. This leads to situations where,
 after several refinement steps, \abs has a large number of singleton merge
 groups, leading to a large yet over-approximate abstract network. 
-\dmcmt{TODO refer to later sections with eg demoing this.} 
+\todo{ refer to later sections with eg demoing this.} 
 
 In this work we utilise measures of similarities between neurons explored in
-\dmcmt{TODO cite, check Jan Kretinsky's and others works} to build a partial
+\todo{ cite, check Jan Kretinsky's and others works} to build a partial
 order of possible merges in each layer capturing the priority each merge should
 get during the refinement process. This allows us to use the information from a
 spurious counterexample to cut a merge group in a manner that eliminates the
@@ -387,6 +394,8 @@ and screen several possible refinements fast before committing to a solver call.
 %\end{algorithm}
 
 %\end{flushleft}
+
+\input{experiments.tex}
 
 \printbibliography
     
