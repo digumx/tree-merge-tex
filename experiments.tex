@@ -27,7 +27,7 @@ intro our story better}
 
 In these set of experiments, we have taken the \acasxu set of
 networks \todo{add detailed table} and
-properties and attempt to verify them using a CEGAR approach. We use our
+properties and attempt to verify them using a \cegar approach. We use our
 technique to generate the abstraction, and attempt to verify the property on the
 abstract network using an existing neural network verification solver. If the
 solver returns a counterexample, and if that counterexample is not spurious, we
@@ -179,18 +179,37 @@ formatting} \dmcmt{Include Times?}}
 Table \ref{t:mnist-prop-summary} summarizes these results for multiple \mnist
 networks and multiple refinement methods. Accuracy here refers to the final
 accuracy of the best network found when the refinement process stops due to lack
-of counterexamples. We find that 'pgd' performs poorly on the $4$ and $6$ layer
-networks, where while the number of steps are relatively low and the reduction
-rate is high, the accuracy is very low. This is because the \abcrown
+of counterexamples. Firstly, we find that 'pgd' performs poorly on the $4$ and
+$6$ layer networks, where while the number of steps are relatively low and the
+reduction rate is high, the accuracy is very low. This is because the \abcrown
 implementation of \pgd fails to find a spurious counterexample early on in the
 refinement process for these instances, leading to early termination without
-ever hitting the accuracy jump. The 'random' method performs consistently worse
-than the others in terms of the number of steps. Apart from these exceptions,
-the other instances and methods seem to perform comparably on the same network.
-We may conclude two things from this data. Firstly, although the 'pgd' method
+ever hitting the accuracy jump. 
+
+Apart from these exceptions, the other instances and methods seem to perform
+comparably on the same network in terms of reduction rate. This is evidence for
+the fact that, within the limited search space of abstractions defined by our
+tree, there exists a strong enough abstract network with a good reduction rate,
+and that it is possible to find this network via a \cegar-like approach. 
+
+Further, we see significant difference in the number of steps taken by 'random'
+and the other methods in finding the abstract network. This indicates that our
+heuristics for finding a culprit neuron to base the refinement on indeed
+shortens the search for the refined network. We also observe that
+'samples','samples-pgd' and for the $2$ layer network 'pgd' take similar number
+of refinement steps, indicating that each method may be taking close to the
+optimal set of refinement steps. So, although the 'pgd' method
 incurs a significant time overhead \dmcmt{Measure?} it does not necessarily
-provide any benefits. Secondly, we are able to follow our refinement process
-to obtain a satisfactory compression of the network with a very low probability
-of finding a spurious counterexample, which is evidence towards our hypothesis
-that a satisfactory abstraction exists within the restricted search space
-defined via our tree.
+provide any benefits.\dmcmt{Last two paragraphs okay? Refer to this
+in intro of experiments section? Also, pgd does not produce improvement (unlike
+in cleverest). This is prob because global view, and cegarette is about doing an
+eager attack before solver call. Discuss this? So two potential angles on this,
+what Ive written vs global view angle.} 
+
+\subsection{Compression with Guarantees on Critical Classes}
+
+In several safety-critical applications of \dnn as classifiers, there are
+certain `critical` classes for which a false negative classification is far more
+dangerous than a false positive one. For example, for medical diagnosis and
+collision detection, a false negative is far more dangerous than a false
+positive.
