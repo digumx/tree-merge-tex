@@ -233,7 +233,9 @@ neurons in that layer as dec.  Then, for any input that the concrete network
 classified into the critical class, $n_c$ will have the largest value in the
 output layer, and as it has been marked as inc, it will continue to have the
 larges value in the output layer for the abstract network as well. Thus, the
-abstract network will also classify this input as critical.
+abstract network will also classify this input as critical. We will however pay
+for this compression by introducing false negatives, as we will demonstrate
+shortly. \dmcmt{Last sentence okay?}
 
 \begin{figure}
     \includegraphics[scale=0.6]{figs/mnist_2_256_class_samples.png}
@@ -249,4 +251,22 @@ figure \ref{f:mnist-class-samples}. We set the class '0'
 as the critical class, and use our abstraction technique to obtain a compressed
 network. Then, we use the 'samples' method described previously to progressively
 refine the network (moving right to left) , plotting the accuracy, false/true
-positive/negative rates as we go along.
+positive/negative rates as we go along. For this plot, the samples were drawn
+from the \mnist training dataset, and the accuracies were plotted using the
+\mnist test dataset.
+
+We notice that, as guaranteed by the theory, the false negative rate never
+increases, even as the reduction rate approaches close to $100\%$. Thus, even
+for highly compressed networks, we never introduce any new false positives, and
+in fact, the false negative rate improves, as some of the points that are going
+to be newly classified as positive may in fact be true positives. However, as
+discussed before, we do pay for the compression by introducing false positives,
+which rises steeply in the graph. This is again similar to the behavior seen in
+the previous section, where a few refinement steps leads to the elimination of
+most of the spurious counterexamples all at once \dmcmt{The reason may not be
+the same} 
+
+We note that from the graph, even at around $45\%$ compression rate,
+we find that the false positive rate is close to that of the original network.
+This shows that our abstraction technique can find effective compressions with
+the guarantee that no false negatives have been introduced.
