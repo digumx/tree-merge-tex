@@ -1,0 +1,25 @@
+Neural Networks are increasingly being used in several safety critical
+applications, including medical imaging, self driving cars and aircraft
+collision detection. To gain trust on the networks being deployed in safety
+critical domains and reduce the risk of safety violations, several techniques
+based on formal analysis has been proposed, including formal verification and
+formal explainability. However, the scalability of these techniques is highly
+sensitive to the size of the networks involved, limiting the applicability of
+these techniques to real-world networks. To handle these scalability issues,
+structural abstraction based on syntactic techniques have been proposed, and
+while these provide formal soundness guarantees, they do not take into account
+the semantic behavior of the network. On the other hand, neural network
+compression and semantic abstraction \dmcmt{Jan, few lines in intro}
+techniques take into account this information, but the soundness guarantees they
+provide are generally much weaker, if at all present. We propose to combine both
+the semantic and syntactic approaches into a single framework to try to obtain
+the best of both worlds, guiding our abstraction using global semantic
+information while still providing concrete soundness guarantees based on
+syntactic constraints. We do this by constructing a partial order of best
+possible merges using global semantic information, and represent it using a
+tree-like data structure. Then we follow this tree to perform syntactic merge
+and example guided \sncmt{Some other wording?} refinement operations. This
+allows us to obtain abstract networks that is guided by global semantic
+information while providing concrete soundness guarantees. We demonstrate the
+effectiveness of these abstractions on standard neural network benchmarks via
+experiments.
