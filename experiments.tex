@@ -10,12 +10,13 @@ expensive tree traversal operations in each iteration of the abstraction
 refinement loop. 
 
 Using this implementation, we have performed three sets of experiments to
-demonstrate the usefulness of our benchmarks. We first use our abstractions to
-attempt to verify safety properties of the \acasxu networks, where we
-show that we are able to obtain smaller abstract networks that are sufficiently
-strong to verify safety properties. However, abstractions may be useful in other
-domains as well, \dmcmt{What? Check Jan Kretinsky, cite}, in particular to
-obtain compressed networks with certain safety guarantees behind them. To
+demonstrate the usefulness of our technique. We first use our abstractions to
+attempt to verify safety properties of the \acasxu networks. However,
+abstractions may be useful in other
+domains as well, \dmcmt{What? Any formal analysis beyond verification, for
+example, formal explainability \todo{cite gk} scalability is sensitive to size.
+So abstractions can give smaller nets with some guarantees. Check Jan Kretinsky,
+guarantees not enough, cite. Motivate section 4.3}, in particular to obtain compressed networks with certain safety guarantees behind them. To
 demonstrate this, we use our implementation to compress networks trained on the
 MNIST networks in the second and third set of experiments. \dmcmt{This needs to
 intro our story better}
@@ -32,7 +33,8 @@ technique to generate the abstraction, and attempt to verify the property on the
 abstract network using an existing neural network verification solver. If the
 solver returns a counterexample, and if that counterexample is not spurious, we
 use that counterexample as a reference point for score calculation \todo{Ref
-prev sec} to select the culprit neuron. \todo{Ref prev section} With the culprit
+prev sec} to select the culprit neuron. \todo{Ref prev section, maybe already
+there, remove} With the culprit
 neuron selected, we then refine the network.
 
 \begin{table}
