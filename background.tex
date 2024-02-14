@@ -1,5 +1,6 @@
 \section{Background}
 \subsection{Neural Network}
+\dmcmt{ppl know what nns are.. do we need this?}
 We conceptualize neural networks as directed acyclic graphs 
 comprising three types of layers: the input layer, intermediate hidden layers, 
 and the output layer. Our goal is to focus on the abstracting feed forward networks, 
@@ -38,6 +39,7 @@ as determined by $V_{1} = \phi([7, -1]^{T} \cdot [1] + [0, 0]^{T}) = [7, 0]^{T}$
 
 
 \subsection{Neural Network Verification }
+\dmcmt{We aren't tying ourselves to verif, do we need this?}
 In the context of neural network verification, we typically engage with a
  neural network, posing a ``$\textit{satisfiablility}$'' query to validate or 
  refute a property. The query \(\mathcal{P}\) is structured as a triple,
@@ -70,6 +72,8 @@ identified a counterexample, and our property does not hold. Conversely, an
 
 
 \subsection{Counter-example guided abstraction and refinement}
+\dmcmt{Again, we dont need to talk about CEGAR, exception being acasxu
+experiments. Maybe have 2 lines and a cite in acasxu exps, and delete this?}
 To aid and expedite the verification queries, we employ a strategy to simplify 
 our neural network by reducing the number of neurons. Our approach involves
  constructing an over-approximate network, denoted as $\mathcal{N''}$, where 
@@ -86,6 +90,15 @@ our neural network by reducing the number of neurons. Our approach involves
 
 
 \subsubsection{Increment Decrement Splitting}
+\dmcmt{Why Inc Dec? To get soundness. So, start by: to provide a strong formal
+connection between \abs and \cnc, we follow the approach from
+\cite{cegar-nn}. 2 diffs: 1. They focus on a safety prop, we aim to get
+a general fw for any formal analysis not just safety verif. 2. We use inc-dec
+only, not pos neg. That is sound because we can re-merge pos and neg versions
+without changing behavior, since input weights are same, and max/min merge from
+\cite{cegar-nn} doesn't depend on pos/neg.
+Algos, diags unnecessary.
+}
 To aid in the process of constructing such an over-approximate network 
 we begin with the creation of an equivalent network, denoted as $\mathcal{N}'$,
  ensuring that $\mathcal{N'}(x)$ equals $\mathcal{N}(x)$ for all $x$.
@@ -93,7 +106,7 @@ To build this equivalent network, we perform an `Increment/Decrement'
 splitting of neurons in our original network $\mathcal{N}$. Upon reflection, 
 it became apparent to us that a two-class classification was more fitting for 
 our needs, deviating from the initially recommended four-class classification 
-outlined in the original work by \cite{b2}. Neurons are categorized as 
+outlined in the original work by \cite{cegar-nn}. Neurons are categorized as 
 `Increment (Inc)' if increasing their values increases the output neuron's value,
  and as `Decrement (Dec)' if decreasing their values achieves the same result.
 
