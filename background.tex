@@ -51,6 +51,11 @@ never produces any more false negatives than \cnc. \todo{Ref next sections}.
 \dmcmt{Should this be here?}
 
 \subsection{Neural Network Splitting and Merging}
+
+\dmcmt{Given that this section is critical to understanding our soundness
+    guarantees, and that this is mostly existing work, how much space should be
+spent here? Can we trust reader to read \cite{cegar-nn}}
+
 \dmcmt{Why Inc Dec? To get soundness. So, start by: to provide a strong formal
 connection between \abs and \cnc, we follow the approach from
 \cite{cegar-nn}. 2 diffs: 1. They focus on a safety prop, we aim to get
@@ -63,65 +68,29 @@ Algos, diags unnecessary.
 
 \dmcmt{Do we need to add a reference for 2-class?}
 
-To transform \cnc into \abs 
+To transform \cnc into \abs so that the soundness guarantees hold, we follow
+\cite{cegar-nn} to \textit{split} neurons in \cnc into copies labelled with
+labels from \{\inc, \dec\} $\times$ \{\posc, \negc\} so that any
+increase (decrease) in the value of a neuron labelled
+\inc (\dec) only leads to an increase in output value. Then,
+following \cite{cegar-nn}, a sound abstraction can be obtained by
+\textit{merging} similarly labelled neurons as follows: if the neurons have the
+label \inc (\dec), replace incoming edges from the same
+previous layer neuron with a single edge with the maximum (minimum) of the
+original edge weights. Outgoing edges to the same next layer neuron are replaced
+with a single edge with the sum of the weights for both the \inc and \dec case.
+\dmcmt{Is some notation necessary here? Its very clear to us, but could this be
+    confusing for new readers? If so, should we spend space introducing notation
+somewhere?}
 
-
-\subsubsection{Increment Decrement Splitting}
-To aid in the process of constructing such an over-approximate network 
-we begin with the creation of an equivalent network, denoted as $\mathcal{N}'$,
- ensuring that $\mathcal{N'}(x)$ equals $\mathcal{N}(x)$ for all $x$.
-To build this equivalent network, we perform an `Increment/Decrement'
-splitting of neurons in our original network $\mathcal{N}$. Upon reflection, 
-it became apparent to us that a two-class classification was more fitting for 
-our needs, deviating from the initially recommended four-class classification 
-outlined in the original work by \cite{cegar-nn}. Neurons are categorized as 
-`Increment (Inc)' if increasing their values increases the output neuron's value,
- and as `Decrement (Dec)' if decreasing their values achieves the same result.
-
-\begin{algorithm}[H]
-    \caption{split\_Inc\_Dec}
-    \begin{algorithmic}[1]
-        \State Initialize M, the set of nodes that are marked, to \{out\_node\} and mark out\_node as \textbf{Inc}.
-        \State Let $R$ be the set of nodes with successors in $M$.
-        \State Define $\text{sign(u,v)}$ as the sign of the weight from the node $u$ to $v$.
-        \State Define $\text{Class(v)}$ as $1$ when $v$ is marked as $\textbf{Inc}$, and $-1$ otherwise.
-        \While {\text{node} $\notin M$ and node $\notin$ input\_nodes}
-        \State Pick a node $u$ such that $u \in R-M$
-        \State Suppose $u$ feeds into $x_1,x_2,x_3,..$ and $y_1,y_2,y_3..$ where $\text{sign($u,x_i$)} = \text{Class($x_i$)}$ for all $x_i$, $\text{sign($u,y_i$)} \neq \text{Class($y_i$)}$ for all $y_i$.
-        \State Split $u$ to $u_1$ and $u_2$, where $u_1$ feeds into all the $x_i$ and $u_2$ feeds into all the $y_i$.
-        \State Mark $u_1$ as \textbf{Inc} and $u_2$ as \textbf{Dec}
-        \State Insert $u_1$ and $u_2$ into $M$ and their predecessors into $R$
-        \EndWhile
-        \end{algorithmic}
-\end{algorithm}
-
-
-\subsubsection{Abstraction}
-\dmcmt{This is not much different from what \cite{cegar-nn} does, so we can say
-    as much and push it into prev secion. Previous section can be titled
-splitting and mergign for ensuring soundness or something}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{diagrams/Abstraction_part1.pdf}
-    \caption{Merging of Increment Neurons}
-    \label{Figure: Merge1}
-    \includegraphics[width=0.5\textwidth]{diagrams/Abstraction_part2.pdf}
-    \caption{Merging of Decrement Neurons}
-    \label{Figure: Merge2}
-
-\end{figure} 
-The increment/decrement splitting of the neural network $\mathcal{N}$ to 
-the new network $\mathcal{N'}$ changes the structure of the neural network but
- does not change the value of the output neuron. If we want to construct
-  a neural network $\mathcal{N}''$ which over-approximates the value of 
-  the original network $\mathcal{N}$ i.e $\forall x \in X, \hspace{1mm} 
-  \mathcal{N''}(x) \geq \mathcal{N}(x)$, then we perform the following steps:
-\begin{enumerate}
-    \item When merging two $\textit{Increment Neurons}$, discard one of those neurons and replace the incoming weight by maximum of all the incoming weights and the outgoing weight by summation of all the outgoing weights. 
-    \item When merging two $\textit{Decrement Neurons}$, discard one of those neurons and replace the incoming weight by minimum of all the incoming weights and the outgoing weight by summation of all the outgoing weights. 
-\end{enumerate}
-
+We make a slight modification to the above: as a first optimization step, we
+re-merge the two copies of the \abs neurons that are otherwise the same, but
+have \posc and \negc labels respectively. This can always be done without
+changing the behavior of the network since these copies will have the same \inc,
+\dec labels and the same incoming weights. \dmcmt{Is this clear? Is it better to
+write this as a lemma, and then put a proof in appendix?} This optimisation
+allows us to discard the \posc and \negc class information, and reduces the size
+of the maximally merged network.
 
 \subsection{Refinement }
 \dmcmt{This section should re-frame what gk's refinement does beyond cegar/verif
