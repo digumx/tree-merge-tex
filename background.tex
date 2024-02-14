@@ -20,11 +20,11 @@ the behavior of the \dnn \cite{minimal-image-fxai, overview-fxai}, and others.
 formal guarantees behind the analysis performed, all of these techniques rely on
 making \textit{neural network queries}. 
 
-These neural network queries are of the form $(P, \mathcal{N}, Q)$, and ask if
-there is an input $x$ to $\mathcal{N}$ for which the formula $P$ holds so that
-the formula $Q$ holds on the output $\mathcal{N}(x)$. While there are several
+These neural network queries are of the form $(P, \mcnc, Q)$, and ask if
+there is an input $x$ to $\mcnc$ for which the formula $P$ holds so that
+the formula $Q$ holds on the output $\mcnc(x)$. While there are several
 tools that can handle such queries, like \marabou and \abcrown, scalability
-remains an issue.
+remains an issue, and so reducing the size of \cnc is desirable.
 
 \subsection{Counter-example guided abstraction and refinement}
 \dmcmt{Again, we dont need to talk about CEGAR, exception being acasxu
@@ -32,9 +32,23 @@ experiments, so the section on cegar has been removed. Maybe have 2 lines and a
 cite in acasxu exps?}
 
 \subsection{Neural Network Abstractions with Strong Guarantees}
+\dmcmt{Do I need to contrast with Jan here? If so how much? 1 line?}
 
 In this work, we focus on obtaining an abstract network \abs from a given
-concrete network \cnc so that certain 
+concrete network \cnc with formal guarantees linking the behavior of \abs and
+\cnc so that formal analysis done on \abs can be lifted to \cnc. In particular,
+we look for abstractions where $\forall x, \mabs(x) \geq \mcnc(x)$ \dmcmt{
+Should I format this as definition?}. Since any
+general neural network query can be converted to a query of the form $(P, \mcnc,
+y > c)$ for some $c$ \cite{cegar-nn}, such an abstraction is extremely useful.
+\dmcmt{Further explanation necessary?}
+
+Furthermore, such guarantees are also useful for safe compression of \dnn.
+Consider the case of medical diagnosis\todo{cite} or aircraft collisions, where
+for safety reasons, a classifier should be biased towards not producing false
+negatives. Guarantees such as above can formally ensure that the compressed \abs
+never produces any more false negatives than \cnc. \todo{Ref next sections}.
+\dmcmt{Should this be here?}
 
 \subsection{Neural Network Splitting and Merging}
 \dmcmt{Why Inc Dec? To get soundness. So, start by: to provide a strong formal
