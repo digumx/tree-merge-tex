@@ -4,11 +4,11 @@
   <bcf:options component="biber" type="global">
     <bcf:option type="singlevalued">
       <bcf:key>output_encoding</bcf:key>
-      <bcf:value>utf8</bcf:value>
+      <bcf:value>ascii</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>input_encoding</bcf:key>
-      <bcf:value>utf8</bcf:value>
+      <bcf:value>ascii</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>debug</bcf:key>
@@ -2342,25 +2342,64 @@
   <!-- SECTION 0 -->
   <bcf:bibdata section="0">
     <bcf:datasource type="file" datatype="bibtex" glob="false">bibliography.bib</bcf:datasource>
+    <bcf:datasource type="file" datatype="bibtex" glob="false">bib2.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1">b1</bcf:citekey>
     <bcf:citekey order="2">b2</bcf:citekey>
     <bcf:citekey order="3">b3</bcf:citekey>
-    <bcf:citekey order="4">b4</bcf:citekey>
-    <bcf:citekey order="4">b5</bcf:citekey>
-    <bcf:citekey order="5">cegar-nn</bcf:citekey>
-    <bcf:citekey order="6">cegar-nn</bcf:citekey>
-    <bcf:citekey order="7">b2</bcf:citekey>
-    <bcf:citekey order="8">b2</bcf:citekey>
-    <bcf:citekey order="9">cegar-nn</bcf:citekey>
-    <bcf:citekey order="10">cegar-nn</bcf:citekey>
-    <bcf:citekey order="11">b1</bcf:citekey>
-    <bcf:citekey order="12">b2</bcf:citekey>
-    <bcf:citekey order="13">b3</bcf:citekey>
-    <bcf:citekey order="14">b4</bcf:citekey>
-    <bcf:citekey order="15">b5</bcf:citekey>
-    <bcf:citekey order="16">cegar-nn</bcf:citekey>
+    <bcf:citekey order="4">reluplex</bcf:citekey>
+    <bcf:citekey order="4">deeppoly</bcf:citekey>
+    <bcf:citekey order="5">overview-fxai</bcf:citekey>
+    <bcf:citekey order="5">minimal-image-fxai</bcf:citekey>
+    <bcf:citekey order="6">reluplex</bcf:citekey>
+    <bcf:citekey order="7">reluplex</bcf:citekey>
+    <bcf:citekey order="8">cegar-nn</bcf:citekey>
+    <bcf:citekey order="8">cegarette</bcf:citekey>
+    <bcf:citekey order="8">cleverest-nn</bcf:citekey>
+    <bcf:citekey order="8">conv-abs-gk</bcf:citekey>
+    <bcf:citekey order="9">deep-abstract</bcf:citekey>
+    <bcf:citekey order="9">lin-comb-abs-jan</bcf:citekey>
+    <bcf:citekey order="10">deep-abstract</bcf:citekey>
+    <bcf:citekey order="11">lin-comb-abs-jan</bcf:citekey>
+    <bcf:citekey order="12">cegar-nn</bcf:citekey>
+    <bcf:citekey order="13">deep-abstract</bcf:citekey>
+    <bcf:citekey order="14">acasxu</bcf:citekey>
+    <bcf:citekey order="14">reluplex</bcf:citekey>
+    <bcf:citekey order="15">b2</bcf:citekey>
+    <bcf:citekey order="16">b2</bcf:citekey>
+    <bcf:citekey order="17">acasxu</bcf:citekey>
+    <bcf:citekey order="17">reluplex</bcf:citekey>
+    <bcf:citekey order="18">acasxu</bcf:citekey>
+    <bcf:citekey order="18">reluplex</bcf:citekey>
+    <bcf:citekey order="19">acasxu</bcf:citekey>
+    <bcf:citekey order="19">reluplex</bcf:citekey>
+    <bcf:citekey order="20">acasxu</bcf:citekey>
+    <bcf:citekey order="20">reluplex</bcf:citekey>
+    <bcf:citekey order="21">acasxu</bcf:citekey>
+    <bcf:citekey order="21">reluplex</bcf:citekey>
+    <bcf:citekey order="22">cegar-nn</bcf:citekey>
+    <bcf:citekey order="23">cegar-nn</bcf:citekey>
+    <bcf:citekey order="24">acasxu</bcf:citekey>
+    <bcf:citekey order="24">reluplex</bcf:citekey>
+    <bcf:citekey order="25">acasxu</bcf:citekey>
+    <bcf:citekey order="25">reluplex</bcf:citekey>
+    <bcf:citekey order="26">acasxu</bcf:citekey>
+    <bcf:citekey order="26">reluplex</bcf:citekey>
+    <bcf:citekey order="27">b1</bcf:citekey>
+    <bcf:citekey order="28">b2</bcf:citekey>
+    <bcf:citekey order="29">b3</bcf:citekey>
+    <bcf:citekey order="30">reluplex</bcf:citekey>
+    <bcf:citekey order="31">deeppoly</bcf:citekey>
+    <bcf:citekey order="32">overview-fxai</bcf:citekey>
+    <bcf:citekey order="33">minimal-image-fxai</bcf:citekey>
+    <bcf:citekey order="34">cegar-nn</bcf:citekey>
+    <bcf:citekey order="35">cegarette</bcf:citekey>
+    <bcf:citekey order="36">cleverest-nn</bcf:citekey>
+    <bcf:citekey order="37">conv-abs-gk</bcf:citekey>
+    <bcf:citekey order="38">deep-abstract</bcf:citekey>
+    <bcf:citekey order="39">lin-comb-abs-jan</bcf:citekey>
+    <bcf:citekey order="40">acasxu</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.2.13)  13 FEB 2024 14:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.2.13)  14 FEB 2024 10:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -933,27 +933,12 @@ Package biblatex Info: ... file 'biblatex.cfg' found.
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.cfg
 File: biblatex.cfg 
 )
-Package biblatex Info: Input encoding 'utf8' detected.
-Package biblatex Info: Document encoding is UTF8 ....
+Package biblatex Info: Input encoding 'ascii' specified.
+Package biblatex Info: Document encoding not detected as UTF8.
+(biblatex)             Setting 'casechanger=latex2e'.
 
-(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2022-01-21 L3 programming layer (loader) 
-
-(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count450
-\l__pdf_internal_box=\box59
-))
-Package biblatex Info: ... and expl3
-(biblatex)             2022-01-21 L3 programming layer (loader) 
-(biblatex)             is new enough (at least 2020/04/06),
-(biblatex)             setting 'casechanger=expl3'.
-
-(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty
-(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
-Package: xparse 2022-01-12 L3 Experimental document command parser
-)
-Package: blx-case-expl3 2022/02/02 v3.17 expl3 case changing code for biblatex
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-case-latex2e.sty
+Package: blx-case-latex2e 2022/02/02 v3.17 biblatex compatibility (PK/MW)
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
@@ -965,7 +950,7 @@ Package: blx-case-expl3 2022/02/02 v3.17 expl3 case changing code for biblatex
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
 ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box60
+\pgfutil@abb=\box59
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
 Package: pgfrcs 2021/05/15 v3.1.9a (3.1.9a)
@@ -997,14 +982,14 @@ ex
 \pgf@yd=\dimen259
 \w@pgf@writea=\write5
 \r@pgf@reada=\read4
-\c@pgf@counta=\count451
-\c@pgf@countb=\count452
-\c@pgf@countc=\count453
-\c@pgf@countd=\count454
+\c@pgf@counta=\count450
+\c@pgf@countb=\count451
+\c@pgf@countc=\count452
+\c@pgf@countd=\count453
 \t@pgf@toka=\toks42
 \t@pgf@tokb=\toks43
 \t@pgf@tokc=\toks44
-\pgf@sys@id@count=\count455
+\pgf@sys@id@count=\count454
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2021/05/15 v3.1.9a (3.1.9a)
 )
@@ -1020,8 +1005,8 @@ File: pgfsys-common-pdf.def 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
 tex
 File: pgfsyssoftpath.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfsyssoftpath@smallbuffer@items=\count456
-\pgfsyssoftpath@bigbuffer@items=\count457
+\pgfsyssoftpath@smallbuffer@items=\count455
+\pgfsyssoftpath@bigbuffer@items=\count456
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
 tex
@@ -1035,8 +1020,8 @@ Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen260
-\pgfmath@count=\count458
-\pgfmath@box=\box61
+\pgfmath@count=\count457
+\pgfmath@box=\box60
 \pgfmath@toks=\toks45
 \pgfmath@stack@operand=\toks46
 \pgfmath@stack@operation=\toks47
@@ -1059,7 +1044,7 @@ tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
 thmetics.code.tex)))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count459
+\c@pgfmathroundto@lastzeros=\count458
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
@@ -1095,10 +1080,10 @@ File: pgfcorepathusage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
 x
 File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfpic=\box62
-\pgf@hbox=\box63
-\pgf@layerbox@main=\box64
-\pgf@picture@serial@count=\count460
+\pgfpic=\box61
+\pgf@hbox=\box62
+\pgf@layerbox@main=\box63
+\pgf@picture@serial@count=\count459
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
 ode.tex
@@ -1131,8 +1116,8 @@ File: pgfcorearrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@max=\dimen284
-\pgf@sys@shading@range@num=\count461
-\pgf@shadingcount=\count462
+\pgf@sys@shading@range@num=\count460
+\pgf@shadingcount=\count461
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
@@ -1140,7 +1125,7 @@ File: pgfcoreimage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
 tex
 File: pgfcoreexternal.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfexternal@startupbox=\box65
+\pgfexternal@startupbox=\box64
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
 x
@@ -1159,7 +1144,7 @@ File: pgfcorerdf.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfnodeparttextbox=\box66
+\pgfnodeparttextbox=\box65
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
 File: pgfmoduleplot.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
@@ -1192,7 +1177,7 @@ Package: tikz 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
 .code.tex
 File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@plot@mark@count=\count463
+\pgf@plot@mark@count=\count462
 \pgfplotmarksize=\dimen289
 )
 \tikz@lastx=\dimen290
@@ -1203,151 +1188,182 @@ File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \tikz@lastmovetoy=\dimen295
 \tikzleveldistance=\dimen296
 \tikzsiblingdistance=\dimen297
-\tikz@figbox=\box67
-\tikz@figbox@bg=\box68
-\tikz@tempbox=\box69
-\tikz@tempbox@bg=\box70
-\tikztreelevel=\count464
-\tikznumberofchildren=\count465
-\tikznumberofcurrentchild=\count466
-\tikz@fig@count=\count467
+\tikz@figbox=\box66
+\tikz@figbox@bg=\box67
+\tikz@tempbox=\box68
+\tikz@tempbox@bg=\box69
+\tikztreelevel=\count463
+\tikznumberofchildren=\count464
+\tikznumberofcurrentchild=\count465
+\tikz@fig@count=\count466
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfmatrixcurrentrow=\count468
-\pgfmatrixcurrentcolumn=\count469
-\pgf@matrix@numberofcolumns=\count470
+\pgfmatrixcurrentrow=\count467
+\pgfmatrixcurrentcolumn=\count468
+\pgf@matrix@numberofcolumns=\count469
 )
-\tikz@expandcount=\count471
+\tikz@expandcount=\count470
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )))
+(/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+\@float@every@algorithm=\toks50
+\c@algorithm=\count471
+)
+(/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+(/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count472
+\c@ALG@rem=\count473
+\c@ALG@nested=\count474
+\ALG@tlm=\skip95
+\ALG@thistlm=\skip96
+\c@ALG@Lnr=\count475
+\c@ALG@blocknr=\count476
+\c@ALG@storecount=\count477
+\c@ALG@tmpcounter=\count478
+\ALG@tmplength=\skip97
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+)
 
 Class acmart Warning: Do not put several authors in the same \author macro! on 
-input line 45.
+input line 49.
 
-Package hyperref Info: Option `colorlinks' set `true' on input line 47.
-Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 47.
+Package hyperref Info: Option `colorlinks' set `true' on input line 51.
+Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 51.
 
-\c@theorem=\count472
+\c@theorem=\count479
 (/usr/share/texlive/texmf-dist/tex/latex/preprint/balance.sty
 Package: balance 1999/02/23 4.3 (PWD)
 \oldvsize=\dimen298
 )
 Include comment 'screenonly' Excluding comment 'printonly'
 Include comment 'anonsuppress'
-\@quotelevel=\count473
-\@quotereset=\count474
- (./document.aux)
+\@quotelevel=\count480
+\@quotereset=\count481
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count482
+\l__pdf_internal_box=\box70
+)
+(./document.aux)
 \openout1 = `document.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 47.
+LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 51.
 LaTeX Font Info:    Trying to load font information for OML+nxlmi on input line
- 47.
-
-(/usr/share/texlive/texmf-dist/tex/latex/newtx/omlnxlmi.fd
+ 51.
+ (/usr/share/texlive/texmf-dist/tex/latex/newtx/omlnxlmi.fd
 File: omlnxlmi.fd 2013/11/19 Fontinst v1.933 font definitions for OML/nxlmi.
 )
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 51.
 LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 
-47.
+51.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 51.
 LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line
- 47.
+ 51.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 51.
 LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input lin
-e 47.
+e 51.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/lmxntxexx.fd
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
-LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    ... okay on input line 51.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 47.
+(Font)              scaled to size 8.0pt on input line 51.
 LaTeX Font Info:    Trying to load font information for OT1+LinuxLibertineT-TLF
- on input line 47.
+ on input line 51.
 
 (/usr/share/texlive/texmf-dist/tex/latex/libertine/OT1LinuxLibertineT-TLF.fd
 File: OT1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for OT1/
 LinuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 47.
+(Font)              scaled to size 8.0pt on input line 51.
 <<ot1.cmap>>
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.2pt on input line 47.
+(Font)              scaled to size 6.2pt on input line 51.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 47.
+(Font)              scaled to size 5.5pt on input line 51.
 <<oml.cmap>>
-LaTeX Font Info:    Trying to load font information for U+msa on input line 47.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 51.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 47.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 51.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+ntxmia on input line 
-47.
+51.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/untxmia.fd
 File: untxmia.fd 2018/04/14 Fontinst v1.933 font definitions for U/ntxmia.
 )
 LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 
-47.
+51.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/untxsym.fd
 File: untxsym.fd 2015/03/20 Fontinst v1.933 font definitions for U/ntxsym.
 )
 LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 
-47.
+51.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/untxsyc.fd
 File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
 )
-LaTeX Info: Redefining \microtypecontext on input line 47.
-Package microtype Info: Applying patch `item' on input line 47.
-Package microtype Info: Applying patch `toc' on input line 47.
-Package microtype Info: Applying patch `eqnum' on input line 47.
-Package microtype Info: Applying patch `footnote' on input line 47.
+LaTeX Info: Redefining \microtypecontext on input line 51.
+Package microtype Info: Applying patch `item' on input line 51.
+Package microtype Info: Applying patch `toc' on input line 51.
+Package microtype Info: Applying patch `eqnum' on input line 51.
+Package microtype Info: Applying patch `footnote' on input line 51.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 47.
+LaTeX Info: Redefining \showhyphens on input line 51.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -1355,7 +1371,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-Package hyperref Info: Link coloring ON on input line 47.
+Package hyperref Info: Link coloring ON on input line 51.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -1363,11 +1379,11 @@ Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count475
+\c@section@level=\count483
 )
-LaTeX Info: Redefining \ref on input line 47.
-LaTeX Info: Redefining \pageref on input line 47.
-LaTeX Info: Redefining \nameref on input line 47.
+LaTeX Info: Redefining \ref on input line 51.
+LaTeX Info: Redefining \pageref on input line 51.
+LaTeX Info: Redefining \nameref on input line 51.
 
 (./document.out) (./document.out)
 \@outlinefile=\write6
@@ -1376,17 +1392,17 @@ LaTeX Info: Redefining \nameref on input line 47.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count476
+\scratchcounter=\count484
 \scratchdimen=\dimen299
 \scratchbox=\box71
-\nofMPsegments=\count477
-\nofMParguments=\count478
-\everyMPshowfont=\toks50
-\MPscratchCnt=\count479
+\nofMPsegments=\count485
+\nofMParguments=\count486
+\everyMPshowfont=\toks51
+\MPscratchCnt=\count487
 \MPscratchDim=\dimen300
-\MPnumerator=\count480
-\makeMPintoPDFobject=\count481
-\everyMPtoPDFconversion=\toks51
+\MPnumerator=\count488
+\makeMPintoPDFobject=\count489
+\everyMPtoPDFconversion=\toks52
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -1430,8 +1446,8 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@mv@tabular=\count482
-\c@mv@boldtabular=\count483
+\c@mv@tabular=\count490
+\c@mv@boldtabular=\count491
 (/usr/share/texlive/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
@@ -1445,130 +1461,263 @@ Package biblatex Info: ... file 'english.lbx' found.
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/english.lbx
 File: english.lbx 2022/02/02 v3.17 biblatex localization (PK/MW)
 )
-Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Input encoding 'ascii' specified.
 Package biblatex Info: Automatic encoding selection.
-(biblatex)             Assuming data encoding 'utf8'.
+(biblatex)             Assuming data encoding 'ascii'.
 \openout4 = `document.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'document.bbl' not found.
+Package biblatex Info: ... file 'document.bbl' found.
 
-No file document.bbl.
-Package biblatex Info: Reference section=0 on input line 47.
-Package biblatex Info: Reference segment=0 on input line 47.
+(./document.bbl
+
+Package biblatex Warning: The following entry could not be found
+(biblatex)                in the database:
+(biblatex)                b4
+(biblatex)                Please verify the spelling and rerun
+(biblatex)                LaTeX afterwards.
+
+
+Package biblatex Warning: The following entry could not be found
+(biblatex)                in the database:
+(biblatex)                b5
+(biblatex)                Please verify the spelling and rerun
+(biblatex)                LaTeX afterwards.
+
+)
+Package biblatex Info: Reference section=0 on input line 51.
+Package biblatex Info: Reference segment=0 on input line 51.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 20.74pt on input line 49.
+(Font)              scaled to size 20.74pt on input line 53.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 20.74pt on input line 49.
+(Font)              scaled to size 20.74pt on input line 53.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 49.
+(Font)              scaled to size 12.0pt on input line 53.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 8.0pt on input line 49.
+(Font)              scaled to size 8.0pt on input line 53.
 LaTeX Font Info:    Trying to load font information for TS1+LinuxLibertineT-TLF
- on input line 49.
-(/usr/share/texlive/texmf-dist/tex/latex/libertine/TS1LinuxLibertineT-TLF.fd
+ on input line 53.
+ (/usr/share/texlive/texmf-dist/tex/latex/libertine/TS1LinuxLibertineT-TLF.fd
 File: TS1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for TS1/
 LinuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 49.
+(Font)              scaled to size 8.0pt on input line 53.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Trying to load font information for T1+LinuxBiolinumT-TLF o
-n input line 49.
-
+n input line 53.
 (/usr/share/texlive/texmf-dist/tex/latex/libertine/T1LinuxBiolinumT-TLF.fd
 File: T1LinuxBiolinumT-TLF.fd 2017/03/20 (autoinst) Font definitions for T1/Lin
 uxBiolinumT-TLF.
 )
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 49.
+(Font)              scaled to size 8.0pt on input line 53.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxBiolinumT-TLF' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 49.
+(Font)              scaled to size 9.0pt on input line 53.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 9.0pt on input line 49.
+(Font)              scaled to size 9.0pt on input line 53.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 49.
-
-
-LaTeX Warning: Reference `TotPages' on page 1 undefined on input line 49.
-
+(Font)              scaled to size 9.0pt on input line 53.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 49.
+(Font)              scaled to size 9.0pt on input line 53.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 49.
+(Font)              scaled to size 9.0pt on input line 53.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.3pt on input line 49.
+(Font)              scaled to size 7.3pt on input line 53.
+
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-Overfull \hbox (10.64346pt too wide) in paragraph at lines 49--49
+Overfull \hbox (10.64346pt too wide) in paragraph at lines 53--53
 \T1/LinuxLibertineT-TLF/m/n/9 (-20) Sanaa Sid-diqui, Di-ganta Mukhopad-hyay, Af
 zal Mo-hammed, Hrishikesh
  []
 
+(./abstract.tex) (./intro.tex
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 10.0pt on input line 53.
+(Font)              scaled to size 10.0pt on input line 2.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 53.
+(Font)              scaled to size 12.0pt on input line 2.
 
-LaTeX Warning: Citation 'b1' on page 1 undefined on input line 61.
-
-
-LaTeX Warning: Citation 'b2' on page 1 undefined on input line 63.
-
-
-LaTeX Warning: Citation 'b3' on page 1 undefined on input line 65.
+Overfull \hbox (7.99802pt too wide) in paragraph at lines 13--20
+\T1/LinuxLibertineT-TLF/m/n/10 (-20) sar-ial at-tacks []TODO:  cite[] and, be-i
+ng gen-er-ally un-interpretable,
+ []
 
 
-LaTeX Warning: Citation 'b4' on page 1 undefined on input line 79.
+LaTeX Warning: Citation 'reluplex' on page 1 undefined on input line 23.
 
 
-LaTeX Warning: Citation 'b5' on page 1 undefined on input line 79.
+LaTeX Warning: Citation 'deeppoly' on page 1 undefined on input line 23.
 
 
-LaTeX Warning: Citation 'cegar-nn' on page 1 undefined on input line 83.
+LaTeX Warning: Citation 'overview-fxai' on page 1 undefined on input line 24.
+
+
+LaTeX Warning: Citation 'minimal-image-fxai' on page 1 undefined on input line 
+24.
+
+
+LaTeX Warning: Citation 'reluplex' on page 1 undefined on input line 26.
+
+
+LaTeX Warning: Citation 'reluplex' on page 1 undefined on input line 29.
 
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 10.0pt on input line 85.
+(Font)              scaled to size 10.0pt on input line 32.
+
+LaTeX Warning: Citation 'cegarette' on page 1 undefined on input line 34.
+
+
+LaTeX Warning: Citation 'cleverest-nn' on page 1 undefined on input line 34.
+
+
+LaTeX Warning: Citation 'conv-abs-gk' on page 1 undefined on input line 34.
+
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 85.
+(Font)              scaled to size 10.0pt on input line 35.
 
-LaTeX Warning: Citation 'cegar-nn' on page 1 undefined on input line 93.
-
-
-Overfull \hbox (3.5619pt too wide) in paragraph at lines 92--104
-[]\T1/LinuxLibertineT-TLF/m/n/10 (-20) While coun-terex-am-ple guided ab-strac-
-tion re-fine-ment based
+Overfull \hbox (4.78056pt too wide) in paragraph at lines 32--46
+[]\T1/LinuxLibertineT-TLF/m/n/10 (-20) Structural ab-strac-tion based on the \T
+1/LinuxLibertineT-TLF/m/it/10 (-20) syn-tax \T1/LinuxLibertineT-TLF/m/n/10 (-20
+) (the lo-cal weights
  []
 
 
-Overfull \hbox (1.11491pt too wide) in paragraph at lines 114--121
-\T1/LinuxLibertineT-TLF/m/n/10 (-20) po-ten-tial re-fine-ments with min-i-mal c
-om-pu-ta-tional over-heads.
+LaTeX Warning: Citation 'deep-abstract' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation 'lin-comb-abs-jan' on page 1 undefined on input line 48
+.
+
+
+LaTeX Warning: Citation 'deep-abstract' on page 1 undefined on input line 52.
+
+
+LaTeX Warning: Citation 'lin-comb-abs-jan' on page 1 undefined on input line 53
+.
+
+
+Overfull \hbox (43.60056pt too wide) in paragraph at lines 47--58
+\T1/LinuxLibertineT-TLF/m/n/10 (-20) niques []TODO: cite[] and se-man-tic ab-st
+rac-tion tech-niques [[],
  []
 
-(./method.tex
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [1.1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
 
-LaTeX Warning: File `tree_merges.pdf' not found on input line 14.
+LaTeX Warning: Citation 'deep-abstract' on page 2 undefined on input line 65.
+
+
+Overfull \hbox (1.11491pt too wide) in paragraph at lines 75--83
+\T1/LinuxLibertineT-TLF/m/n/10 (-20) po-ten-tial re-fine-ments with min-i-mal c
+om-pu-ta-tional over-heads.
+ []
+
+
+LaTeX Warning: Citation 'acasxu' on page 2 undefined on input line 85.
+
+
+LaTeX Warning: Citation 'reluplex' on page 2 undefined on input line 85.
+
+) (./background.tex
+
+pdfTeX warning: pdflatex (file ./diagrams/Basic_Neural_Network.pdf): PDF inclus
+ion: found PDF version <1.7>, but at most version <1.5> allowed
+<diagrams/Basic_Neural_Network.pdf, id=102, 211.7511pt x 119.4864pt>
+File: diagrams/Basic_Neural_Network.pdf Graphic file (type pdf)
+<use diagrams/Basic_Neural_Network.pdf>
+Package pdftex.def Info: diagrams/Basic_Neural_Network.pdf  used on input line 
+13.
+(pdftex.def)             Requested size: 202.3529pt x 114.18236pt.
+
+Class acmart Warning: A possible image without description on input line 17.
+
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 7.3pt on input line 23.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 5.5pt on input line 23.
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
+(Font)              scaled to size 10.0pt on input line 24.
+[2.2 <./diagrams/Basic_Neural_Network.pdf>]
+Underfull \vbox (badness 5260) has occurred while \output is active []
+
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 40.
+
+Underfull \hbox (badness 1082) in paragraph at lines 42--43
+[]\T1/LinuxLibertineT-TLF/m/n/10 (+20) Ini-tial-ize M, the set of nodes that ar
+e marked, to
+ []
+
+
+
+pdfTeX warning: pdflatex (file ./diagrams/Abstraction_part1.pdf): PDF inclusion
+: found PDF version <1.7>, but at most version <1.5> allowed
+<diagrams/Abstraction_part1.pdf, id=123, 652.35718pt x 119.4864pt>
+File: diagrams/Abstraction_part1.pdf Graphic file (type pdf)
+<use diagrams/Abstraction_part1.pdf>
+Package pdftex.def Info: diagrams/Abstraction_part1.pdf  used on input line 87.
+
+(pdftex.def)             Requested size: 202.3529pt x 37.06227pt.
+
+
+pdfTeX warning: pdflatex (file ./diagrams/Abstraction_part2.pdf): PDF inclusion
+: found PDF version <1.7>, but at most version <1.5> allowed
+<diagrams/Abstraction_part2.pdf, id=124, 652.35718pt x 119.4864pt>
+File: diagrams/Abstraction_part2.pdf Graphic file (type pdf)
+<use diagrams/Abstraction_part2.pdf>
+Package pdftex.def Info: diagrams/Abstraction_part2.pdf  used on input line 90.
+
+(pdftex.def)             Requested size: 202.3529pt x 37.06227pt.
+
+Class acmart Warning: A possible image without description on input line 94.
+
+
+Overfull \hbox (11.87607pt too wide) in paragraph at lines 103--104
+\T1/LinuxLibertineT-TLF/m/n/10 (-20) After merg-ing the neu-rons, we in-tro-duc
+e an over-approximation
+ []
+
+[3.3 <./diagrams/Abstraction_part1.pdf> <./diagrams/Abstraction_part2.pdf>])
+(./method.tex
+
+pdfTeX warning: pdflatex (file ./diagrams/tree_merges.pdf): PDF inclusion: foun
+d PDF version <1.7>, but at most version <1.5> allowed
+<diagrams/tree_merges.pdf, id=155, 399.41219pt x 372.43138pt>
+File: diagrams/tree_merges.pdf Graphic file (type pdf)
+<use diagrams/tree_merges.pdf>
+Package pdftex.def Info: diagrams/tree_merges.pdf  used on input line 15.
+(pdftex.def)             Requested size: 252.94499pt x 235.8605pt.
+
+
+pdfTeX warning: pdflatex (file ./diagrams/Order_of_Merge.pdf): PDF inclusion: f
+ound PDF version <1.7>, but at most version <1.5> allowed
+<diagrams/Order_of_Merge.pdf, id=156, 247.8861pt x 191.7564pt>
+File: diagrams/Order_of_Merge.pdf Graphic file (type pdf)
+<use diagrams/Order_of_Merge.pdf>
+Package pdftex.def Info: diagrams/Order_of_Merge.pdf  used on input line 16.
+(pdftex.def)             Requested size: 237.7689pt x 183.93773pt.
+
+LaTeX Warning: File `tree_merges.pdf' not found on input line 18.
 
 
 ! Package pdftex.def Error: File `tree_merges.pdf' not found: using draft setti
@@ -1578,23 +1727,23 @@ See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14 ...hics[width=0.5\textwidth]{tree_merges.pdf}
+l.18 ...hics[width=0.5\textwidth]{tree_merges.pdf}
                                                   
 ? 
-LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 14
+LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 18
 .
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd
 File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.0pt on input line 14.
+(Font)              scaled to size 10.0pt on input line 18.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `zi4' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
 
-LaTeX Warning: File `Order_of_Merge.pdf' not found on input line 15.
+LaTeX Warning: File `Order_of_Merge.pdf' not found on input line 19.
 
 
 ! Package pdftex.def Error: File `Order_of_Merge.pdf' not found: using draft se
@@ -1604,38 +1753,31 @@ See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.15 ... width=0.47\textwidth]{Order_of_Merge.pdf}
+l.19 ... width=0.47\textwidth]{Order_of_Merge.pdf}
                                                   
 ? 
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 14--16
- [][] 
+Overfull \hbox (12.0pt too wide) in paragraph at lines 14--21
+ [] 
  []
 
 
-Class acmart Warning: A possible image without description on input line 18.
+Overfull \hbox (12.0pt too wide) in paragraph at lines 14--21
+ [] 
+ []
+
+
+Class acmart Warning: A possible image without description on input line 23.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-
-LaTeX Warning: Reference `Figure: Order Of Merging' on page 2 undefined on inpu
-t line 21.
-
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.3pt on input line 23.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 23.
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 24.
-[2.2]
-
-LaTeX Warning: Reference `Figure: Order Of Merging' on page 3 undefined on inpu
-t line 26.
+Overfull \vbox (325.48572pt too high) has occurred while \output is active []
 
 
-Overfull \hbox (9.70406pt too wide) in paragraph at lines 26--27
+[4.4 <./diagrams/tree_merges.pdf> <./diagrams/Order_of_Merge.pdf>]
+Overfull \hbox (9.70406pt too wide) in paragraph at lines 31--32
 \T1/LinuxLibertineT-TLF/m/n/10 (-20) then we would com-bine $\LMS/ntxsy/m/n/10 
 ¹\OML/nxlmi/m/it/10 n[]; Inc\LMS/ntxsy/m/n/10 º$ \T1/LinuxLibertineT-TLF/m/n/10
  (-20) and $\LMS/ntxsy/m/n/10 ¹\OML/nxlmi/m/it/10 n[]; Inc\LMS/ntxsy/m/n/10 º$\
@@ -1643,547 +1785,193 @@ T1/LinuxLibertineT-TLF/m/n/10 (-20) , form-ing $[]$.
  []
 
 
-Overfull \hbox (7.99216pt too wide) in paragraph at lines 28--29
+Overfull \hbox (7.99216pt too wide) in paragraph at lines 33--34
 []\T1/LinuxLibertineT-TLF/m/n/10 (-20) As we progress up the tree, the de-gree 
 of over-approximation
  []
 
 
-Overfull \hbox (1.56679pt too wide) in paragraph at lines 33--34
+Overfull \hbox (1.56679pt too wide) in paragraph at lines 38--39
 \T1/LinuxLibertineT-TLF/m/n/10 (-20) We are guided by this tree as a prospec-ti
 ve re-fine-ment method.
  []
 
 
-LaTeX Warning: File `_before and after cut.pdf ' not found on input line 39.
 
+pdfTeX warning: pdflatex (file ./diagrams/before_and_after_cut_2.pdf): PDF incl
+usion: found PDF version <1.7>, but at most version <1.5> allowed
+<diagrams/before_and_after_cut_2.pdf, id=187, 659.5842pt x 191.7564pt>
+File: diagrams/before_and_after_cut_2.pdf Graphic file (type pdf)
+<use diagrams/before_and_after_cut_2.pdf>
+Package pdftex.def Info: diagrams/before_and_after_cut_2.pdf  used on input lin
+e 44.
+(pdftex.def)             Requested size: 252.94499pt x 73.5353pt.
 
-! Package pdftex.def Error: File `_before and after cut.pdf' not found: using d
-raft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.39 ...0.9\textwidth]{_before and after cut.pdf }
-                                                  
-? 
-
-Overfull \hbox (214.3529pt too wide) in paragraph at lines 39--40
+Overfull \hbox (12.0pt too wide) in paragraph at lines 44--45
  [][] 
  []
 
 
-Class acmart Warning: A possible image without description on input line 42.
+Class acmart Warning: A possible image without description on input line 47.
 
 
-LaTeX Warning: Reference `Figure 2' on page 3 undefined on input line 44.
+Underfull \vbox (badness 2005) has occurred while \output is active []
 
 
-LaTeX Warning: Reference `Figure 2' on page 3 undefined on input line 44.
+Underfull \hbox (badness 10000) in paragraph at lines 62--62
+[]\T1/LinuxLibertineT-TLF/b/n/10 (+20) Algorithm 2 \T1/LinuxLibertineT-TLF/m/n/
+10 (+20) Find-ing Cuts in the Tree
+ []
 
 
-Underfull \vbox (badness 1460) has occurred while \output is active []
-
-
-
-! LaTeX Error: Environment algorithm undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.55 \begin{algorithm}
-                      
-? 
-
-! Package caption Error: \caption outside float.
-
-See the caption package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.56     \caption
-                 {Finding Cuts in the Tree (find\_new\_merge\_groups)}
-? 
-
-! LaTeX Error: Environment algorithmic undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.57     \begin{algorithmic}
-                            [1]
-? 
-! Undefined control sequence.
-l.58         \State
-                    $\gamma= \arg \max_i \|v_{Rep(i)} -v_i \|_2 \cdot | \tex...
-
-? 
-! Undefined control sequence.
-l.59         \State
-                    Find a sequence of nodes, $t_1,t_2,t_3,..,t_k$ represent...
-
-? 
-! Undefined control sequence.
-l.60         \State
-                    Remove the nodes $t_1,t_2,..,t_{k-1}$ denoting the merge...
-
-? 
-! Undefined control sequence.
-l.61         \State
-                    New merge groups are the leaf nodes in our disconnected ...
-
-? 
-
-! LaTeX Error: \begin{document} ended by \end{algorithmic}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.62     \end{algorithmic}
-                          
-? 
-! Undefined control sequence.
-<argument> \algorithmicindent 
-                              
-l.63     \hspace*{\algorithmicindent}
-                                      \textbf{Output} New Merge Groups
-? 
-! Missing number, treated as zero.
-<to be read again> 
-                   \relax 
-l.63     \hspace*{\algorithmicindent}
-                                      \textbf{Output} New Merge Groups
-? 
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   \relax 
-l.63     \hspace*{\algorithmicindent}
-                                      \textbf{Output} New Merge Groups
-? 
-
-! LaTeX Error: \begin{document} ended by \end{algorithm}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.64 \end{algorithm}
-                    
-? 
-
-Overfull \hbox (33.56128pt too wide) in paragraph at lines 67--68
+Overfull \hbox (33.56128pt too wide) in paragraph at lines 73--74
 \T1/LinuxLibertineT-TLF/m/n/10 (-20) merg-ing neu-rons, min-i-miz-ing the in-tr
 o-duc-tion of over-approximation
  []
 
-[3.3]
-
-! LaTeX Error: Environment algorithm undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.72 \begin{algorithm}
-                      [H]
-? 
-
-! Package caption Error: \caption outside float.
-
-See the caption package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.73 \caption
-             {Cluster Merging Algorithm (find\_abstraction\_tree)}
-? 
-
-! LaTeX Error: Environment algorithmic undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.75 \begin{algorithmic}
-                        [1]
-? 
-! Undefined control sequence.
-l.76     \State
-                Initialize every simulated distance vector as a singleton cl...
-
-? 
-! Undefined control sequence.
-l.77     \State
-                Initialize $C=\{v_1,v_2,v_3,..\}$ as the set of singleton cl...
-
-? 
-! Undefined control sequence.
-l.78     \State
-                Initialize a Binary Tree $T$ with leaves as $\{(n_1),(n_2),(...
-
-? 
-! Undefined control sequence.
-l.79     \State
-                Initialize $V$ as a set of visited nodes, empty at first.
-? 
-! Undefined control sequence.
-l.81     \Function
-                  {MergeFunction}{$u, v$}
-? 
-! Undefined control sequence.
-l.82         \If
-                {All nodes are classified as \textbf{Inc}}
-? 
-! Undefined control sequence.
-l.85             \Return
-                         $\max(u, v)$
-? 
-! Undefined control sequence.
-l.87         \Else
-                  { }
-? 
-! Undefined control sequence.
-l.90             \Return
-                         $\min(u, v)$
-? 
-! Undefined control sequence.
-l.92         \EndIf
-                   
-? 
-! Undefined control sequence.
-l.93     \EndFunction
-                     
-? 
-! Undefined control sequence.
-l.95     \While
-               {$|C|>1$}
-? 
-! Undefined control sequence.
-l.96         \State
-                    $v_j, v_j = \arg\min_{\substack{a, b \in C}} \| a - b \|_2$
-
-? 
-! Undefined control sequence.
-l.97         \State
-                    Set $w=\text{MergeFunction}(v_i,v_j)$
-? 
-! Undefined control sequence.
-l.98         \State
-                    Let nodes from $T$ not in $V$ corresponding to $v_i,v_j$...
-
-? 
-! Undefined control sequence.
-l.99         \State
-                    Remove $v_i,v_j$ from $C$ and add $w$ to $C$.
-? 
-! Undefined control sequence.
-l.100         \State
-                     Make $(m_i \cup m_j)$ the parent of $(m_i)$ and $(m_j)$...
-
-? 
-! Undefined control sequence.
-l.101         \State
-                     Add $m_i$ and $m_j$ to $V$.
-? 
-! Undefined control sequence.
-l.102     \EndWhile
-                   
-? 
-
-! LaTeX Error: \begin{document} ended by \end{algorithmic}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.103 \end{algorithmic}
-                       
-? 
-
-! LaTeX Error: \begin{document} ended by \end{algorithm}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.104 \end{algorithm}
-                     
-? 
-
-Overfull \hbox (36.86833pt too wide) in paragraph at lines 95--105
-[]$\LMS/ntxsy/m/n/10 j\OML/nxlmi/m/it/10 C\LMS/ntxsy/m/n/10 j \OML/nxlmi/m/it/1
-0 > \OT1/LinuxLibertineT-TLF/m/n/10 (-20) 1$ $\OML/nxlmi/m/it/10 v[]; v[] \U/nt
-xmia/m/it/10 = [] [][] \LMS/ntxsy/m/n/10 k\OML/nxlmi/m/it/10 a \LMS/ntxsy/m/n/1
-0 ^^@ \OML/nxlmi/m/it/10 b\LMS/ntxsy/m/n/10 k[]$ \T1/LinuxLibertineT-TLF/m/n/10
- (-20) Set $\OML/nxlmi/m/it/10 w \U/ntxmia/m/it/10 = []\LMS/ntxsy/m/n/10 ¹\OML/
-nxlmi/m/it/10 v[]; v[]\LMS/ntxsy/m/n/10 º$
+[5.5 <./diagrams/before_and_after_cut_2.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 79--79
+[]\T1/LinuxLibertineT-TLF/b/n/10 (+20) Algorithm 3 \T1/LinuxLibertineT-TLF/m/n/
+10 (+20) Clus-ter Merg-ing Al-go-rithm
  []
 
 
-LaTeX Warning: Reference `Cluster Merging Algorithm' on page 4 undefined on inp
-ut line 108.
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+[]\T1/LinuxLibertineT-TLF/m/n/10 (+20) Ini-tial-ize a Bi-nary Tree $\OML/nxlmi/
+m/it/10 T$ \T1/LinuxLibertineT-TLF/m/n/10 (+20) with leaves as
+ []
+
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/sc' will be
+(Font)              scaled to size 10.0pt on input line 87.
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+pdfTeX warning: pdflatex (file ./diagrams/good_vs_bad_merges.pdf): PDF inclusio
+n: found PDF version <1.7>, but at most version <1.5> allowed
+<diagrams/good_vs_bad_merges.pdf, id=209, 541.06137pt x 227.89139pt>
+File: diagrams/good_vs_bad_merges.pdf Graphic file (type pdf)
+<use diagrams/good_vs_bad_merges.pdf>
+Package pdftex.def Info: diagrams/good_vs_bad_merges.pdf  used on input line 12
+0.
+(pdftex.def)             Requested size: 252.94499pt x 106.53868pt.
 
-
-
-LaTeX Warning: Reference `Figure: Order Of Merging' on page 4 undefined on inpu
-t line 110.
-
-
-LaTeX Warning: Reference `Figure: Order Of Merging' on page 4 undefined on inpu
-t line 110.
-
-
-LaTeX Warning: Reference `Figure: Order Of Merging' on page 4 undefined on inpu
-t line 110.
-
-
-LaTeX Warning: File `good_vs_bad_merges.pdf' not found on input line 114.
-
-
-! Package pdftex.def Error: File `good_vs_bad_merges.pdf' not found: using draf
-t setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.114 ... = 0.9\textwidth]{good_vs_bad_merges.pdf}
-                                                  
-? 
-
-Overfull \hbox (214.3529pt too wide) in paragraph at lines 114--115
+Overfull \hbox (12.0pt too wide) in paragraph at lines 120--121
  [][] 
  []
 
 
-Class acmart Warning: A possible image without description on input line 117.
+Class acmart Warning: A possible image without description on input line 123.
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [4.4]
-
-LaTeX Warning: Reference `Figure 3' on page 5 undefined on input line 119.
-
-
-! LaTeX Error: Environment algorithm undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.123 \begin{algorithm}
-                       [H]
-? 
-
-! Package caption Error: \caption outside float.
-
-See the caption package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.124     \caption
-                  {Overall Algorithm}
-? 
-
-! LaTeX Error: Environment algorithmic undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.126     \begin{algorithmic}
-                             [1]
-? 
-! Undefined control sequence.
-l.127         \State
-                     $\mathcal{N'}$ = split\_Inc\_Dec($\mathcal{N}$)
-? 
-! Undefined control sequence.
-l.128         \State
-                     $\mathcal{N''}$ = abstract\_network($\mathcal{N'}$)
-? 
-! Undefined control sequence.
-l.129         \State
-                     simulation\_dict = simulate\_network($\mathcal{N'}$)
-? 
-! Undefined control sequence.
-l.130         \State
-                     $\mathcal{T}$ = find\_abstraction\_tree($\mathcal{N'}$,...
-
-? 
-! Undefined control sequence.
-l.131         \If
-                 {verify($\mathcal{N''}$, $\kappa$, $\lambda$) is UNSAT}{
-? 
-
-Overfull \hbox (40.97035pt too wide) in paragraph at lines 123--132
-\T1/LinuxLibertineT-TLF/m/n/10 (-20) sim-u-la-tion_dict = simulate_network($[]$
-) $\LMS/ntxsy/m/n/10 T$ \T1/LinuxLibertineT-TLF/m/n/10 (-20) = find_abstraction
-_tree($[]$,
- []
-
-! Undefined control sequence.
-l.133             \Return
-                          Property Holds
-? 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-! Undefined control sequence.
-l.135         \Else
-                   
-? 
-! Undefined control sequence.
-l.136             \State
-                         Extract counter-example $\beta$
-? 
-! Undefined control sequence.
-l.137             \If
-                     {$\beta$ is not a spurious counter-example}
-? 
-! Undefined control sequence.
-l.140                 \Return
-                              ($\beta$, Property Violated)
-? 
-! Undefined control sequence.
-l.142             \Else
-                       
-? 
-! Undefined control sequence.
-l.143                 \State
-                             Find culprit neuron $\gamma$
-? 
-! Undefined control sequence.
-l.144                 \State
-                             $merge\_groups$ = find\_new\_merge\_groups($\ma...
-
-? 
-! Undefined control sequence.
-l.145                 \State
-                             $\mathcal{N''} = get\_abstract\_network(merge\_...
-
-? 
-! Undefined control sequence.
-l.146                 \State
-                             \textbf{goto} step 5
-? 
-! Undefined control sequence.
-l.147             \EndIf
-                        
-? 
-! Undefined control sequence.
-l.148         \EndIf
-                    
-? 
-
-! LaTeX Error: \begin{document} ended by \end{algorithmic}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.149     \end{algorithmic}
-                           
-? 
-
-! LaTeX Error: \begin{document} ended by \end{algorithm}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.150 \end{algorithm}
-                     
-? 
 )
-Overfull \hbox (74.35356pt too wide) in paragraph at lines 140--137
-\T1/LinuxLibertineT-TLF/m/n/10 (-20) = find_new_merge_groups($[]$) $[] \U/ntxmi
-a/m/it/10 = \OML/nxlmi/m/it/10 get[]abstract[]network\LMS/ntxsy/m/n/10 ¹\OML/nx
-lmi/m/it/10 merge[]groups\LMS/ntxsy/m/n/10 º$
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-(./experiments.tex
-Overfull \hbox (1.34653pt too wide) in paragraph at lines 12--22
-\T1/LinuxLibertineT-TLF/m/n/10 (-20) safety prop-er-ties of the ACAS Xu []TODO:
- cite[]networks, where
- []
+ [6.6 <./diagrams/good_vs_bad_merges.pdf>] (./experiments.tex
+
+LaTeX Warning: Citation 'acasxu' on page 7 undefined on input line 15.
 
 
-LaTeX Warning: Reference `t:acas-summary' on page 5 undefined on input line 51.
+LaTeX Warning: Citation 'reluplex' on page 7 undefined on input line 15.
 
 
-[5.5]
-
-LaTeX Warning: Citation 'cegar-nn' on page 6 undefined on input line 66.
+LaTeX Warning: Citation 'acasxu' on page 7 undefined on input line 27.
 
 
-LaTeX Warning: Citation 'cegar-nn' on page 6 undefined on input line 72.
+LaTeX Warning: Citation 'reluplex' on page 7 undefined on input line 27.
 
-<figs/acas-scatter.png, id=61, 598.3956pt x 483.4863pt>
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\cite' on input line 27.
+
+
+LaTeX Warning: Citation 'acasxu' on page 7 undefined on input line 30.
+
+
+LaTeX Warning: Citation 'reluplex' on page 7 undefined on input line 30.
+
+
+LaTeX Warning: Citation 'acasxu' on page 7 undefined on input line 49.
+
+
+LaTeX Warning: Citation 'reluplex' on page 7 undefined on input line 49.
+
+
+LaTeX Warning: Citation 'acasxu' on page 7 undefined on input line 49.
+
+
+LaTeX Warning: Citation 'reluplex' on page 7 undefined on input line 49.
+
+<figs/acas-scatter.png, id=230, 598.3956pt x 483.4863pt>
 File: figs/acas-scatter.png Graphic file (type png)
 <use figs/acas-scatter.png>
-Package pdftex.def Info: figs/acas-scatter.png  used on input line 80.
+Package pdftex.def Info: figs/acas-scatter.png  used on input line 82.
 (pdftex.def)             Requested size: 239.35399pt x 193.39108pt.
 
-Class acmart Warning: A possible image without description on input line 84.
+LaTeX Warning: Citation 'acasxu' on page 7 undefined on input line 84.
 
 
-LaTeX Warning: Reference `f:acas-scatter' on page 6 undefined on input line 86.
+LaTeX Warning: Citation 'reluplex' on page 7 undefined on input line 84.
 
 
-<figs/mnist_2_256_prop_0_0.03_samples.png, id=63, 572.3784pt x 484.209pt>
+LaTeX Warning: Citation 'acasxu' on page 7 undefined on input line 84.
+
+
+LaTeX Warning: Citation 'reluplex' on page 7 undefined on input line 84.
+
+
+Class acmart Warning: A possible image without description on input line 86.
+
+
+LaTeX Warning: Citation 'acasxu' on page 7 undefined on input line 88.
+
+
+LaTeX Warning: Citation 'reluplex' on page 7 undefined on input line 88.
+
+[7.7]
+<figs/mnist_2_256_prop_0_0.03_samples.png, id=241, 572.3784pt x 484.209pt>
 File: figs/mnist_2_256_prop_0_0.03_samples.png Graphic file (type png)
 <use figs/mnist_2_256_prop_0_0.03_samples.png>
 Package pdftex.def Info: figs/mnist_2_256_prop_0_0.03_samples.png  used on inpu
-t line 121.
+t line 123.
 (pdftex.def)             Requested size: 228.9473pt x 193.68016pt.
 
-Class acmart Warning: A possible image without description on input line 126.
 
-<figs/mnist_2_256_prop_0_0.03_pgd.png, id=64, 556.479pt x 483.4863pt>
+Class acmart Warning: A possible image without description on input line 128.
+
+<figs/mnist_2_256_prop_0_0.03_pgd.png, id=242, 556.479pt x 483.4863pt>
 File: figs/mnist_2_256_prop_0_0.03_pgd.png Graphic file (type png)
 <use figs/mnist_2_256_prop_0_0.03_pgd.png>
 Package pdftex.def Info: figs/mnist_2_256_prop_0_0.03_pgd.png  used on input li
-ne 128.
+ne 130.
 (pdftex.def)             Requested size: 222.58766pt x 193.39108pt.
 
-Class acmart Warning: A possible image without description on input line 133.
+Class acmart Warning: A possible image without description on input line 135.
 
+[8.8 <./figs/acas-scatter.png> <./figs/mnist_2_256_prop_0_0.03_samples.png> <./
+figs/mnist_2_256_prop_0_0.03_pgd.png>]
+Overfull \hbox (11.65471pt too wide) in paragraph at lines 158--177
+ [][] 
+ []
 
-LaTeX Warning: Reference `f:mnist-prop-samples' on page 6 undefined on input li
-ne 135.
+<figs/mnist_2_256_class_samples.png, id=255, 462.528pt x 346.896pt>
+File: figs/mnist_2_256_class_samples.png Graphic file (type png)
+<use figs/mnist_2_256_class_samples.png>
+Package pdftex.def Info: figs/mnist_2_256_class_samples.png  used on input line
+ 243.
+(pdftex.def)             Requested size: 277.51894pt x 208.13919pt.
 
-
-LaTeX Warning: Reference `f:mnist-prop-pgd' on page 6 undefined on input line 1
-35.
-
-[6.6 <./figs/acas-scatter.png>]
-Overfull \hbox (11.65471pt too wide) in paragraph at lines 156--175
+Overfull \hbox (36.57394pt too wide) in paragraph at lines 243--246
  [][] 
  []
 
 
-LaTeX Warning: Reference `t:mnist-prop-summary' on page 7 undefined on input li
-ne 179.
+Class acmart Warning: A possible image without description on input line 248.
 
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [7.7 <./figs/mnist_2_256_prop_0_0.03_samples.png> <./figs/mnist_2_256_prop_0_0
-.03_pgd.png>]
+Overfull \hbox (3.99191pt too wide) in paragraph at lines 250--259
+[]\T1/LinuxLibertineT-TLF/m/n/10 (-20) We demon-strate the ef-fec-tive-ness of 
+our ab-strac-tion method
+ []
 
-LaTeX Warning: Empty bibliography on input line 404.
-
-(/usr/share/texlive/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
+[9.9]) (/usr/share/texlive/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 )
 (/usr/share/texlive/texmf-dist/tex/generic/stringenc/se-utf8.def
@@ -2193,10 +1981,16 @@ File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
 Class acmart Warning: Some images may lack descriptions.
 
 
-Overfull \vbox (1.86pt too high) has occurred while \output is active []
+Class acmart Warning: ACM keywords are mandatory for papers over two pages.
 
- [8.8]
-(./document.aux)
+
+Class acmart Warning: CCS concepts are mandatory for papers over two pages.
+
+
+Package balance Warning: You have called \balance in second column
+(balance)                Columns might not be balanced.
+
+[10.10 <./figs/mnist_2_256_class_samples.png>] (./document.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -2209,8 +2003,8 @@ Package rerunfilecheck Warning: File `document.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `document.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  C4D8599830F6D739560E2B0721A0C005;2383.
+(rerunfilecheck)             Before: 16389DF21BB903F9E2D1936DC4487BAC;3244
+(rerunfilecheck)             After:  7929DBF8A7D4C9C9BD037A8CB4DCD633;3274.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                document
@@ -2221,33 +2015,35 @@ Package logreq Info: Writing requests to 'document.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37872 strings out of 478287
- 703750 string characters out of 5849289
- 1403413 words of memory out of 5000000
- 54848 multiletter control sequences out of 15000+600000
- 630389 words of font info for 327 fonts, out of 8000000 for 9000
+ 38622 strings out of 478287
+ 716031 string characters out of 5849289
+ 1416201 words of memory out of 5000000
+ 55492 multiletter control sequences out of 15000+600000
+ 669820 words of font info for 402 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 84i,11n,131p,1214b,1320s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}{/us
+ 84i,11n,131p,1214b,1718s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}{/us
 r/share/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{/usr/share/
-texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/usr/share/texliv
-e/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/share/texlive/texm
-f-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/share/texlive/texmf-dist
-/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/share/texlive/texmf-dist/fonts
-/enc/dvips/libertine/lbtn_nh77jq.enc}</usr/share/texlive/texmf-dist/fonts/type1
-/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/newtx/LibertineMathMI.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/newtx/LibertineMathMI7.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/libertine/LinBiolinumT.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/libertine/LinLibertineT.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/libertine/LinLibertineTB.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/libertine/LinLibertineTI.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/newtx/NewTXMI.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/t
-xmiaX.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
-Output written on document.pdf (8 pages, 443406 bytes).
+texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}{/usr/share/texliv
+e/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/usr/share/texlive/texm
+f-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/share/texlive/texmf-dist
+/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/share/texlive/texmf-dist/fonts
+/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/share/texlive/texmf-dist/fonts/enc/d
+vips/libertine/lbtn_nh77jq.enc}</usr/share/texlive/texmf-dist/fonts/type1/publi
+c/inconsolata/Inconsolata-zi4r.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/newtx/LibertineMathMI.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/newtx/LibertineMathMI5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/newtx/LibertineMathMI7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/l
+ibertine/LinBiolinumT.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lib
+ertine/LinLibertineT.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/libe
+rtine/LinLibertineTB.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/libe
+rtine/LinLibertineTI.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newt
+x/NewTXMI.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txmiaX.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
+Output written on document.pdf (10 pages, 677053 bytes).
 PDF statistics:
- 151 PDF objects out of 1000 (max. 8388607)
- 108 compressed objects within 2 object streams
- 32 named destinations out of 1000 (max. 500000)
- 84524 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 353 PDF objects out of 1000 (max. 8388607)
+ 281 compressed objects within 3 object streams
+ 54 named destinations out of 1000 (max. 500000)
+ 105180 words of extra memory for PDF output out of 106986 (max. 10000000)
 
