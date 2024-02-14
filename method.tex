@@ -1,8 +1,44 @@
 \section{Methodology}
+\dmcmt{
+    In same example, we immediately arrive at a better picture. 
+    This picture is equivalent to refining and merging back in the Elboher's
+setting.}
+
+\dmcmt{ This general part of the paper has this duty: bridge the gap from
+whatever gk is doing, that it creates poor quality abstractions with a lot of
+singleton neurons, ---> our tree. Answer the question: why and where did the
+tree come from. Motivate the tree}
+
+\dmcmt{Two ways of doing this.}
+
+\dmcmt{\textbf{Way 1}: There is a PO (PO1) of all possible merges. GK is
+    exploring very small part of it - leads to bad quality, singletons, etc.
+    Exploring all of it is hard. But, using semantic info, we can restrict
+    ourselves to a smaller part of it, we don't need to explore all of PO1.
+    Because, if semantic info tells us that it is better to merge ab than ac,
+    then we can discard the entire part of PO1 where ac has been merged. Once
+    this cut has been done, we get a tree.
+}
+
+\dmcmt{\textbf{Way 2:} GK's ref doesn't produce good quality, and we want a
+    better abstraction/refinement by bringing in semantic info. What does
+    semantic info give? IO similarity of groups of neurons in \cnc. This gives a
+    ordering between possible merge operations, which actually forms a tree.
+    Then, each \abs correspond to certain cuts in the tree.
+}
+
+\dmcmt{\textbf{Current Decision:} Do way 2, but have 1-2 lines referencing the
+    idea in way 1 that says that by following the semantic information we avoid
+    exploring all possible \abs
+}
+
 Our methodology involves two broad steps:
 \begin{enumerate}
     \item Finding a tree structure that represents the order in which neurons should be merged.
-    \item Using that structure to guide a CEGAR approach in order to help reduce number of refinement steps.
+    \item Using that structure to guide a CEGAR approach in order to help reduce
+        number of refinement steps. \dmcmt{We can't really claim this in any
+            way.. but we can claim that we search through a space with higher
+        quality \abs, guided by global semantic information.}
 \end{enumerate} 
 
 \subsection{Tree and Merges:}
