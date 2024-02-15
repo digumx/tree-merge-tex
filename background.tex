@@ -104,16 +104,6 @@ spent here? Can we trust reader to read \cite{cegar-nn}}
 
 \dmcmt{Start a running example here}
 
-\dmcmt{Why Inc Dec? To get soundness. So, start by: to provide a strong formal
-connection between \abs and \cnc, we follow the approach from
-\cite{cegar-nn}. 2 diffs: 1. They focus on a safety prop, we aim to get
-a general fw for any formal analysis not just safety verif. 2. We use inc-dec
-only, not pos neg. That is sound because we can re-merge pos and neg versions
-without changing behavior, since input weights are same, and max/min merge from
-\cite{cegar-nn} doesn't depend on pos/neg.
-Algos, diags unnecessary.
-}
-
 To transform \cnc into \abs so that the soundness guarantees hold, we follow
 \cite{cegar-nn} to \textit{split} neurons in \cnc into copies labelled with
 labels from \{\inc, \dec\} $\times$ \{\posc, \negc\} so that any
