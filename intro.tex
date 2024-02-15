@@ -39,9 +39,9 @@ this issue \cite{cegar-nn, cegarette, cleverest-nn, conv-abs-gk}. These
 techniques work by converting a large \textit{concrete} \dnn \cnc into a smaller
 \textit{abstract} DNN \abs via \textit{merging} groups of neurons belonging to
 the same \textit{merge group} in \cnc into single neurons in \abs. Each such
-merge step is done in a way that ensures that there are strong, formal
+merge step is done in a way that ensures that there are concrete, formal
 \textit{soundness} guarantees linking the behavior of \cnc and \abs. Then, one
-can make queries on \abs, and using the strong \textit{soundness} guarantees,
+can make queries on \abs, and using the concrete \textit{soundness} guarantees,
 lift the results to \cnc argue about it's reliability. However, these techniques
 do not take into account the global \textit{semantic} behavior of the network,
 thus producing potentially sub-optimal abstractions potentially sub-optimal
@@ -57,7 +57,7 @@ guarantees provided by \cite{deep-abstract} are limited to lifting specific
 bound propagation based proofs, and those provided by \cite{lin-comb-abs-jan}
 only characterise soundness on a finite subset of the input space.\dmcmt{Is this
 okay, or too much detail / bad in any other way?} This limits the applicability
-of these techniques to situation where stronger, hard guarantees may be
+of these techniques to situation where concrete, hard guarantees may be
 necessary.
 
 In this work we combine the syntactic and semantic approaches into a single
@@ -70,7 +70,7 @@ neurons \dmcmt{Should we say this: similar to \cite{deep-abstract}?}. Based on t
 similarity, we then construct a partial order of possible merges in each layer
 capturing the relative contribution of each merge to the quality of the
 abstraction. Finally, if the resulting \abs
-is not strong enough to be effective \dmcmt{Avoiding language like
+is not strong \dmcmt{wording okay?} enough to be effective \dmcmt{Avoiding language like
 over-approximate}, we can refine it by eliminating the merge operation involving
 a neuron that contributes most to the poor quality \dmcmt{Wording here? Or use
 weakness?} of \abs and any merge operations that appear higher in the partial
