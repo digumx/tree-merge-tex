@@ -53,9 +53,20 @@ remains an issue, and so reducing the size of \cnc is desirable.
 
 Several techniques utilise semantic information, typically extracted via
 simulation of the \dnn, to obtain \abs. \dmcmt{Say: to improve scalability? }.
-These can broadly be classified into two types. Neural network compression
-techniques \todo{cite}, produce small \abs, but the behavior 
-weaker guarantees.
+Neural network compression techniques \todo{cite}, produce small \abs, but the
+behavior of \abs in connection to \cnc is only characterized empirically.
+Similarly, some semantic abstraction techniques \cite{lin-comb-abs-jan} provide
+bi-simulation guarantees bounding the difference in the behavior of \abs and
+\cnc on a finite set of input points, typically a subset of the training
+dataset. Since these techniques characterize the behavior of \abs only on a
+finite set of
+input points, the trust obtained on the connection between \cnc and \abs is only
+of a empirical nature.
+Other techniques like \cite{deep-abstract} use bi-simulation to lift
+interval bound propagation performed on \abs to get sound bounds on \cnc. While
+this does provide a sound proof, interval bounds are typically not strong enough
+to prove many interesting and practically relevant neural network queries.
+\todo{cite}
 
 \subsection{Neural Network Abstractions with Strong Guarantees}
 \dmcmt{Do I need to contrast with Jan here? If so how much? 1 line? Yes, one
