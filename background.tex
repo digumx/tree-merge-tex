@@ -32,7 +32,8 @@ experiments, so the section on cegar has been removed. Maybe have 2 lines and a
 cite in acasxu exps?}
 
 \subsection{Neural Network Abstractions with Strong Guarantees}
-\dmcmt{Do I need to contrast with Jan here? If so how much? 1 line?}
+\dmcmt{Do I need to contrast with Jan here? If so how much? 1 line? Yes, one
+small section}
 
 In this work, we focus on obtaining an abstract network \abs from a given
 concrete network \cnc with formal guarantees linking the behavior of \abs and
@@ -55,6 +56,8 @@ never produces any more false negatives than \cnc. \todo{Ref next sections}.
 \dmcmt{Given that this section is critical to understanding our soundness
     guarantees, and that this is mostly existing work, how much space should be
 spent here? Can we trust reader to read \cite{cegar-nn}}
+
+\dmcmt{Start a running example here}
 
 \dmcmt{Why Inc Dec? To get soundness. So, start by: to provide a strong formal
 connection between \abs and \cnc, we follow the approach from
@@ -100,8 +103,11 @@ of the maximally merged network.
 }
 
 \dmcmt{    Do we talk about singleton nodes in intro or abstract? We were doing
-    this in prev version
+    this in prev version. Also talk about refinement Jan, and briefly motivate
+    what we would want to do.
 }
+
+\dmcmt{Not better, more controlled instead}
 
 After merging the neurons, we introduce an over-approximation into 
 the new network $\mathcal{N''}$. And since $\mathcal{N''}(x) \geq \mathcal{N}(x)$,
