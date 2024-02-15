@@ -3,6 +3,30 @@
 \dmcmt{There was some general definitions of what an nn is in this section,
 removed for now, nor really necessary, maybe can add a notation section if at
 all necessary}
+\newline
+\sncmt{Notation is important. Will be required in the upcoming sections.}
+\newline
+We conceptualize neural networks as directed acyclic graphs 
+comprising three types of layers: the input layer, intermediate hidden layers, 
+and the output layer. Our goal is to focus on the abstracting feed forward networks, 
+where neuron values are computed based on preceding layer neuron values. 
+Neurons in our network are denoted as $n_{(i,j)}$, where `$i$' signifies the 
+neuron number in layer `$j$'. The weight matrix between layers `${j-1}$' and `$j$' 
+is denoted as `$W_{{j-1}, j}$', and the bias matrix for layer `$i$' is denoted as 
+`$B_{i}$'. The value of the `$i^{th}$' neuron in layer `$j$' for a given input vector 
+is represented by `$v_{(i,j)}$', and `$V_{j}$' encompasses all such `$v_{(i,j)}$' values for layer 
+`$j$'. The function $o_{(i, j)}$ takes a list of input vectors and outputs a list of
+corresponding `$v_{(i,j)}$' for a particular neuron $n_{(i, j)}$. 
+
+The computation of `$V_{j}$' involves applying an ``activation function ($\phi$)" 
+to the ``weighted sum":
+
+\[V_{j} = \phi(W_{{j-1}, j} \cdot V_{j-1} + B_{j}).\] 
+
+We confine our activation function to the Rectified Linear Unit (ReLU), 
+which can be expressed as $V_{j} = \max(W_{j-1, j} \cdot V_{j-1} + B_{j}, 0)$.
+
+
 
 \subsection{ Formal Analysis of Neural Networks }
 \dmcmt{This section used to be titled Neural Network Verification, and explained
@@ -33,6 +57,8 @@ cite in acasxu exps?}
 
 \subsection{Neural Network Abstractions with Strong Guarantees}
 \dmcmt{Do I need to contrast with Jan here? If so how much? 1 line?}
+\kmcmt{We need to add one is good for analysis and one is good for proofs.
+Not in negative light.}
 
 In this work, we focus on obtaining an abstract network \abs from a given
 concrete network \cnc with formal guarantees linking the behavior of \abs and
