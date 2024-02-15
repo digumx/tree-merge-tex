@@ -109,16 +109,16 @@ abstract networks with this guarantee.
 \label{s:qual}
 
 A generally useful notion with respect to abstraction is \textit{quality},
-which we as the number of \textit{spurious points} that witness a difference in
+which we as the number of \textit{spurious inputs} that witness a difference in
 the relevant behavior of \abs and \cnc. In the context of using \abs to
-accelerate formal analysis of \dnn, these spurious points may simply be
+accelerate formal analysis of \dnn, these spurious inputs may simply be
 \textit{spurious counterexamples} \cite{cegar-nn, cleverst-nn} to a query
 involving \abs that are not counterexamples for the same query involving \cnc.
 This notion may be generalized to other uses of abstractions as well. For
 instance, for safe compressions, they may be inputs from a dataset which
 are falsely classified as positive by \abs. \todo{Ref section}
 
-\subsection{Semantic Neural Network Splitting and Merging}
+\subsection{Syntactic Neural Network Splitting and Merging}
 \label{s:nn-sam}
 
 \dmcmt{Given that this section is critical to understanding our soundness
@@ -150,7 +150,10 @@ write this as a lemma, and then put a proof in appendix?} This optimisation
 allows us to discard the \posc and \negc class information, and reduces the size
 of the maximally merged network.
 
-\subsection{ Quality of Abstraction and Refinement }
+Note that this process only considers the syntactic structure of the network, no
+semantic information is used.
+
+\subsection{ Syntactic Refinement }
 \dmcmt{This section should re-frame what gk's refinement does beyond cegar/verif
     into a more general fw. Then, it should point out the deficiencies (pulling
     out one neuron, singleton nodes, etc.) in this refinement approach and
@@ -164,38 +167,20 @@ of the maximally merged network.
 
 \dmcmt{Not better, more controlled instead}
 
-While the fully merged network obtained in Section \ref{s:nn-sam} provides
-strong guarantees, it may not be strong enough to be useful
+The fully merged network obtained in Section \ref{s:nn-sam} may not have
+sufficient quality (Section \ref{s:qual}) to be useful. For instance, when doing
+formal analysis, there may be too many spurious counterexamples. In such
+situations, a common approach to obtain a better quality \abs is to perform
+refinement steps based on a spurious counterexample $x$ \cite{cegar-nn,
+cegarette, cleverest-nn}. \dmcmt{While \cite{cegar-nn} does it only for spurious cexes,
+it can be directly extended to spurious inputs. But, I'm speaking in terms of
+sp cex here to avoid confusion. Should I say spurious input instead?} In
+existing techniques this is typically done restoring a single neuron in \cnc
+that had been merged \abs. The neuron chosen is typically one whose contribution
+to $x$ is estimated to be the highest.
 
-After merging the neurons, we introduce an over-approximation into 
-the new network $\mathcal{N''}$. And since $\mathcal{N''}(x) \geq \mathcal{N}(x)$,
- there might exist a $x$, for which, $\exists x \in X, \hspace{1mm} \mathcal{N''}(x)
-\geq c$ but $\nexists x \in X, \hspace{1mm} \mathcal{N}(x) \geq c$. 
-Therefore, if a counter-example `$\beta$' returned is not a valid counter-example,
-which means, $\mathcal{N''}(\beta) \geq c > \mathcal{N}(\beta)$, then, we must 
-reverse some of the merges performed previously to get a new network which mitigates
-the extent of the over-approximation for us to get a valid counter-example or to 
-prove that the original property is valid.
-
-In \cite{cegar-nn}, the authors employed a Counterexample-Guided Abstraction 
-Refinement (CEGAR) approach to eliminate the spurious counter-examples. 
-They utilized a counter-example ($\beta$) to identify a neuron $n_{(i, j)}$ 
-that had been merged into the node `$r$' for refinement. The authors then 
-computed the value $\omega$ which was equal to 
-$|v_i^j(\beta) - r(\beta)| \cdot |w_{n_{(i-1, k)},n_{(i,j)}}-w_{n_{i-1,k},r}|$, 
-where $v_{(i, j)}(\beta)$ denotes the value of $n_{(i, j)}$ at the 
-counter-example $\beta$, $r(\beta)$ denotes the value of the 
-representative neuron $r$ at the counter-example $\beta$, $w_{n_{(i-1,k)},n_{(i,j)}}$ 
-denotes the weight between a neuron $n_{i-1,k}$ and a neuron $n_{i,j}$. 
-If this value $\omega$ was over a recommended amount $\epsilon$, they proceeded to 
-separate $n_{(i, j)}$ from $r$ to potentially eliminate the spurious counter-example 
-$\beta$.
-
-\dmcmt{ 
-    An example of Elboher's Refinement where we get a lot of singletons
-}
-
-
- In the next section, we present a new method for merging neurons in 
- order to reduce the number of refinement steps, thereby expediting the 
- verification process.
+These techniques, however, do not consider any semantic behavior to guide their
+refinement. As such, the refinement process tends to produce a large number of
+restored neurons identical to neurons in \cnc, leading to and \abs of large
+size, while retaining a single abstract neuron formed by merging a large group
+of neurons in \cnc, affecting the quality of \abs.  \todo{example}
