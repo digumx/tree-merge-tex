@@ -68,20 +68,22 @@ this does provide a sound proof, interval bounds are typically not strong enough
 to prove many interesting and practically relevant neural network queries.
 \todo{cite}
 
-\subsection{Neural Network Abstractions with Strong Guarantees}
-\dmcmt{Do I need to contrast with Jan here? If so how much? 1 line? Yes, one
-small section}
+\subsection{Concrete Guarantees on Neural Network Abstractions}
 \kmcmt{We need to add one is good for analysis and one is good for proofs.
-Not in negative light.}
+Not in negative light.} \dmcmt{ Even for analysis, we are trying to claim that
+our concrete guarantees are better than the empirical ones right? We show a case
+of proof, and a case of compression, so things are clear right?}
 
-In this work, we focus on obtaining an abstract network \abs from a given
-concrete network \cnc with formal guarantees linking the behavior of \abs and
-\cnc so that formal analysis done on \abs can be lifted to \cnc. In particular,
-we look for abstractions where $\forall x, \mabs(x) \geq \mcnc(x)$ \dmcmt{
-Should I format this as definition?}. Since any
-general neural network query can be converted to a query of the form $(P, \mcnc,
-y > c)$ for some $c$ \cite{cegar-nn}, such an abstraction is extremely useful.
-\dmcmt{Further explanation necessary?}
+The notion of providing concrete guarantees on the behavior of \abs relative to
+\cnc has been formalized in \cite{cegar-nn}. In particular, guarantees of the
+form $\forall x, \mabs(x) \geq \mcnc(x)$ \dmcmt{
+Should I format this as definition?} are useful as a general notion of concrete
+guarantees in many settings. Two such settings are as follows: 
+
+Firstly, since any general neural network query can be converted to a query of
+the form $(P, \mcnc, y > c)$ for some $c$ \cite{cegar-nn}, such a guarantee is
+useful for dispatching the query on a smaller network \cite{cegar-nn, cegarette,
+cleverest-nn}.
 
 Furthermore, such guarantees are also useful for safe compression of \dnn.
 Consider the case of medical diagnosis\todo{cite} or aircraft collisions, where
@@ -89,6 +91,10 @@ for safety reasons, a classifier should be biased towards not producing false
 negatives. Guarantees such as above can formally ensure that the compressed \abs
 never produces any more false negatives than \cnc. \todo{Ref next sections}.
 \dmcmt{Should this be here?}
+
+Therefore, in this work we focus on developing a framework\dmcmt{Is this word
+here okay?} that produces
+abstract networks with this guarantee.
 
 \subsection{Neural Network Splitting and Merging}
 
@@ -147,6 +153,8 @@ of the maximally merged network.
 }
 
 \dmcmt{Not better, more controlled instead}
+
+While the absr
 
 After merging the neurons, we introduce an over-approximation into 
 the new network $\mathcal{N''}$. And since $\mathcal{N''}(x) \geq \mathcal{N}(x)$,
