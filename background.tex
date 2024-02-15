@@ -108,22 +108,22 @@ without changing behavior, since input weights are same, and max/min merge from
 Algos, diags unnecessary.
 }
 
-\dmcmt{Do we need to add a reference for 2-class?}
-
 To transform \cnc into \abs so that the soundness guarantees hold, we follow
 \cite{cegar-nn} to \textit{split} neurons in \cnc into copies labelled with
 labels from \{\inc, \dec\} $\times$ \{\posc, \negc\} so that any
 increase (decrease) in the value of a neuron labelled
 \inc (\dec) only leads to an increase in output value. Then,
 following \cite{cegar-nn}, a sound abstraction can be obtained by
-\textit{merging} similarly labelled neurons as follows: if the neurons have the
-label \inc (\dec), replace incoming edges from the same
+\textit{merging} all similarly labelled neurons as follows: if the neurons have
+the label \inc (\dec), replace incoming edges from the same
 previous layer neuron with a single edge with the maximum (minimum) of the
 original edge weights. Outgoing edges to the same next layer neuron are replaced
 with a single edge with the sum of the weights for both the \inc and \dec case.
 \dmcmt{Is some notation necessary here? Its very clear to us, but could this be
     confusing for new readers? If so, should we spend space introducing notation
 somewhere?}
+
+\dmcmt{Do we need to add a reference for 2-class?}
 
 We make a slight modification to the above: as a first optimization step, we
 re-merge the two copies of the \abs neurons that are otherwise the same, but
