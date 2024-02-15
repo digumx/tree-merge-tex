@@ -26,10 +26,14 @@ the formula $Q$ holds on the output $\mcnc(x)$. While there are several
 tools that can handle such queries, like \marabou and \abcrown, scalability
 remains an issue, and so reducing the size of \cnc is desirable.
 
-\subsection{Counter-example guided abstraction and refinement}
-\dmcmt{Again, we dont need to talk about CEGAR, exception being acasxu
-experiments, so the section on cegar has been removed. Maybe have 2 lines and a
-cite in acasxu exps?}
+\subsection{Semantic Compressions and Abstractions with Empirical Guarantees}
+\dmcmt{What is a better word than 'weak' here? Does 'empirical' work here?}
+
+Several techniques utilise semantic information, typically extracted via
+simulation of the \dnn, to obtain \abs. \dmcmt{Say: to improve scalability? }.
+These can broadly be classified into two types. Neural network compression
+techniques \todo{cite}, produce small \abs, but the behavior 
+weaker guarantees.
 
 \subsection{Neural Network Abstractions with Strong Guarantees}
 \dmcmt{Do I need to contrast with Jan here? If so how much? 1 line? Yes, one
