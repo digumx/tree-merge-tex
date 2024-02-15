@@ -27,6 +27,7 @@ We confine our activation function to the Rectified Linear Unit (ReLU),
 which can be expressed as $V_{j} = \max(W_{j-1, j} \cdot V_{j-1} + B_{j}, 0)$.
 
 \subsection{ Formal Analysis of Neural Networks }
+\label{s:form-an}
 \dmcmt{This section used to be titled Neural Network Verification, and explained
     the general idea of neural net verif, and some stuff on prop encoding. We
     are not doing exclusively verif. So, some more general and shorter
@@ -43,12 +44,13 @@ formal guarantees behind the analysis performed, all of these techniques rely on
 making \textit{neural network queries}. 
 
 These neural network queries are of the form $(P, \mcnc, Q)$, and ask if
-there is an input $x$ to $\mcnc$ for which the formula $P$ holds so that
-the formula $Q$ holds on the output $\mcnc(x)$. While there are several
+for all inputs $x$ to $\mcnc$ for which the formula $P$ holds
+the formula $Q$ also holds on the output $\mcnc(x)$. While there are several
 tools that can handle such queries, like \marabou and \abcrown, scalability
 remains an issue, and so reducing the size of \cnc is desirable.
 
 \subsection{Semantic Compressions and Abstractions with Empirical Guarantees}
+\label{s:emp-abs}
 \dmcmt{What is a better word than 'weak' here? Does 'empirical' work here?}
 
 Several techniques utilise semantic information, typically extracted via
@@ -69,6 +71,7 @@ to prove many interesting and practically relevant neural network queries.
 \todo{cite}
 
 \subsection{Concrete Guarantees on Neural Network Abstractions}
+\label{s:conc-abs}
 \kmcmt{We need to add one is good for analysis and one is good for proofs.
 Not in negative light.} \dmcmt{ Even for analysis, we are trying to claim that
 our concrete guarantees are better than the empirical ones right? We show a case
@@ -81,12 +84,18 @@ Should I format this as definition?} are useful as a general notion of concrete
 guarantees in many settings. Two such settings are as follows: 
 
 Firstly, since any general neural network query can be converted to a query of
-the form $(P, \mcnc, y > c)$ for some $c$ \cite{cegar-nn}, such a guarantee is
+the form $(P, \mcnc, y < c)$ for some $c$ \cite{cegar-nn, reluplex} \todo{See
+\cite{cegar-nn}, they have another citation for this encoding} \dmcmt{It seems
+that \cite{cegar-nn}, \cite{reluplex} and we have 3 different encodings, but
+generally based on the same idea of implementing bool combs via extra nn
+layers}, such a guarantee is
 useful for dispatching the query on a smaller network \cite{cegar-nn, cegarette,
-cleverest-nn}.
+cleverest-nn}. This immediately makes an \abs with these guarantees useful for
+accelerating several formal analysis techniques (Section \ref{s:form-an}).
 
 Furthermore, such guarantees are also useful for safe compression of \dnn.
-Consider the case of medical diagnosis\todo{cite} or aircraft collisions, where
+Consider the case of medical diagnosis\todo{cite} or aircraft
+collisions\cite{acasxu}, where
 for safety reasons, a classifier should be biased towards not producing false
 negatives. Guarantees such as above can formally ensure that the compressed \abs
 never produces any more false negatives than \cnc. \todo{Ref next sections}.
@@ -96,7 +105,21 @@ Therefore, in this work we focus on developing a framework\dmcmt{Is this word
 here okay?} that produces
 abstract networks with this guarantee.
 
-\subsection{Neural Network Splitting and Merging}
+\subsection{Quality of Abstractions and Spurious Points}
+\label{s:qual}
+
+A generally useful notion with respect to abstraction is \textit{quality},
+which we as the number of \textit{spurious points} that witness a difference in
+the relevant behavior of \abs and \cnc. In the context of using \abs to
+accelerate formal analysis of \dnn, these spurious points may simply be
+\textit{spurious counterexamples} \cite{cegar-nn, cleverst-nn} to a query
+involving \abs that are not counterexamples for the same query involving \cnc.
+This notion may be generalized to other uses of abstractions as well. For
+instance, for safe compressions, they may be inputs from a dataset which
+are falsely classified as positive by \abs. \todo{Ref section}
+
+\subsection{Semantic Neural Network Splitting and Merging}
+\label{s:nn-sam}
 
 \dmcmt{Given that this section is critical to understanding our soundness
     guarantees, and that this is mostly existing work, how much space should be
@@ -115,11 +138,8 @@ the label \inc (\dec), replace incoming edges from the same
 previous layer neuron with a single edge with the maximum (minimum) of the
 original edge weights. Outgoing edges to the same next layer neuron are replaced
 with a single edge with the sum of the weights for both the \inc and \dec case.
-\dmcmt{Is some notation necessary here? Its very clear to us, but could this be
-    confusing for new readers? If so, should we spend space introducing notation
-somewhere?}
 
-\dmcmt{Do we need to add a reference for 2-class?}
+\dmcmt{Do we need to add a reference for 2-class? It may help shorten section.} 
 
 We make a slight modification to the above: as a first optimization step, we
 re-merge the two copies of the \abs neurons that are otherwise the same, but
@@ -130,7 +150,7 @@ write this as a lemma, and then put a proof in appendix?} This optimisation
 allows us to discard the \posc and \negc class information, and reduces the size
 of the maximally merged network.
 
-\subsection{Refinement }
+\subsection{ Quality of Abstraction and Refinement }
 \dmcmt{This section should re-frame what gk's refinement does beyond cegar/verif
     into a more general fw. Then, it should point out the deficiencies (pulling
     out one neuron, singleton nodes, etc.) in this refinement approach and
@@ -144,7 +164,8 @@ of the maximally merged network.
 
 \dmcmt{Not better, more controlled instead}
 
-While the absr
+While the fully merged network obtained in Section \ref{s:nn-sam} provides
+strong guarantees, it may not be strong enough to be useful
 
 After merging the neurons, we introduce an over-approximation into 
 the new network $\mathcal{N''}$. And since $\mathcal{N''}(x) \geq \mathcal{N}(x)$,
