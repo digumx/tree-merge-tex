@@ -1,82 +1,80 @@
 \section{Methodology}
-\dmcmt{
-    In same example, we immediately arrive at a better picture. 
-    This picture is equivalent to refining and merging back in the Elboher's
-setting.}
 
-\dmcmt{ This general part of the paper has this duty: bridge the gap from
-whatever gk is doing, that it creates poor quality abstractions with a lot of
-singleton neurons, ---> our tree. Answer the question: why and where did the
-tree come from. Motivate the tree}
+\dmcmt{Im not leading with the lang of partial order here, instead defining a
+    tree directly. This, I feel is easier to motivate and explain. What we have
+    really is more than just a partial order of merge operations - it is in fact
+    a tree. It is can be motivated by saying that it lets us define merge groups
+    in a way that is in some sense optimal. It is also easier to explain
+    precisely what the tree is by going over it's construction in an algo.
+    The tree then can be used to define / talk about the partial order in the
+intro, or the intro can itself be modified to refer to a tree instead. }
 
-\dmcmt{Two ways of doing this.}
-
-\dmcmt{\textbf{Way 1}: There is a PO (PO1) of all possible merges. GK is
-    exploring very small part of it - leads to bad quality, singletons, etc.
-    Exploring all of it is hard. But, using semantic info, we can restrict
-    ourselves to a smaller part of it, we don't need to explore all of PO1.
-    Because, if semantic info tells us that it is better to merge ab than ac,
-    then we can discard the entire part of PO1 where ac has been merged. Once
-    this cut has been done, we get a tree.
-}
-
-\dmcmt{\textbf{Way 2:} GK's ref doesn't produce good quality, and we want a
-    better abstraction/refinement by bringing in semantic info. What does
-    semantic info give? IO similarity of groups of neurons in \cnc. This gives a
-    ordering between possible merge operations, which actually forms a tree.
-    Then, each \abs correspond to certain cuts in the tree.
-}
-
-\dmcmt{\textbf{Current Decision:} Do way 2, but have 1-2 lines referencing the
-    idea in way 1 that says that by following the semantic information we avoid
-    exploring all possible \abs
-}
-
-\dmcmt{Madhukar supports this. Refiment in our case should be based on priority
-    between two merges using semantic info. This priority adds an extra
-    dimension. Describe things strictly from the perspective of doing a full
-    abstraction then prioritise refinement, don't mix the other perspective of
-doing a prioritised abstraction.}
-
-\dmcmt{Get a semantic closeness factor, between pairs of merge groups. Similar
-    idea to GK's sameness of color. This gives a natural way to construct a tree
-     /PO, and go from there.}
-
-\pagebreak
+\todo{Add refs to later sections}
  
 In this work we aim to utilize information from the semantic behavior of \cnc to
-better control and guide the refinement process producing higher quality \abs.
-In particular, we define a \textit{semantic closeness factor} that captures how
-close the semantic-behavior of two groups of neurons are. Then, this closeness
-factor can be used to \dmcmt{build a partial order of merge operations?}
-prioritise some merges over others. Thus, during the refinement process, we can
-cut a merge group \dmcmt{Is it clear what this is?} into subgroups such that
-neurons within the same group are semantically closer than neurons across
-groups. This allows us to avoid restoring large number of single neurons and
-retaining merge groups of higher quality(see Section \ref{s:nn-sam}), achieving
-the desired quality of abstraction with a much smaller size. \todo{Ref later
+better control and guide the refinement process producing higher quality \abs
+while retaining concrete soundness. 
+
+In particular, we define a \textit{semantic
+closeness factor} that captures how close the semantic-behavior of two 
+neurons are. We utilise this semantic closeness factor to arrange the merge
+operations into a tree where lower quality merges involving semantically far
+neurons appear higher and can be refined with higher priority. 
+
+Using this tree we build a framework \dmcmt{Is this okay?} where refinement can
+be done by making cuts of this tree. We show that the merge groups coming from
+such cuts have the property that any two neurons within the same group are 
+semantically closer than any two neurons from two different groups. Thus, via
+this tree-based refinement process, we are able to partition the neurons in \cnc
+into merge groups\dmcmt{Is it clear what a merge group is?} in a manner that is
+optimal with respect to the semantic information.
+This allows us to avoid restoring large number of single neurons(see Section
+\ref{s:nn-sam}) and lets us retain merge operations of higher quality. Thus, we
+produce an \abs of the desired quality with a much smaller size. \todo{Ref later
 sections}
 
-We show that this closeness factor allows us to arrange the merge operations
-into a tree, and the refinement process corresponds to making cuts of this tree.
-We then show that the merge groups coming from such cuts have the property that
-any two neurons within the group are going to be semantically closer than any
-two neurons from two different groups. Thus, we can argue that the refinement
-process will partition the neurons in \cnc into groups in a manner that is
-optimal with respect to the semantic information.
+While the choice of which nodes to leave merged together is guided by the cuts
+of the tree, the weights attached to the abstract nodes are still chosen
+by following the procedures from Section \ref{s:nn-sam} and \cite{cegar-nn}.
+Thus, the concrete soundness guarantees still hold for the \abs obtained.
 
 In the following sections we describe a general framework for such a unified
 syntactic and semantic refinement process, describing each component in detail.
 \linebreak
 
-Our methodology involves two broad steps:
-\begin{enumerate}
-    \item Finding a tree structure that represents the order in which neurons should be merged.
-    \item Using that structure to guide a CEGAR approach in order to help reduce
-        number of refinement steps. \dmcmt{We can't really claim this in any
-            way.. but we can claim that we search through a space with higher
-        quality \abs, guided by global semantic information.}
-\end{enumerate} 
+\dmcmt{This will be the general structure of the rest of this section. The
+existing material can be re-organised into these headers.}
+
+\subsection{Semantic Closeness Factor}
+
+\dmcmt{ Talk about what the semantic closeness factor is. Say that it should
+    characterise the semantic behavior, but doing so precisely is hard. So, talk
+    about the simulation and observation vectors we use. Stress that this is a
+    framework, and that one can explore other methods of semantic closeness
+    within our framework. If we are able to get the characterestic based exps
+    run, we can talk about that as well.
+}
+
+\subsection{Tree of Merges}
+
+\dmcmt{ Talk about the tree of merge operations, maybe with example. Have
+    explanation / algo about how tree is built, greedily choosing two best
+    merges to do, like hcluster or existing Algo 2. Point out
+    that worse merges are occurring higher. Don't talk about cuts or refinements
+yet }
+
+\subsection{Tree-cuts and Refinement}
+
+\dmcmt{Connect cuts in tree to refinement, again with example. Describe the
+    culprit based refinement process. Clarify that the culprit selection
+heuristic can be replaced with any other heuristic within our framework.}
+
+\subsection{Optimality of Merge Groups}
+
+\dmcmt{Briefly argue / prove why two neurons within same merge group is
+    semantically closer than neurons across groups. Stress that this is good for
+    quality of merges. Point out that this holds in the running example, and
+contrast the quality and size with gk (if tracking example through gk). }
 
 \subsection{Tree and Merges:}
 
