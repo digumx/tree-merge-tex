@@ -42,6 +42,33 @@ doing a prioritised abstraction.}
     idea to GK's sameness of color. This gives a natural way to construct a tree
      /PO, and go from there.}
 
+\pagebreak
+ 
+In this work we aim to utilize information from the semantic behavior of \cnc to
+better control and guide the refinement process producing higher quality \abs.
+In particular, we define a \textit{semantic closeness factor} that captures how
+close the semantic-behavior of two groups of neurons are. Then, this closeness
+factor can be used to \dmcmt{build a partial order of merge operations?}
+prioritise some merges over others. Thus, during the refinement process, we can
+cut a merge group \dmcmt{Is it clear what this is?} into subgroups such that
+neurons within the same group are semantically closer than neurons across
+groups. This allows us to avoid restoring large number of single neurons and
+retaining merge groups of higher quality(see Section \ref{s:nn-sam}), achieving
+the desired quality of abstraction with a much smaller size. \todo{Ref later
+sections}
+
+We show that this closeness factor allows us to arrange the merge operations
+into a tree, and the refinement process corresponds to making cuts of this tree.
+We then show that the merge groups coming from such cuts have the property that
+any two neurons within the group are going to be semantically closer than any
+two neurons from two different groups. Thus, we can argue that the refinement
+process will partition the neurons in \cnc into groups in a manner that is
+optimal with respect to the semantic information.
+
+In the following sections we describe a general framework for such a unified
+syntactic and semantic refinement process, describing each component in detail.
+\linebreak
+
 Our methodology involves two broad steps:
 \begin{enumerate}
     \item Finding a tree structure that represents the order in which neurons should be merged.
