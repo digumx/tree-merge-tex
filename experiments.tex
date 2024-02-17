@@ -1,5 +1,8 @@
 \section{Experiments}
 \dmcmt{Measure time taken by refinement?}
+
+\kmcmt{Not sure what you mean? Do you mean that we should calculate the refinement time separately? I am not sure if that is required. I mean, it is good to not take too much time to refine. But then the number of refinement steps and the quality of refinement must also be considered along with the time. For example, one can refine very quickly by simply falling back to the original network immediately. But that is no good. So, if the time is less, and also the number of iterations and the size of the final refined network is less then we can report, otherwise we need not.}
+
 \todo{Talk about numpy for matrix ops and scipy for hcluster}
 
 We have implemented our method in python, using a linkage-matrix\todo{cite,
@@ -10,6 +13,8 @@ us to quickly perform the merge and split operations and calculate the
 scores, \dmcmt{TODO ref earlier sections} without having to do (relatively)
 expensive tree traversal operations in each iteration of the abstraction
 refinement loop. 
+
+\kmcmt{Let us change the order here. Let us keep the strongest subsection first. And let us move the ACAS Xu verification subsection to the end.}
 
 Using this implementation, we have performed three sets of experiments to
 demonstrate the usefulness of our technique. We first use our abstractions to
@@ -58,14 +63,15 @@ timeouts. Also, for reduction rate, the original network size is taken to be
 optimization added, we should compare against 300. Also, the full verification
 rate is 100\% because its not a full set of experiments, this will potentially
 be a lot lower.} 
+\kmcmt{This is fine. Let us just report whatever we get.}
 
 We notice that for the unsafe cases, we are able to refute the
 properties via a counterexample obtained on a significantly smaller network.
-\dmcmt{But what about the safe cases, what do we say?}. In fact, for most
+\dmcmt{But what about the safe cases, what do we say?}. \kmcmt{We need not talk about safe cases if we do not have anything to say. That's fine.}  In fact, for most
 networks, we are able to refute based on a counterexample from the fully
 abstracted network of size $18$. \dmcmt{This is not there in this small summary
 table, but is clear from the full data table. Maybe link to that somewhere
-in the appendix?} Note that since we use only two classes in our
+in the appendix?} \kmcmt{Yes, we should have the full table in the appendix and a link to that here.} Note that since we use only two classes in our
 fully abstracted network as opposed to 4 in \cite{cegar-nn}, the size of this
 network is significantly smaller. In other networks, we are are able to get a
 counterexample on a network with size very close to the original network.
@@ -74,10 +80,10 @@ For the safe cases, we see that the size of the abstracted networks are large
 for instances that did not time out.  This is in line with what was observed in
 \cite{cegar-nn} \dmcmt{Can we claim this? It's not immediately clear from their
 paper, maybe we need to show our recreation of their experiments? Also, this
-split is not clear from the table}. For other instances, the timeout happened
+split is not clear from the table}. \kmcmt{We can claim this without recreating anything. We can simply remark that this was also observed there, and we believe that it for the same reason.. but let's discuss what we want to convey from this para and if we can state that in an easier way.} For other instances, the timeout happened
 due to the solver timing out on the abstract query. \dmcmt{While the sizes of
 the networks on which this to happened are small, does that not say
-something negative about our abstraction?}
+something negative about our abstraction?} \kmcmt{Yes, it does. Let us first decide what is the point that we wish to make. And then we will see how to make that point.}
 
 \begin{figure}
     \includegraphics[scale=0.4]{figs/acas-scatter.png}
@@ -89,7 +95,8 @@ something negative about our abstraction?}
 Figure \ref{f:acas-scatter} shows the network sizes and times of the \acasxu
 networks as a scatter plot. \dmcmt{This includes to and non-to}. Note that the
 time taken here is dominated by the solver call time \dmcmt{Should we measure
-and report this precisely?} We see that the time taken by the solver call on
+and report this precisely?} \kmcmt{I think it would be good to do that. It will help the
+point that we are making. What do you think?} We see that the time taken by the solver call on
 these networks is not at all correlated with the network sizes. For instances,
 for the safe cases, there are several networks of sizes ranging from $350$ to
 $600$ \relu nodes all of which time out on the solver call. Similarly, for the
@@ -102,10 +109,12 @@ to determine the effectiveness of the abstraction. \dmcmt{Is this okay? Can it
 be instead argued that the variance is due to the networks themselves, so the
 abstraction is not necessarily useful?
 Maybe trying with other configs and showing the variance?}
+\kmcmt{No. I think the abstraction can still be argued as useful, unless we start seeing several instances where the solver time consistently increased after the abstraction.}
 
 \subsection{Robustness on \mnist}
 \dmcmt{What about doing these experiments on ACAS?}
 \dmcmt{Do pgd then samples}
+\kmcmt{We can do this in the end if time permits.}
 
 In this section, we start with our abstraction and progressively refine it using
 our refinement technique, measuring the number of spurious counterexamples at
@@ -139,7 +148,7 @@ Figure \ref{f:mnist-prop-samples} \ref{f:mnist-prop-pgd} shows a typical plot
 for these experiments.  Here accuracy measures the number of true
 counterexamples within a random sample
 drawn from a region satisfying the pre-condition. \dmcmt{Should I plot and talk
-in terms or spurious counterexample rate instead?} We see that as we refine the
+in terms or spurious counterexample rate instead?} \kmcmt{We can do that. Essentially, whichever way makes the plots look better. But they are the same thing. So, let us not worry too much about this right now.} We see that as we refine the
 network and the reduction rate reduces (moving right to left along the graph),
 the accuracy remains close to zero. At some point however, the accuracy jumps up
 sharply and becomes close to $100\%$. This indicates that there are a few
@@ -148,12 +157,12 @@ may be due the fact that with epsilon robustness properties that are being
 explored here, the pre-condition region may be very small, so a single
 refinement step may change the behavior of the network on that small region in a
 way that eliminates all possible spurious counterexamples from that region.
-\dmcmt{Is this expl okay?}
+\dmcmt{Is this expl okay?} \kmcmt{Yes, this is fine.}
 \dmcmt{BaB and abstract interp based methods like \abcrown are successful on
 such props because of this, discuss this?} \dmcmt{Also, other graphs are
 present. For eg, some random sampling graphs show peaks in the middle
 (2..random), and some pgd graphs are flat lines (4,6..pgd). Discuss
-these?}
+these?} \kmcmt{If space permits; looks unlikely as of now.}
 
 \begin{table}
 \begin{tabular}{|c|c|c|c|c|}
@@ -207,7 +216,8 @@ provide any benefits.\dmcmt{Last two paragraphs okay? Refer to this
 in intro of experiments section? Also, pgd does not produce improvement (unlike
 in cleverest). This is prob because global view, and cegarette is about doing an
 eager attack before solver call. Discuss this? So two potential angles on this,
-what Ive written vs global view angle.} 
+what Ive written vs global view angle.} \kmcmt{These two paragraphs look okay to me. Let us discuss
+the specific concerns when we meet.}
 
 \subsection{Compression with Guarantees on Critical Classes}
 
@@ -220,7 +230,7 @@ positive.
 Safety critical analysis of neural networks is highly sensitive to the size of
 the network. While several neural network compression techniques exist
 \todo{cite}, they provide limited formal guarantees \dmcmt{ Talk about Jan? How?
-} connecting the behavior
+} \kmcmt{No, not at this point. We should have talked about this earlier itself so that it is very clear at this point.} connecting the behavior
 of the compressed network and the original network. Thus, any analysis,
 including, for example, formal explainability or verification, done on the
 compressed network cannot easily be lifted to the original network. This lack of
@@ -267,7 +277,7 @@ discussed before, we do pay for the compression by introducing false positives,
 which rises steeply in the graph. This is again similar to the behavior seen in
 the previous section, where a few refinement steps leads to the elimination of
 most of the spurious counterexamples all at once \dmcmt{The reason may not be
-the same} 
+the same} \kmcmt{That is okay; a likely explanation is fine.} 
 
 We note that from the graph, even at around $45\%$ compression rate,
 we find that the false positive rate is close to that of the original network.
