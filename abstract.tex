@@ -9,12 +9,12 @@ of the DNNs -- real-world networks are trained for performance, and
 compromising size for accuracy is therefore a natural thing to do. To address
 this issue, several abstraction methods have been proposed. This includes
 techniques that perform an abstract analysis of the network, and those that
-abstract the network itself.  We study the latter, in which there are two
-different approaches that have been taken: \emph{syntactic} abstraction, with
-formal soundness guarantees, and \emph{semantic} abstraction where the
-soundness guarantees are usually much weaker, and empirical. In this paper, we
-propose to combine the semantic and syntactic approaches into a single
-framework, to get the best of both worlds. This allows us to guide the
+abstract or compress the network itself.  We study the latter, in which there
+are two different approaches that have been taken: \emph{syntactic}
+abstraction, with formal soundness guarantees, and \emph{semantic} abstraction
+where the soundness guarantees are usually much weaker, and empirical. In this
+paper, we propose to combine the semantic and syntactic approaches into a
+single framework, to get the best of both worlds. This allows us to guide the
 abstraction using global semantic information while still providing concrete
 soundness guarantees based on syntactic constraints. Our experiments on
 standard neural network benchmarks shows that this can be effective for both
