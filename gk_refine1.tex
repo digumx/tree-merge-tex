@@ -1,0 +1,43 @@
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[scale=0.5] % Adjust the scale factor as needed
+      % Your TikZ code goes here
+      \draw (5,2) circle (1cm);
+      \node at (5,2) {$M2$};
+      \node [text=red] at (5,0.75) {1.7};
+      \draw (5,-2) circle (1cm);
+      \node at (5,-2) {$n_{(1,3,+)}$};
+      \node [text=red] at (5,-3.5) {1.375};
+      \draw (0,2) circle (1cm);
+      \node at (0,2) {$n_{(0,0)}$};
+      \node [text=red] at (-2,2) {1};
+      \draw (0,-2) circle (1cm);
+      \node [text=red] at (-1.75,-2) {0.75};
+      \node at (0,-2) {$n_{(0,1)}$};
+      \draw (10,0) circle (1cm);
+      \node at (10,0) {$n_{(2,0)}$};
+      \node [text=red] at (12,0) {$6.475$};
+    \draw[solid, postaction={decorate, decoration={text along path,
+    text={0.5}, text align=center, raise=1mm}}](1, -2) -- (4, -2);
+   
+    \draw (1, -2) -- (4, 2);
+    \node at (3.75,1.25) {1};
+  
+    \draw (1, 2) -- (4, -2);
+    \node at (3.75,-1.25) {1};
+  
+    \draw[solid, postaction={decorate, decoration={text along path,
+    text={0.95}, text align=center, raise=1mm}}] (1, 2) -- (4, 2);
+   
+
+
+    \draw[solid, postaction={decorate, decoration={text along path,
+    text={1}, text align=center, raise=1mm}}] (6,-2) -- (9, 0);
+    \draw[solid, postaction={decorate, decoration={text along path,
+    text={3}, text align=center, raise=1mm}}] (6, 2) -- (9, 0);
+
+    \end{tikzpicture}
+    \caption{Refine Step 1: Culprit Neuron is 3}
+    \label{fig:refine_step_1}
+  \end{figure}
+  
