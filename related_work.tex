@@ -1,0 +1,55 @@
+\section{Related Work}
+
+In response to the increasing use of neural networks in safety-critical settings, 
+various techniques have been developed to analyze their behavior, including 
+verification, explainability etc. While Verification aims to ensure 
+the reliability and robustness of neural networks, 
+explainability techniques seek to shed light on their decision-making processes. 
+
+The methodologies for verifying neural networks generally fall into two main
+categories: sound and complete methods, and sound and incomplete methods. 
+Sound and complete methods aim to explore the entire state space to verify 
+the properties of neural networks. In contrast, sound and incomplete methods 
+employ an overapproximation of the state space, sacrificing completeness for 
+scalability and efficiency.
+
+An instance of a sound and complete methodology is Reluplex, which extends the 
+simplex algorithm—a standard tool for solving linear programming (LP) instances—to 
+handle ReLU constraints. Initially, it focuses on finding an assignment that 
+satisfies the linear constraints, subsequently incorporating non-linear constraints 
+to validate their satisfaction. In \todo{cite Formal Verification of Piece-wise Linear Network} 
+the authors introduce triangular constraints which represent the approximation of networks
+behavior. Their method involves inferring node phase fixtures,
+and introducing conflict clauses and safe node fixtures to aid in pruning the search 
+space, which is similar to classical SMT solving approaches. However, these methods
+often encounter scalability issues due to their exhaustive exploration of the
+entire state space. 
+
+On the other hand, alternative techniques like \todo{cite DeepPoly, cite crown}, which
+propagates linear upper and lower bound constraints, exhibit better
+scalability. DeepPoly achieves this by reducing the search space, but it comes with 
+a drawback of increased imprecision in its results. While \todo{cite alpha-CROWN} 
+enhances the bounds (refer to DeepPoly and CROWN for citations) through the use 
+of the variable $\alpha$, \todo{cite beta-crown} incorporates ReLU split
+constraints into the CROWN bound propagation process within the branch and bound
+(BaB) framework. This integration of \todo{cite beta crown } makes the 
+$\alpha$-$\beta$-CROWN framework sound and complete.
+
+\todo{cite Elboher } employ counterexample-guided syntactic abstraction refinement  
+which involves reducing the network size by merging similar neurons
+in order to introduce overapproximation which aids in the verification process.
+The approach proposed in \todo{cite deep-abstract} utilizes clustering-based 
+semantic abstraction to decrease the network's size. However, this technique 
+offers only limited soundness guarantees, relying on lifting certain bound propagation
+based proofs.
+\sncmt{Jan employs semantic abstraction techniques not sure how to put it across??} 
+
+While the aforementioned works focus on verifying specific properties of 
+networks, other works aim to understand the decision-making process of the network 
+itself. \sncmt{should we just cite other works which are not sound or do we have
+do briefly describe them?} In \todo{cite formal XAI}, the authors employ formal
+explainability techniques to identify a subset of input features that 
+influence the network's decision.
+
+\sncmt{should we cite normal compression techniques?}
+
