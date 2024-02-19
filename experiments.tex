@@ -1,120 +1,108 @@
 \section{Experiments}
-\dmcmt{Measure time taken by refinement?}
+\todo{Add 2 columns in Table 2}
 
-\kmcmt{Not sure what you mean? Do you mean that we should calculate the refinement time separately? I am not sure if that is required. I mean, it is good to not take too much time to refine. But then the number of refinement steps and the quality of refinement must also be considered along with the time. For example, one can refine very quickly by simply falling back to the original network immediately. But that is no good. So, if the time is less, and also the number of iterations and the size of the final refined network is less then we can report, otherwise we need not.}
-
-\todo{Talk about numpy for matrix ops and scipy for hcluster}
-
-We have implemented our method in python, using a linkage-matrix\todo{cite,
-maybe from the scipy docs} based
+We have implemented our method in python, utilising the NumPy \cite{numpy}
+library for linear algebra operations and the SciPy \cite{scipy} library for an
+implementation of hierarchial clustering \todo{cite}.
+We have used a linkage-matrix \cite{scipy-hcluster-linkage} \dmcmt{Is citing
+docs here okay? If so, in the manually written bibliography entry, is the year
+2024 okay?} based
 data structure to store the tree, and have precomputed and cached several
 operations that may need to be repeated every refinement iteration. This allows
 us to quickly perform the merge and split operations and calculate the
-scores, \dmcmt{TODO ref earlier sections} without having to do (relatively)
+scores, \todo{ ref earlier sections} without having to do (relatively)
 expensive tree traversal operations in each iteration of the abstraction
 refinement loop. 
 
-\kmcmt{Let us change the order here. Let us keep the strongest subsection first. And let us move the ACAS Xu verification subsection to the end.}
-
 Using this implementation, we have performed three sets of experiments to
-demonstrate the usefulness of our technique. We first use our abstractions to
-attempt to verify safety properties of the \acasxu networks. However,
-abstractions may be useful in other
-domains as well, \dmcmt{What? Any formal analysis beyond verification, for
-example, formal explainability \todo{cite gk} scalability is sensitive to size.
-So abstractions can give smaller nets with some guarantees. Check Jan Kretinsky,
-guarantees not enough, cite. Motivate section 4.3}, in particular to obtain compressed networks with certain safety guarantees behind them. To
-demonstrate this, we use our implementation to compress networks trained on the
-MNIST networks in the second and third set of experiments. \dmcmt{This needs to
-intro our story better}
+demonstrate the usefulness of our technique. In several safety critical
+settings, such as medical diagnosis and collision detection, where \dnn are
+deployed as classifiers, false negative classification with respect to some
+classes are highly undesirable. In the first set of experiments, we show that
+our abstraction technique can be leverage to obtain effective compression of
+\dnn in such settings with a guarantee that the compression does not introduce
+any new false negative classifications (Section \ref{s:nn-compr-exp}). In our
+second set of experiments, we demonstrate how our technique may be used to
+obtain abstract networks with the aim of proving a given property, plotting the
+number of spurious counterexamples introduced as the size of the abstract
+network reduces (Section \ref{s:mnist-plots}). Finally, in the last set of
+experiments, we show how our technique may be used in a CEGAR loop
+\cite{cegar-nn} to verify the \acasxu properties.
 
-\dmcmt{TODO add gh link and exp machine details}
+\todo{TODO add gh link and exp machine details}
 
-\subsection{\acasxu}
-\dmcmt{These set of experiments still needs to be rerun}
+\subsection{Compression with Guarantees on Critical Classes}
+\label{s:nn-compr-exp}
 
-In these set of experiments, we have taken the \acasxu set of
-networks \todo{add detailed table} and
-properties and attempt to verify them using a \cegar approach. We use our
-technique to generate the abstraction, and attempt to verify the property on the
-abstract network using an existing neural network verification solver. If the
-solver returns a counterexample, and if that counterexample is not spurious, we
-use that counterexample as a reference point for score calculation \todo{Ref
-prev sec} to select the culprit neuron. \todo{Ref prev section} With the culprit
-neuron selected, we then refine the network.
+In several safety-critical applications of \dnn as classifiers, there are
+certain `critical` classes for which a false negative classification is far more
+dangerous than a false positive one. For example, for medical diagnosis and
+collision detection, a false negative is far more dangerous than a false
+positive.
 
-\begin{table}
-\begin{tabular}{ |c|c|c|c| }
-\hline
-Benchmarks &    \% Verified &  Avg Reduction &  Avg Time \\
-\hline
-safe       &        40.404  &         4.4875 &   14.198  \\
-unsafe     &       100      &        55.6071 &   12.7916 \\
-\hline
-\end{tabular}
-\caption{Summary of \acasxu Results\todo{Fix formatting}}
-\label{t:acas-summary}
-\end{table}
+Safety critical analysis of neural networks is highly sensitive to the size of
+the network. While several neural network compression techniques exist
+\todo{cite}, they do not formal guarantees connecting the behavior
+of the compressed network and the original network. Similarly, although existing
+semantic abstraction techniques have been proposed as a way to compress neural
+networks, the guarantees provided by such techniques are of an empirical nature
+\cite{lin-comb-abs-jan}.
+This lack of guarantees also limits the usefulness of these compression
+techniques as optimisation steps when deploying a network to a
+resource-constrained environment. 
 
-The results are summarised in table \ref{t:acas-summary}. The solver we used was
-\abcrown. \dmcmt{Note, avg time and network size here doesn't include
-timeouts. Also, for reduction rate, the original network size is taken to be
-600, since the re-merging optimization is not there in this data. With that
-optimization added, we should compare against 300. Also, the full verification
-rate is 100\% because its not a full set of experiments, this will potentially
-be a lot lower.} 
-\kmcmt{This is fine. Let us just report whatever we get.}
-
-We notice that for the unsafe cases, we are able to refute the
-properties via a counterexample obtained on a significantly smaller network.
-\dmcmt{But what about the safe cases, what do we say?}. \kmcmt{We need not talk about safe cases if we do not have anything to say. That's fine.}  In fact, for most
-networks, we are able to refute based on a counterexample from the fully
-abstracted network of size $18$. \dmcmt{This is not there in this small summary
-table, but is clear from the full data table. Maybe link to that somewhere
-in the appendix?} \kmcmt{Yes, we should have the full table in the appendix and a link to that here.} Note that since we use only two classes in our
-fully abstracted network as opposed to 4 in \cite{cegar-nn}, the size of this
-network is significantly smaller. In other networks, we are are able to get a
-counterexample on a network with size very close to the original network.
-
-For the safe cases, we see that the size of the abstracted networks are large
-for instances that did not time out.  This is in line with what was observed in
-\cite{cegar-nn} \dmcmt{Can we claim this? It's not immediately clear from their
-paper, maybe we need to show our recreation of their experiments? Also, this
-split is not clear from the table}. \kmcmt{We can claim this without recreating anything. We can simply remark that this was also observed there, and we believe that it for the same reason.. but let's discuss what we want to convey from this para and if we can state that in an easier way.} For other instances, the timeout happened
-due to the solver timing out on the abstract query. \dmcmt{While the sizes of
-the networks on which this to happened are small, does that not say
-something negative about our abstraction?} \kmcmt{Yes, it does. Let us first decide what is the point that we wish to make. And then we will see how to make that point.}
+Our theoretical framework for abstraction allows us to produce compressed
+networks with the formal guarantee that the abstraction process will not
+introduce any new false negative. We do this by marking the output neuron $n_c$
+corresponding to the critical class in the output layer as inc, and all other
+neurons in that layer as dec.  Then, for any input that the concrete network
+classified into the critical class, $n_c$ will have the largest value in the
+output layer, and as it has been marked as inc, it will continue to have the
+larges value in the output layer for the abstract network as well. Thus, the
+abstract network will also classify this input as critical. We will however pay
+for this compression by introducing false positives, and in the subsequent plots
+we plot the number of false positives introduced with respect to size of the
+compressed network.
 
 \begin{figure}
-    \includegraphics[scale=0.4]{figs/acas-scatter.png}
-   \caption{Scatter plot of abstract network sizes vs time in seconds for
-   \acasxu}
-   \label{f:acas-scatter}
+    \includegraphics[scale=0.6]{figs/mnist_2_256_class_samples.png}
+    \caption{Accuracy and True/False Positive/Negative Rates vs Reduction Rate
+        plot for \mnist of size $2 \times 256$ with critical class 0. Refinement
+    done via the 'samples' method. \todo{Shrink, add graph wrt no of steps}}
+    \label{f:mnist-class-samples}
 \end{figure}
 
-Figure \ref{f:acas-scatter} shows the network sizes and times of the \acasxu
-networks as a scatter plot. \dmcmt{This includes to and non-to}. Note that the
-time taken here is dominated by the solver call time \dmcmt{Should we measure
-and report this precisely?} \kmcmt{I think it would be good to do that. It will help the
-point that we are making. What do you think?} We see that the time taken by the solver call on
-these networks is not at all correlated with the network sizes. For instances,
-for the safe cases, there are several networks of sizes ranging from $350$ to
-$600$ \relu nodes all of which time out on the solver call. Similarly, for the
-unsafe networks, several $600$ size networks take less than $25$ seconds. In
-fact, we found that the time taken by the solver call on a particular network is
-more dependent on the solver (and configuration of the solver) used than on the
-size of the network. Due to this, in the following experiments, we measure the
-accuracy of the networks obtained via abstraction instead of making solver calls
-to determine the effectiveness of the abstraction. \dmcmt{Is this okay? Can it
-be instead argued that the variance is due to the networks themselves, so the
-abstraction is not necessarily useful?
-Maybe trying with other configs and showing the variance?}
-\kmcmt{No. I think the abstraction can still be argued as useful, unless we start seeing several instances where the solver time consistently increased after the abstraction.}
+We demonstrate the effectiveness of our abstraction method as such a compression
+with guarantees technique via some experiments on \mnist and show the results in
+figure \ref{f:mnist-class-samples}. We set the class '0'
+as the critical class, and use our abstraction technique to obtain a compressed
+network. Then, we use the 'samples' method described previously to progressively
+refine the network (moving right to left) , plotting the accuracy, false/true
+positive/negative rates as we go along. For this plot, the samples were drawn
+from the \mnist training dataset, and the accuracies were plotted using the
+\mnist test dataset.
+
+We notice that, as guaranteed by the theory, the false negative rate never
+increases, even as the reduction rate approaches close to $100\%$. Thus, even
+for highly compressed networks, we never introduce any new false positives, and
+in fact, the false negative rate improves, as some of the points that are going
+to be newly classified as positive may in fact be true positives. However, as
+discussed before, we do pay for the compression by introducing false positives,
+which rises steeply in the graph. Thus, we see that a few refinement steps
+contribute most to eliminating almost all of the spurious counterexamples. 
+This is similar to the behavior seen in Section \ref{s:mnist-plots}, where a few
+refinement steps leads to the elimination of most of the spurious
+counterexamples all at once. 
+
+We note that from the graph, even at around $45\%$ compression rate,
+we find that the false positive rate is close to that of the original network.
+This shows that our abstraction technique can find effective compressions with
+the guarantee that no false negatives have been introduced. \dmcmt{Add a table
+smilar to later section for various mnist sizes?}
 
 \subsection{Robustness on \mnist}
-\dmcmt{What about doing these experiments on ACAS?}
-\dmcmt{Do pgd then samples}
-\kmcmt{We can do this in the end if time permits.}
+\label{s:mnist-plots}
+\todo{If time permits try: 1. These experiments on ACAS, 2. pgd then samples}
 
 In this section, we start with our abstraction and progressively refine it using
 our refinement technique, measuring the number of spurious counterexamples at
@@ -147,8 +135,7 @@ the implementation of 'pgd' inside \abcrown for our experiments.
 Figure \ref{f:mnist-prop-samples} \ref{f:mnist-prop-pgd} shows a typical plot
 for these experiments.  Here accuracy measures the number of true
 counterexamples within a random sample
-drawn from a region satisfying the pre-condition. \dmcmt{Should I plot and talk
-in terms or spurious counterexample rate instead?} \kmcmt{We can do that. Essentially, whichever way makes the plots look better. But they are the same thing. So, let us not worry too much about this right now.} We see that as we refine the
+ We see that as we refine the
 network and the reduction rate reduces (moving right to left along the graph),
 the accuracy remains close to zero. At some point however, the accuracy jumps up
 sharply and becomes close to $100\%$. This indicates that there are a few
@@ -157,12 +144,7 @@ may be due the fact that with epsilon robustness properties that are being
 explored here, the pre-condition region may be very small, so a single
 refinement step may change the behavior of the network on that small region in a
 way that eliminates all possible spurious counterexamples from that region.
-\dmcmt{Is this expl okay?} \kmcmt{Yes, this is fine.}
-\dmcmt{BaB and abstract interp based methods like \abcrown are successful on
-such props because of this, discuss this?} \dmcmt{Also, other graphs are
-present. For eg, some random sampling graphs show peaks in the middle
-(2..random), and some pgd graphs are flat lines (4,6..pgd). Discuss
-these?} \kmcmt{If space permits; looks unlikely as of now.}
+\todo{Make graphs smaller, and include the vs steps graphs}
 
 \begin{table}
 \begin{tabular}{|c|c|c|c|c|}
@@ -183,8 +165,9 @@ these?} \kmcmt{If space permits; looks unlikely as of now.}
     $6\times256$ & samples-pgd & $47.9\%$  & $100\%$  & $1209$    \\
     \hline
 \end{tabular}
-\caption{Summary of \mnist Results on a single robustness property \todo{Fix
-formatting} \dmcmt{Include Times?}}
+\caption{Summary of \mnist Results on a single robustness property \todo{Add
+        column with time per refine, and number of neurons eliminated per
+refine.}}
 \label{t:mnist-prop-summary}
 \end{table}
 
@@ -212,74 +195,76 @@ shortens the search for the refined network. We also observe that
 of refinement steps, indicating that each method may be taking close to the
 optimal set of refinement steps. So, although the 'pgd' method
 incurs a significant time overhead \dmcmt{Measure?} it does not necessarily
-provide any benefits.\dmcmt{Last two paragraphs okay? Refer to this
-in intro of experiments section? Also, pgd does not produce improvement (unlike
-in cleverest). This is prob because global view, and cegarette is about doing an
-eager attack before solver call. Discuss this? So two potential angles on this,
-what Ive written vs global view angle.} \kmcmt{These two paragraphs look okay to me. Let us discuss
-the specific concerns when we meet.}
+provide any benefits. 
 
-\subsection{Compression with Guarantees on Critical Classes}
+We note that in \cite{cleverest-nn}, an eager pgd-attack before each solver call
+has been effectively used to accelerate the CEGAR loop. We do not see such
+benefits from using pgd, and instead observe that the global view given by
+the large number of samples in the `samples` method performs better. While the
+relative performance of `pgd` and `samples` may be different for a different set
+of target network and property, our framework allows the use of either, and
+in-fact, any other method for generating the counterexamples.
 
-In several safety-critical applications of \dnn as classifiers, there are
-certain `critical` classes for which a false negative classification is far more
-dangerous than a false positive one. For example, for medical diagnosis and
-collision detection, a false negative is far more dangerous than a false
-positive.
+\subsection{Verification of \acasxu}
+\dmcmt{These set of experiments still needs to be rerun}
 
-Safety critical analysis of neural networks is highly sensitive to the size of
-the network. While several neural network compression techniques exist
-\todo{cite}, they provide limited formal guarantees \dmcmt{ Talk about Jan? How?
-} \kmcmt{No, not at this point. We should have talked about this earlier itself so that it is very clear at this point.} connecting the behavior
-of the compressed network and the original network. Thus, any analysis,
-including, for example, formal explainability or verification, done on the
-compressed network cannot easily be lifted to the original network. This lack of
-guarantees also limits the usefulness of these compression techniques as
-optimisation steps when deploying a network to a resource-constrained
-environment. 
+In these set of experiments, we have taken the \acasxu set of
+networks \todo{add detailed table} and
+properties and attempt to verify them using a \cegar approach. We use our
+technique to generate the abstraction, and attempt to verify the property on the
+abstract network using an existing neural network verification solver. If the
+solver returns a counterexample, and if that counterexample is not spurious, we
+use that counterexample as a reference point for score calculation  to select
+the culprit neuron (\ref{s:refinement}). With the culprit neuron selected, we
+then refine the network.
 
-Our theoretical framework for abstraction allows us to produce compressed
-networks with the formal guarantee that the abstraction process will not
-introduce any new false negative. We do this by marking the output neuron $n_c$
-corresponding to the critical class in the output layer as inc, and all other
-neurons in that layer as dec.  Then, for any input that the concrete network
-classified into the critical class, $n_c$ will have the largest value in the
-output layer, and as it has been marked as inc, it will continue to have the
-larges value in the output layer for the abstract network as well. Thus, the
-abstract network will also classify this input as critical. We will however pay
-for this compression by introducing false negatives, as we will demonstrate
-shortly. \dmcmt{Last sentence okay?}
+\begin{table}
+\begin{tabular}{ |c|c|c|c| }
+\hline
+Benchmarks &    \% Verified &  Avg Reduction &  Avg Time \\
+\hline
+safe       &        40.404  &         4.4875 &   14.198  \\
+unsafe     &       100      &        55.6071 &   12.7916 \\
+\hline
+\end{tabular}
+\caption{Summary of \acasxu Results \todo{Add full table in
+appendix}}
+\label{t:acas-summary}
+\end{table}
 
-\begin{figure}
-    \includegraphics[scale=0.6]{figs/mnist_2_256_class_samples.png}
-    \caption{Accuracy and True/False Positive/Negative Rates vs Reduction Rate
-        plot for \mnist of size $2 \times 256$ with critical class 0. Refinement
-        done via the 'samples' method.}
-    \label{f:mnist-class-samples}
-\end{figure}
+The results are summarised in table \ref{t:acas-summary}. The solver we used was
+\abcrown. The average times reported here do not include instances where the
+verification failed due to timeout, and the reduction rate is with respect to
+the network size after inc-dec split. We report these figures since, as noted in
+\cite{cegar-nn}, the networks obtained after inc-dec split, while larger, are
+easier to verify by typical solvers like \marabou.
 
-We demonstrate the effectiveness of our abstraction method as such a compression
-with guarantees technique via some experiments on \mnist and show the results in
-figure \ref{f:mnist-class-samples}. We set the class '0'
-as the critical class, and use our abstraction technique to obtain a compressed
-network. Then, we use the 'samples' method described previously to progressively
-refine the network (moving right to left) , plotting the accuracy, false/true
-positive/negative rates as we go along. For this plot, the samples were drawn
-from the \mnist training dataset, and the accuracies were plotted using the
-\mnist test dataset.
+We notice that for the unsafe cases, we are able to refute the
+properties via a counterexample obtained on a significantly smaller network. In
+fact, for most networks, we are able to refute based on a counterexample from
+the fully abstracted network of size $18$ (See \todo{Add ref to full table in
+appendix after re-runs}. Note that since we use only two classes in our
+fully abstracted network as opposed to 4 in \cite{cegar-nn}, the size of this
+network is significantly smaller. 
 
-We notice that, as guaranteed by the theory, the false negative rate never
-increases, even as the reduction rate approaches close to $100\%$. Thus, even
-for highly compressed networks, we never introduce any new false positives, and
-in fact, the false negative rate improves, as some of the points that are going
-to be newly classified as positive may in fact be true positives. However, as
-discussed before, we do pay for the compression by introducing false positives,
-which rises steeply in the graph. This is again similar to the behavior seen in
-the previous section, where a few refinement steps leads to the elimination of
-most of the spurious counterexamples all at once \dmcmt{The reason may not be
-the same} \kmcmt{That is okay; a likely explanation is fine.} 
+For safe cases, we see only negligible improvement in the size of the network.
+We believe that this is because for these benchmarks, there is not much room for
+improvement via abstraction. We are also able to only verify a smaller
+percentage of these benchmarks, because the underlying solver call would time
+out on mid-sized abstract networks \todo{Ref full table in appendix}, stalling
+the CEGAR loop. We note that some timeouts were also reported in
+\cite{cegar-nn}, and thus may be expected. 
 
-We note that from the graph, even at around $45\%$ compression rate,
-we find that the false positive rate is close to that of the original network.
-This shows that our abstraction technique can find effective compressions with
-the guarantee that no false negatives have been introduced.
+In our experiments we find that the time taken for a solver call are more
+dependent on the particular solver, solver configuration and benchmark than on
+the size of the network. Thus it may seem that the effort needed to verify a
+network is dependent on other factors than simply the size of the network. While
+this may be interesting to explore in future work, we nonetheless argue that
+network size is a relevant metric. This is as more and more solvers are designed
+and optimized for various kinds of networks, the underlying worst case
+performance will almost certainly remain exponential in the size of the network.
+Furthermore, in the previous experiments (Sections \ref{s:nn-compr-exp},
+\ref{s:mnist-plots}) we have demonstrated that our abstraction technique does
+produce a reduction in network size whose usefulness extends beyond improving
+verification time. \dmcmt{Madhukar: Check this}
+
