@@ -1,4 +1,5 @@
 \section{Methodology}
+\label{s:semantic-closeness}
 
 \input{tree_cut_refine.tex}
 
@@ -42,68 +43,145 @@ Thus, the concrete soundness guarantees still hold for the \abs obtained.
 
 In the following sections we describe a general framework for such a unified
 syntactic and semantic refinement process, describing each component in detail.
-\linebreak
 
 \dmcmt{This will be the general structure of the rest of this section. The
 existing material can be re-organised into these headers.}
 
 \subsection{Semantic Closeness Factor}
 
-\dmcmt{ Talk about what the semantic closeness factor is. Say that it should
-    characterise the semantic behavior, but doing so precisely is hard. So, talk
-    about the simulation and observation vectors we use. Stress that this is a
-    framework, and that one can explore other methods of semantic closeness
-    within our framework. If we are able to get the characterestic based exps
-    run, we can talk about that as well.
+\todo{If we are able to get the characterestic based exps run, we can talk
+    about that as well.
 }
+
+To guide the semantic abstraction process, we define a \textit{semantic
+closeness factor} $\cls$: Given two neurons $\nr{i_1}{l}$ and $\nr{i_2}{l}$ in
+the same layer $l$, $\cls(\nr{i_1}{l}, \nr{i_2}{l})$ is a real number that
+captures how close the behaviors of $\nr{i_1}{l}$ and $\nr{i_2}{l}$ are from a
+semantic point of
+view. Intuitively, this factor would characterise the semantic behavior of the
+neurons in layer $l$ relative to each other, and prioritise certain merges over
+others. 
+
+Depending on the application, the precise definition of this factor may be
+chosen in various ways. We note that our framework is agnostic to the particular
+choice of semantic factor, and a concrete soundness guarantee holds for any such
+choice. Inspired by \cite{deep-abstract}, in we chose as the
+semantic closeness factor how close the functions computed by the two neurons
+are: $||\nrf{i_1}{l} - \nrf{i_2}{l}||$. 
+
+However, since $\nrf{i_1}{l}$ and $\nrf{i_2}{l}$ are functions, computing
+$||\nrf{i_1}{l} - \nrf{i_2}{l}||$ precisely is not possible.
+Therefore, we estimate it using a sample set of inputs $X$: $||\ob{i_1}{l}($X$)
+- \nrf{i_2}{l}($X$)||_2$. This $X$ may be chosen in many ways, for example, it
+may be a set of randomly chosen input values satisfying $P$ when
+abstracting with respect to a query $(P, \mcnc, Q)$
+(Section \ref{s:exp-mnist-rob}), or a dataset when attempting to find a
+compression with no new false negatives (Section \ref{s:exp-mnist-comp}).
 
 \subsection{Tree of Merges}
 
-\dmcmt{ Talk about the tree of merge operations, maybe with example. Have
-    explanation / algo about how tree is built, greedily choosing two best
-    merges to do, like hcluster or existing Algo 2. Point out
-    that worse merges are occurring higher. Don't talk about cuts or refinements
-yet }
+We use $\cls$ to create a tree structure to prioritise merges wherein leaf nodes
+represent the original neurons, and 
+non-leaf nodes represent merge groups\dmcmt{Do we need to define this
+somewhere?}. The construction of the tree 
+follows a bottom-up approach, starting from individual neurons, 
+greedily merging the most similar pair of neurons or merge groups
+and delaying the merging of dissimilar ones. 
 
+Note that $\cls$ only provides us
+with a similarity measure for pairs of neurons. For this tree construction
+algorithm to work we must extend this to a similarity
+measure between pairs of merge groups with neurons
+$\{\nr{i_1}{l}, {\cdots}, \nr{i_p}{l}\}$ and $\{\nr{j_1}{l}, {\cdots},
+\nr{j_q}{l}\}$. To do this we take the pairwise maximum: 
 
-To establish the merging order of neurons, we create a tree 
-structure wherein leaf nodes represent the original neurons, and 
-non-leaf nodes represent merge groups. The construction of the tree 
-follows a bottom-up approach, prioritizing the merging of similar neurons 
-and delaying the merging of dissimilar ones. Similarity is ascertained through 
-observation vectors.
+\begin{equation*}
+\begin{aligned}
+    \max_{k_1 \in \{1, {\cdots}, p\},
+    k_2 \in \{1, {\cdots}, q\}} \cls( \nr{i_{k_1}}{l}, \nr{j_{k_2}}{l} )
+\end{aligned}
+\end{equation*}
 
-In figure \ref{Figure: Order Of Merging}, if we give the list of input vectors $[[1], [2], [3]]$ to the observation function $o_{(i, j)}$ for $(n_{(1, 1, Inc)})$, then we obtain a list of output vectors $[[1.5], [3], [4.5]]$. We utilize the output of the observation function as a measure to merge neurons. For instance, considering three neurons $n_{(w, i)}$, $n_{(w, j)}$, and $n_{(w, k)}$ with 
-observation vectors $o_{(w, i)}$, $o_{(w, j)}$, and 
-$o_{(w, k)}$, the merging sequence adheres to the following conditions: 
+\dmcmt{Is the above notation necessary, or can we just say pairwise maximum and
+refer to algo?}
 
-If $||o_{(w, i)} - o_{(w, j)}||_{2} \leq ||o_{(w, i)} - 
-o_{(w, k)}||_{2}$ and $||o_{(w, i)} - o_{(w, j)}||_2 \leq ||o_{(w, j)} - 
-o_{(w, k)}||_{2}$, then $n_{(w, i)}$ and $n_{(w, j)}$ are initially merged into a 
-representative neuron $\alpha$, followed by the merging of $\alpha$ and $n_{(w, k)}$. 
-Here $||o_{(w, i)} - o_{(w, j)}||_{2}$ computes the ``$\textit{Euclidean 
-Distance}$" between the observation vectors $o_{(w, i)}$ and  $o_{(w, j)}$.
+This process is detailed in Algorithm \ref{a:build-tree}.
 
+\begin{algorithm}[H]
+\caption{Building the Tree}
+\label{a:build-tree}
+\begin{algorithmic}[1]
 
-In Figure \ref{Figure: Order Of Merging}, for the first layer, the initial 
-merge would involve the neuron $n_{(1, 0, Inc)}$ with $n_{(1, 1, Inc)}$, 
-forming $\textit{Merge 1}$, then we would combine $n_{(1, 2, Inc)}$ and 
-$n_{(1, 3, Inc)}$, forming $\textit{Merge 2}$. Finally we combine 
-$\textit{Merge 1}$ and $\textit{Merge 2}$ into the root node. 
+    \Require Neurons $\{\nr{i_1}{l}, {\cdots}, \nr{i_r}{l}\}$ with same class,
+    Closeness factor $\cls$
+    
+    \State Initialize a Binary Tree $T$ with leaves as
+        $\{m_1, {\cdots}, m_r\}$ corresponding to $\{ \nr{i_1}{l}, {\cdots},
+        \nr{i_r}{l} \}$
+    \State Initialize map $M(m_k) = \{ \nr{i_k}{l} \}$ taking tree nodes to sets
+        of neurons in corresponding merge group
+    \State Initialize $Q=\{m_1, {\cdots}, m_r\}$ as the set of leaf nodes.
 
-As we progress up the tree, the degree of over-approximation rises. 
-This is due to the increasing difference between observation vectors as 
-we ascend. Therefore, the sub-trees closer to the root are indicative of 
-coarser merges, whereas the ones farther from the root represent finer merges. 
+    \Function{PairwiseMax}{$m, m'$}
+        
+            \Return $\max_{\nr{i_{k}}{l} \in M(m), \nr{i_{k'}}{l} \in M(m')} 
+                \cls( \nr{i_{k}}{l}, \nr{i_{k'}}{l} )$
 
-\sncmt{Do we need to say how this tree corresponds to all possible merge groups
- which are allowed in the partial order because different cuts in the tree 
- correspond to different neural networks. If ``Yes'', do we need to include the 
- Guy Katz abstraction details. And then, in the next section, do we need to tell 
- how to construct the actual weight matrix from indexing into this all possible 
- merge groups weight matrix? Because Dig talked about efficient data structures 
- in the intro.}
+    \EndFunction
 
+    \While{$|Q|>1$}
+        \State $m_{j_1}, m_{j_2} = \arg\min_{\substack{m, m' \in Q}} 
+            \text{PairwiseMax}(m, m')$
+        \State Add new node $m_{j_3}$ to $T$ 
+        \State Make $m_{j_1}, m_{j_2}$ children on $m_{j_3}$
+        \State Remove $m_{j_1}, m_{j_2}$ from $Q$ and add $m_{j_3}$ to $Q$.
+        \State Add $M(m_{j_3}) = M(m_{j_1}) \cup M(m_{j_2})$ to the map
+    \EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+For instance, considering the middle layer in Figure
+\ref{fig:Original_Net_Property}, $\nr{0}{1}$ and $\nr{1}{1}$ are semantically
+closest. Thus, in the tree, we merge these two first to get the node $m_4$.
+Then, the two semantically closest pairs are given by $\nr{2}{1}$ and
+$\nr{3}{1}$, so they are merged to $m_5$. Finally, $m_4$ and $m_5$ gets merged
+to $m_6$. This gives us the tree seen in the top half of Figure
+\ref{fig:Order_of_merging}.\dmcmt{Is it okay to refer to same figure? Can it be
+confusing potentially?}
+
+%In figure \ref{Figure: Order Of Merging}, if we give the list of input vectors $[[1], [2], [3]]$ to the observation function $o_{(i, j)}$ for $(n_{(1, 1, Inc)})$, then we obtain a list of output vectors $[[1.5], [3], [4.5]]$. We utilize the output of the observation function as a measure to merge neurons. For instance, considering three neurons $n_{(w, i)}$, $n_{(w, j)}$, and $n_{(w, k)}$ with 
+%observation vectors $o_{(w, i)}$, $o_{(w, j)}$, and 
+%$o_{(w, k)}$, the merging sequence adheres to the following conditions: 
+%
+%If $||o_{(w, i)} - o_{(w, j)}||_{2} \leq ||o_{(w, i)} - 
+%o_{(w, k)}||_{2}$ and $||o_{(w, i)} - o_{(w, j)}||_2 \leq ||o_{(w, j)} - 
+%o_{(w, k)}||_{2}$, then $n_{(w, i)}$ and $n_{(w, j)}$ are initially merged into a 
+%representative neuron $\alpha$, followed by the merging of $\alpha$ and $n_{(w, k)}$. 
+%Here $||o_{(w, i)} - o_{(w, j)}||_{2}$ computes the ``$\textit{Euclidean 
+%Distance}$" between the observation vectors $o_{(w, i)}$ and  $o_{(w, j)}$.
+%
+%
+%In Figure \ref{Figure: Order Of Merging}, for the first layer, the initial 
+%merge would involve the neuron $n_{(1, 0, Inc)}$ with $n_{(1, 1, Inc)}$, 
+%forming $\textit{Merge 1}$, then we would combine $n_{(1, 2, Inc)}$ and 
+%$n_{(1, 3, Inc)}$, forming $\textit{Merge 2}$. Finally we combine 
+%$\textit{Merge 1}$ and $\textit{Merge 2}$ into the root node. 
+
+As we progress up the tree, the coarseness of abstraction one would get by
+merging all neurons in the merge group corresponding to each node increases. 
+This is due to the increasing difference in the semantic behavior of nodes
+within the same merge group. 
+
+In our example, the merge group corresponding to
+$m_4$ is $\{\nr{0}{1}, \nr{1}{1}\}$, while that of $m_6$ is $\{\nr{0}{1},
+\nr{1}{1}, \nr{2}{1}, \nr{3}{1}\}$. Since the semantic behavior of $\nr{0}{1}$
+and $\nr{1}{1}$ are closer than $\nr{0}{1}, \nr{1}{1}, \nr{2}{1}, \nr{3}{1}$,
+$m_4$ represents a less coarse abstraction than $m_6$.
+
+For our choice of $\cls$, (Section \ref{s:semantic-closeness}), Algorithm
+\ref{a:build-tree} reduces to \hcluster, allowing us to leverage existing
+efficient implementations \cite{scipy-hcluster-linkage}. Nonetheless, the
+general algorithm presented here will work for any choice of $\cls$.
 
 \subsection{Tree-cuts and Refinement}
 \label{s:refinement}

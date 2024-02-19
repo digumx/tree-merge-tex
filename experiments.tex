@@ -3,10 +3,8 @@
 
 We have implemented our method in python, utilising the NumPy \cite{numpy}
 library for linear algebra operations and the SciPy \cite{scipy} library for an
-implementation of hierarchial clustering \todo{cite}.
-We have used a linkage-matrix \cite{scipy-hcluster-linkage} \dmcmt{Is citing
-docs here okay? If so, in the manually written bibliography entry, is the year
-2024 okay?} based
+implementation of \hcluster.
+We have used a linkage-matrix \cite{scipy-hcluster-linkage}  based
 data structure to store the tree, and have precomputed and cached several
 operations that may need to be repeated every refinement iteration. This allows
 us to quickly perform the merge and split operations and calculate the
@@ -21,18 +19,18 @@ deployed as classifiers, false negative classification with respect to some
 classes are highly undesirable. In the first set of experiments, we show that
 our abstraction technique can be leverage to obtain effective compression of
 \dnn in such settings with a guarantee that the compression does not introduce
-any new false negative classifications (Section \ref{s:nn-compr-exp}). In our
+any new false negative classifications (Section \ref{s:exp-mnist-comp}). In our
 second set of experiments, we demonstrate how our technique may be used to
 obtain abstract networks with the aim of proving a given property, plotting the
 number of spurious counterexamples introduced as the size of the abstract
-network reduces (Section \ref{s:mnist-plots}). Finally, in the last set of
+network reduces (Section \ref{s:exp-mnist-rob}). Finally, in the last set of
 experiments, we show how our technique may be used in a CEGAR loop
 \cite{cegar-nn} to verify the \acasxu properties.
 
 \todo{TODO add gh link and exp machine details}
 
 \subsection{Compression with Guarantees on Critical Classes}
-\label{s:nn-compr-exp}
+\label{s:exp-mnist-comp}
 
 In several safety-critical applications of \dnn as classifiers, there are
 certain `critical` classes for which a false negative classification is far more
@@ -90,18 +88,18 @@ to be newly classified as positive may in fact be true positives. However, as
 discussed before, we do pay for the compression by introducing false positives,
 which rises steeply in the graph. Thus, we see that a few refinement steps
 contribute most to eliminating almost all of the spurious counterexamples. 
-This is similar to the behavior seen in Section \ref{s:mnist-plots}, where a few
+This is similar to the behavior seen in Section \ref{s:exp-mnist-rob}, where a few
 refinement steps leads to the elimination of most of the spurious
 counterexamples all at once. 
 
 We note that from the graph, even at around $45\%$ compression rate,
 we find that the false positive rate is close to that of the original network.
 This shows that our abstraction technique can find effective compressions with
-the guarantee that no false negatives have been introduced. \dmcmt{Add a table
+the guarantee that no false negatives have been introduced. \todo{Add a table
 smilar to later section for various mnist sizes?}
 
 \subsection{Robustness on \mnist}
-\label{s:mnist-plots}
+\label{s:exp-mnist-rob}
 \todo{If time permits try: 1. These experiments on ACAS, 2. pgd then samples}
 
 In this section, we start with our abstraction and progressively refine it using
@@ -206,7 +204,7 @@ of target network and property, our framework allows the use of either, and
 in-fact, any other method for generating the counterexamples.
 
 \subsection{Verification of \acasxu}
-\dmcmt{These set of experiments still needs to be rerun}
+\todo{These set of experiments still needs to be rerun}
 
 In these set of experiments, we have taken the \acasxu set of
 networks \todo{add detailed table} and
@@ -263,8 +261,8 @@ this may be interesting to explore in future work, we nonetheless argue that
 network size is a relevant metric. This is as more and more solvers are designed
 and optimized for various kinds of networks, the underlying worst case
 performance will almost certainly remain exponential in the size of the network.
-Furthermore, in the previous experiments (Sections \ref{s:nn-compr-exp},
-\ref{s:mnist-plots}) we have demonstrated that our abstraction technique does
+Furthermore, in the previous experiments (Sections \ref{s:exp-mnist-comp},
+\ref{s:exp-mnist-rob}) we have demonstrated that our abstraction technique does
 produce a reduction in network size whose usefulness extends beyond improving
-verification time. \dmcmt{Madhukar: Check this}
+verification time. 
 
