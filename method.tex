@@ -57,8 +57,9 @@ closeness metric} $\cls$: $\cls(\nr{i_1}{l}, \nr{i_2}{l})$ is function that
 takes two neurons $\nr{i_1}{l}$ and $\nr{i_2}{l}$ in
 the same layer $l$, and returns a real number that
 captures how close the behaviors of $\nr{i_1}{l}$ and $\nr{i_2}{l}$ are from a
-semantic point of
-view. Intuitively, this metric would characterise the semantic behavior of the
+semantic point of view. The number returned by $\cls$ should be smaller for
+neurons whose semantic behavior is closer. Intuitively, this metric would
+characterise the semantic behavior of the
 neurons in layer $l$ relative to each other, and prioritise certain merges over
 others. 
 
@@ -325,15 +326,22 @@ prove the property in fewer iterations.
 %\end{algorithm}
 
 
-\subsection{Optimality of Merge Groups}
+\subsection{Optimality of Tree}
 
-\dmcmt{Briefly argue / prove why two neurons within same merge group is
-    semantically closer than neurons across groups. Stress that this is good for
-    quality of merges. Point out that this holds in the running example, and
-contrast the quality and size with gk (if tracking example through gk). }
+The tree $T$ produced in Section \ref{s:tree} captures an optimal ordering of
+merge operations with respect to the semantic information in the following
+sense:
 
+Let $T_1$ and $T_2$ be two sub-trees of $T$. Then, the maximum value of $\cls$
+for any two neurons that are leaves $T_1$ (or $T_2$) is smaller than the maximum
+value of $\cls$ for any two neurons one from $T_1$ and another from $T_2$.
+\dmcmt{Make this a lemma?}
 
-
+This fact can be easily proved via induction on the combined size of $T_1$ and
+$T_2$ \todo{Ref appendix}. Thus, we have that for any cut in the tree, the
+maximum difference in the semantic behavior for nodes that have been left merged
+is less than the maximum difference in semantic behavior for nodes that have
+been un-merged.
 
 % \subsection{Optimality of the Trees}
 % Our objective is to determine the most efficient order for merging neurons, minimizing the introduction of over-approximation at each step. This approach aims to avoid creating networks with excessive over-approximation, which could lead to the generation of spurious counter-examples in response to queries. Opting not to mitigate over-approximation at each step would result in an increased number of refinement steps. This essentially entails making additional solver calls, incurring significant costs to eliminate the spurious counter-examples.
@@ -341,39 +349,39 @@ contrast the quality and size with gk (if tracking example through gk). }
 
 % Nevertheless, during the initial merging process (until saturation is reached), the root node ``$\rho$'' will exhibit the same level of over-approximation across all conceivable merging scenarios—for all possible tree sequences. Nevertheless, when we descend one level down the tree to explore the children nodes of our original root node $\rho$ for the purpose of identifying a cut for refinement, we discover varying levels of over-approximation manifesting in the root nodes of the resultant sub-trees. These differences are a result of the different merging scenarios pursued to construct those individual trees.
 
-\begin{algorithm}[H]
-\caption{Cluster Merging Algorithm (find\_abstraction\_tree)}
-\label{Cluster Merging Algorithm}
-\begin{algorithmic}[1]
-    \State Initialize every simulated distance vector as a singleton cluster.
-    \State Initialize $C=\{v_1,v_2,v_3,..\}$ as the set of singleton clusters.
-    \State Initialize a Binary Tree $T$ with leaves as $\{(n_1),(n_2),(n_3),..\}$ corresponding to $\{v_1,v_2,v_3,..\}$.
-    \State Initialize $V$ as a set of visited nodes, empty at first.
-    
-    \Function{MergeFunction}{$u, v$}
-        \If{All nodes are classified as \textbf{Inc}}
-        {
-        
-            \Return $\max(u, v)$
-        }
-        \Else{ }
-        {
-        
-            \Return $\min(u, v)$
-        }
-        \EndIf
-    \EndFunction
-    
-    \While{$|C|>1$}
-        \State $v_j, v_j = \arg\min_{\substack{a, b \in C}} \| a - b \|_2$
-        \State Set $w=\text{MergeFunction}(v_i,v_j)$
-        \State Let nodes from $T$ not in $V$ corresponding to $v_i,v_j$ be $m_i$ and $m_j$
-        \State Remove $v_i,v_j$ from $C$ and add $w$ to $C$.
-        \State Make $(m_i \cup m_j)$ the parent of $(m_i)$ and $(m_j)$ in tree $T$
-        \State Add $m_i$ and $m_j$ to $V$.
-    \EndWhile
-\end{algorithmic}
-\end{algorithm}
+%\begin{algorithm}[H]
+%\caption{Cluster Merging Algorithm (find\_abstraction\_tree)}
+%\label{Cluster Merging Algorithm}
+%\begin{algorithmic}[1]
+%    \State Initialize every simulated distance vector as a singleton cluster.
+%    \State Initialize $C=\{v_1,v_2,v_3,..\}$ as the set of singleton clusters.
+%    \State Initialize a Binary Tree $T$ with leaves as $\{(n_1),(n_2),(n_3),..\}$ corresponding to $\{v_1,v_2,v_3,..\}$.
+%    \State Initialize $V$ as a set of visited nodes, empty at first.
+%    
+%    \Function{MergeFunction}{$u, v$}
+%        \If{All nodes are classified as \textbf{Inc}}
+%        {
+%        
+%            \Return $\max(u, v)$
+%        }
+%        \Else{ }
+%        {
+%        
+%            \Return $\min(u, v)$
+%        }
+%        \EndIf
+%    \EndFunction
+%    
+%    \While{$|C|>1$}
+%        \State $v_j, v_j = \arg\min_{\substack{a, b \in C}} \| a - b \|_2$
+%        \State Set $w=\text{MergeFunction}(v_i,v_j)$
+%        \State Let nodes from $T$ not in $V$ corresponding to $v_i,v_j$ be $m_i$ and $m_j$
+%        \State Remove $v_i,v_j$ from $C$ and add $w$ to $C$.
+%        \State Make $(m_i \cup m_j)$ the parent of $(m_i)$ and $(m_j)$ in tree $T$
+%        \State Add $m_i$ and $m_j$ to $V$.
+%    \EndWhile
+%\end{algorithmic}
+%\end{algorithm}
 
 % While the optimal tree, representing the optimal merging sequence, can aid in the refinement process by guiding the reversal of merges, finding such an optimal tree poses is extremely challenging. Even when dealing with only `n' Increment (Inc) neurons that have been merged to saturation, the total number of possible trees is given by $(2n-3)!!$, making the task of determining the truly optimal tree from these options extremely challenging.
 
@@ -381,12 +389,12 @@ contrast the quality and size with gk (if tracking example through gk). }
 
 % For example, in Figure \ref{Figure: Order Of Merging}, we conducted a simulation of our network on three data points. Subsequently, we examined the observation vectors corresponding to these points. Utilizing the hierarchical clustering algorithm, the initial selection for merging  will involve $(n_0^{1}, Inc)$ and $(n_1^{1}, Inc)$ because of the fact that their Euclidean distance is minimum. This forms $\textit{Merge 1}$ in Figure \ref{Figure: Order Of Merging}. The observation vector for $\textit{Merge 1}$ ($\nu_\textit{Merge1 }$) is the max of the $\nu((n_0^{1}, Inc))$ and $\nu((n_1^{1},Inc))$ which is \{1.5, 3, 4.5\}. For decrement nodes the observation vector would be minimum of the observation vector of the corresponding decrement nodes. The next merging step involved selecting $\nu((n_2^{1}, Inc))$ and $\nu((n_3^{1}, Inc))$ and merging these two neurons, representing $\textit{Merge 2}$ in Figure \ref{Figure: Order Of Merging}. The observation vector for $\textit{Merge 2}$ is now \{4, 8, 12\}. Ultimately, the Merge1 merge group is merged with the $\textit{Merge 2}$ merge group to create the Root Node in our network.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width = 0.5\textwidth]{diagrams/good_vs_bad_merges.pdf}
-    \caption{Ways of Merging}
-    \label{Figure 3}
-\end{figure}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width = 0.5\textwidth]{diagrams/good_vs_bad_merges.pdf}
+%    \caption{Ways of Merging}
+%    \label{Figure 3}
+%\end{figure}
 
 % This approach of merging neurons based on similarity proves advantageous as it helps in reducing number of refinement steps. For instance, consider the task of checking whether $\forall v_{0}^{0} \in [0, 1]$ implies $v_{0}^{2} < 10$. If we had the neuron $(n_{3}^{1}, Inc)$ as the culprit neuron and then if we follow the second merging approach depicted in Figure \ref{Figure 3}, then we would have been compelled to reverse both $\textit{Merge 1}$ and $\textit{Merge 2}$. However, by employing the first merging approach, undoing only the $\textit{Merge 2}$ becomes sufficient, resulting in a reduction in the number of refinement steps required.
 
