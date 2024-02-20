@@ -114,6 +114,7 @@ This process is detailed in Algorithm \ref{a:build-tree}.
 
     \Require Neurons $\{\nr{i_1}{l}, {\cdots}, \nr{i_r}{l}\}$ with same class,
     Closeness factor $\cls$
+
     
     \State Initialize a Binary Tree $T$ with leaves as
         $\{m_1, {\cdots}, m_r\}$ corresponding to $\{ \nr{i_1}{l}, {\cdots},
@@ -137,6 +138,8 @@ This process is detailed in Algorithm \ref{a:build-tree}.
         \State Remove $m_{j_1}, m_{j_2}$ from $Q$ and add $m_{j_3}$ to $Q$.
         \State Add $M(m_{j_3}) = M(m_{j_1}) \cup M(m_{j_2})$ to the map
     \EndWhile
+
+    \Ensure Tree of merges $T$
 \end{algorithmic}
 \end{algorithm}
 
