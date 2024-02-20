@@ -155,24 +155,6 @@ to $m_6$. This gives us the tree seen in the top half of Figure
 \ref{fig:Order_of_merging}.\dmcmt{Is it okay to refer to same figure? Can it be
 confusing potentially?}
 
-%In figure \ref{Figure: Order Of Merging}, if we give the list of input vectors $[[1], [2], [3]]$ to the observation function $o_{(i, j)}$ for $(n_{(1, 1, Inc)})$, then we obtain a list of output vectors $[[1.5], [3], [4.5]]$. We utilize the output of the observation function as a measure to merge neurons. For instance, considering three neurons $n_{(w, i)}$, $n_{(w, j)}$, and $n_{(w, k)}$ with 
-%observation vectors $o_{(w, i)}$, $o_{(w, j)}$, and 
-%$o_{(w, k)}$, the merging sequence adheres to the following conditions: 
-%
-%If $||o_{(w, i)} - o_{(w, j)}||_{2} \leq ||o_{(w, i)} - 
-%o_{(w, k)}||_{2}$ and $||o_{(w, i)} - o_{(w, j)}||_2 \leq ||o_{(w, j)} - 
-%o_{(w, k)}||_{2}$, then $n_{(w, i)}$ and $n_{(w, j)}$ are initially merged into a 
-%representative neuron $\alpha$, followed by the merging of $\alpha$ and $n_{(w, k)}$. 
-%Here $||o_{(w, i)} - o_{(w, j)}||_{2}$ computes the ``$\textit{Euclidean 
-%Distance}$" between the observation vectors $o_{(w, i)}$ and  $o_{(w, j)}$.
-%
-%
-%In Figure \ref{Figure: Order Of Merging}, for the first layer, the initial 
-%merge would involve the neuron $n_{(1, 0, Inc)}$ with $n_{(1, 1, Inc)}$, 
-%forming $\textit{Merge 1}$, then we would combine $n_{(1, 2, Inc)}$ and 
-%$n_{(1, 3, Inc)}$, forming $\textit{Merge 2}$. Finally we combine 
-%$\textit{Merge 1}$ and $\textit{Merge 2}$ into the root node. 
-
 As we progress up the tree, the coarseness introduced by the 
 merge operation increases. 
 This is due to the increasing difference in the semantic behavior of nodes
@@ -266,66 +248,6 @@ prove the property in fewer iterations.
 
 \input{tree_cut_refine.tex}
 
-%\pagebreak
-%
-%We use the tree produced in the previous Section \ref{s:tree} to guide our
-%refinement process. Starting with the 
-%entire tree where everything is merged. We leverage it to refine the network.
-%This process commences by identifying the ``culprit neuron $\gamma$'' 
-%selected for refinement. A ``culprit neuron'' in a merge group is selected 
-%on the basis of how much the neuron contributed to the output. If change in 
-%output of  neuron changes the value of the output neuron significantly then
-%that neuron is a good candidate for ``culprit neuron". 
-%
-%Following this, we reverse all merges dependent on the culprit 
-%neuron $\gamma$. Therefore, refinement essentially involves finding a 
-%cut-point in the tree, precisely where all merges dependent on the 
-%culprit neuron $\gamma$ are undone. Each cut produces a set of trees, 
-%the merge groups then consist of neurons in the leaf nodes of the  these trees.
-%Therefore finding new merge groups for refinement is therefore just finding a 
-%cuts in the tree.
-%
-%\sncmt{Do we need to tell the LCA algorithm here?}
-%
-%Consider Figure \ref{Figure 2}, illustrating the merging sequence of 
-%neurons $n_{(1,0,Inc)}$, $n_{(1,1,Inc)}$, $n_{(1,2,Inc)}$, and 
-%$n_{(1, 3, Inc)}$. If, for instance, the neuron $n_{(1,3,Inc)}$ 
-%is identified as the problematic neuron based on a counter-example, 
-%we will reverse all the merges dependent on the $n_{(1,3,Inc)}$ neuron,
-% including $\textit{Merge 2}$ and the $\textit{Root Node}$ merge. 
-% Consequently, after implementing this reversal indicated in Figure 
-% \ref{Figure 2}, our refinement phase will yield three distinct merge groups. 
-% The first merge group comprises two neurons, namely $n_{(1,0,Inc)}$ and
-% $n_{(1,1, Inc)}$. The second merge group and the third merge have single 
-% neurons $n_{(1,2, Inc)}$ and $n_{(1,3,Inc)}$, respectively.
-%
-% A neuron, denoted as $\gamma$, is designated as a culprit neuron within a
-%specific layer when absolute value of the product of the difference between
-%$(v_{Rep(\gamma)}$ and $v_{\gamma})$ and the effective weight is maximized.
-%\todo{Add the 3 different methods generating counter-examples. Scores should be
-%avg over $\beta$ for a particular $\gamma$.}
-%
-%$||(v_{Rep(\gamma)} - v_{\gamma})||_{2} \cdot |(\textit{effective\_weight})|$
-%
-%In this context, $Rep$ signifies the representative neuron for neuron $\gamma$,
-%$v_{\gamma}$ represents the value of the neuron $\gamma$ at counter-example $\beta$
-%and $\textit{effective\_weight}$ represents the how much does the value of output
-%neuron changes with respect to change in the value of the neuron under consideration,
-%essentially corresponding to the ``$\textit{gradient}$'' at that particular example 
-%``$\beta$''.
-
-%\begin{algorithm}
-%    \caption{Finding Cuts in the Tree (find\_new\_merge\_groups)}
-%    \begin{algorithmic}[1]
-%        \State $\gamma= \arg \max_i \|v_{Rep(i)} -v_i \|_2 \cdot | \textit{effective\_weight}| $ 
-%        \State Find a sequence of nodes, $t_1,t_2,t_3,..,t_k$ representing a  path from $t_1=$root to $t_k=\gamma$.
-%        \State Remove the nodes $t_1,t_2,..,t_{k-1}$ denoting the merges dependent on $\gamma$ through this path, leading to our connected tree being split into a collection of disconnected sub-trees.
-%        \State New merge groups are the leaf nodes in our disconnected graph.
-%    \end{algorithmic}
-%    \hspace*{\algorithmicindent} \textbf{Output} New Merge Groups
-%\end{algorithm}
-
-
 \subsection{Optimality of Tree}
 
 The tree $T$ produced in Section \ref{s:tree} captures an optimal ordering of
@@ -342,62 +264,6 @@ $T_2$ \todo{Ref appendix}. Thus, we have that for any cut in the tree, the
 maximum difference in the semantic behavior for nodes that have been left merged
 is less than the maximum difference in semantic behavior for nodes that have
 been un-merged.
-
-% \subsection{Optimality of the Trees}
-% Our objective is to determine the most efficient order for merging neurons, minimizing the introduction of over-approximation at each step. This approach aims to avoid creating networks with excessive over-approximation, which could lead to the generation of spurious counter-examples in response to queries. Opting not to mitigate over-approximation at each step would result in an increased number of refinement steps. This essentially entails making additional solver calls, incurring significant costs to eliminate the spurious counter-examples.
-
-
-% Nevertheless, during the initial merging process (until saturation is reached), the root node ``$\rho$'' will exhibit the same level of over-approximation across all conceivable merging scenarios—for all possible tree sequences. Nevertheless, when we descend one level down the tree to explore the children nodes of our original root node $\rho$ for the purpose of identifying a cut for refinement, we discover varying levels of over-approximation manifesting in the root nodes of the resultant sub-trees. These differences are a result of the different merging scenarios pursued to construct those individual trees.
-
-%\begin{algorithm}[H]
-%\caption{Cluster Merging Algorithm (find\_abstraction\_tree)}
-%\label{Cluster Merging Algorithm}
-%\begin{algorithmic}[1]
-%    \State Initialize every simulated distance vector as a singleton cluster.
-%    \State Initialize $C=\{v_1,v_2,v_3,..\}$ as the set of singleton clusters.
-%    \State Initialize a Binary Tree $T$ with leaves as $\{(n_1),(n_2),(n_3),..\}$ corresponding to $\{v_1,v_2,v_3,..\}$.
-%    \State Initialize $V$ as a set of visited nodes, empty at first.
-%    
-%    \Function{MergeFunction}{$u, v$}
-%        \If{All nodes are classified as \textbf{Inc}}
-%        {
-%        
-%            \Return $\max(u, v)$
-%        }
-%        \Else{ }
-%        {
-%        
-%            \Return $\min(u, v)$
-%        }
-%        \EndIf
-%    \EndFunction
-%    
-%    \While{$|C|>1$}
-%        \State $v_j, v_j = \arg\min_{\substack{a, b \in C}} \| a - b \|_2$
-%        \State Set $w=\text{MergeFunction}(v_i,v_j)$
-%        \State Let nodes from $T$ not in $V$ corresponding to $v_i,v_j$ be $m_i$ and $m_j$
-%        \State Remove $v_i,v_j$ from $C$ and add $w$ to $C$.
-%        \State Make $(m_i \cup m_j)$ the parent of $(m_i)$ and $(m_j)$ in tree $T$
-%        \State Add $m_i$ and $m_j$ to $V$.
-%    \EndWhile
-%\end{algorithmic}
-%\end{algorithm}
-
-% While the optimal tree, representing the optimal merging sequence, can aid in the refinement process by guiding the reversal of merges, finding such an optimal tree poses is extremely challenging. Even when dealing with only `n' Increment (Inc) neurons that have been merged to saturation, the total number of possible trees is given by $(2n-3)!!$, making the task of determining the truly optimal tree from these options extremely challenging.
-
-% Since finding this ideal tree is a challenging task, we employ hierarchical clustering (Algorithm \ref{Cluster Merging Algorithm}) as an approach to approximate and derive such a tree. Initially, we simulate our network using a set of `$k$' inputs. Subsequently, we employ cluster analysis on these `$k$' points to construct a hierarchical arrangement of clusters. This process initiates with data points corresponding to simulated values (observation values in the observation vector) of a neuron  forming their own cluster. The clusters are then systematically combined based on their similarity, thereby generating a hierarchy of clusters. The choice of similarity measure is the ``$distance \hspace{1mm} metric$" between clusters. We have used ``$Euclidean \hspace{1mm} Distance$" as our distance metric. Given that the data points to perform this hierarchical clustering originate from the values of the simulated neurons, this hierarchical clustering effectively reflects the methodology we employ to merge the neurons.
-
-% For example, in Figure \ref{Figure: Order Of Merging}, we conducted a simulation of our network on three data points. Subsequently, we examined the observation vectors corresponding to these points. Utilizing the hierarchical clustering algorithm, the initial selection for merging  will involve $(n_0^{1}, Inc)$ and $(n_1^{1}, Inc)$ because of the fact that their Euclidean distance is minimum. This forms $\textit{Merge 1}$ in Figure \ref{Figure: Order Of Merging}. The observation vector for $\textit{Merge 1}$ ($\nu_\textit{Merge1 }$) is the max of the $\nu((n_0^{1}, Inc))$ and $\nu((n_1^{1},Inc))$ which is \{1.5, 3, 4.5\}. For decrement nodes the observation vector would be minimum of the observation vector of the corresponding decrement nodes. The next merging step involved selecting $\nu((n_2^{1}, Inc))$ and $\nu((n_3^{1}, Inc))$ and merging these two neurons, representing $\textit{Merge 2}$ in Figure \ref{Figure: Order Of Merging}. The observation vector for $\textit{Merge 2}$ is now \{4, 8, 12\}. Ultimately, the Merge1 merge group is merged with the $\textit{Merge 2}$ merge group to create the Root Node in our network.
-
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width = 0.5\textwidth]{diagrams/good_vs_bad_merges.pdf}
-%    \caption{Ways of Merging}
-%    \label{Figure 3}
-%\end{figure}
-
-% This approach of merging neurons based on similarity proves advantageous as it helps in reducing number of refinement steps. For instance, consider the task of checking whether $\forall v_{0}^{0} \in [0, 1]$ implies $v_{0}^{2} < 10$. If we had the neuron $(n_{3}^{1}, Inc)$ as the culprit neuron and then if we follow the second merging approach depicted in Figure \ref{Figure 3}, then we would have been compelled to reverse both $\textit{Merge 1}$ and $\textit{Merge 2}$. However, by employing the first merging approach, undoing only the $\textit{Merge 2}$ becomes sufficient, resulting in a reduction in the number of refinement steps required.
-
 
 \subsection{Overall Algorithm}
 \begin{algorithm}[H]
