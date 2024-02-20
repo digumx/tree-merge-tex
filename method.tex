@@ -1,7 +1,6 @@
 \section{Methodology}
 \label{s:semantic-closeness}
 
-\input{tree_cut_refine.tex}
 
 \dmcmt{Im not leading with the lang of partial order here, instead defining a
     tree directly. This, I feel is easier to motivate and explain. What we have
@@ -194,76 +193,137 @@ general algorithm presented here will work for any choice of $\cls$.
 
 \input{our_tree_struct.tex}
 
-\dmcmt{Connect cuts in tree to refinement, again with example. Describe the
-    culprit based refinement process. Clarify that the culprit selection
-heuristic can be replaced with any other heuristic within our framework.}
-
-%In the tree produced in the previous Section \ref{s:tree}, each node corresponds
-%to a group of neurons that may be merged. Thus, given a cut of the tree, we
-%can use it to define a merge 
-
 In our abstraction refinement loop, we start with the fully merged network.
 Then, whenever we get a \gencex $\vct{\beta}$ (Section \ref{s:qual})
 \dmcmt{Do we discuss where we get this beta from? Or is it okay to just talk abt
 it in the experiments section, with some brief things in intro to this
 section?}, we wish to refine the network, that is, we wish to chose which
-neurons should remain merged. Intuitively, we wish for this choice to be guided
-two factors: the semantic behavior of each node, and the point $\vct{\beta}$.
+neurons should remain merged. Intuitively, this choice should be guided
+two factors: respecting the semantic behavior of each node, and attempting to
+eliminate $\vct{\beta}$.
 
 The tree produced in the previous Section \ref{s:tree} captures the semantic
 behavior, and we use it to guide the refinement process as follows:
-Any cut of the tree correspond produces a set of trees. Then,  
+Any cut of the tree produces a set of trees. Then,  
 the groups of neurons that we chose to keep merged correspond to the leaf nodes
 of the  these trees. Therefore finding a refinement is reduces to finding a cuts
 in the tree.
 
-\pagebreak
+To attempt to eliminate $\vct{\beta}$, we identify a \textit{culprit neuron}
+$\gamma$ that contributes most to the spurious output on $\vct{\beta}$. The
+intuition is that $\gamma$ should not be merged with any other neuron, as any
+over-approximation of the behavior of $\gamma$ has a high chance of
+introducing $\vct{\beta}$.
 
-We use the tree produced in the previous Section \ref{s:tree} to guide our
-refinement process. Starting with the 
-entire tree where everything is merged. We leverage it to refine the network.
-This process commences by identifying the ``culprit neuron $\gamma$'' 
-selected for refinement. A ``culprit neuron'' in a merge group is selected 
-on the basis of how much the neuron contributed to the output. If change in 
-output of  neuron changes the value of the output neuron significantly then
-that neuron is a good candidate for ``culprit neuron". 
+Thus, we do refinement in two steps. Firstly we find the culprit neuron
+$\gamma$. Then, we find a cut in the tree that ensures that $\gamma$ is not
+merged with any other neuron.
 
-Following this, we reverse all merges dependent on the culprit 
-neuron $\gamma$. Therefore, refinement essentially involves finding a 
-cut-point in the tree, precisely where all merges dependent on the 
-culprit neuron $\gamma$ are undone. Each cut produces a set of trees, 
-the merge groups then consist of neurons in the leaf nodes of the  these trees.
-Therefore finding new merge groups for refinement is therefore just finding a 
-cuts in the tree.
+\subsubsection{Finding $\gamma$}
 
-\sncmt{Do we need to tell the LCA algorithm here?}
+Many possible heuristics may be used to identify the culprit neuron $\gamma$,
+and our framework is agnostic to the specific heuristic chosen. In this work, we
+use a heuristic based on the 'gradient-guided refinement' described in
+\cite{lin-comb-abs-jan}. A neuron is designated as the culprit neuron $\gamma$
+when the following value is maximum for that neuron: 
 
-Consider Figure \ref{Figure 2}, illustrating the merging sequence of 
-neurons $n_{(1,0,Inc)}$, $n_{(1,1,Inc)}$, $n_{(1,2,Inc)}$, and 
-$n_{(1, 3, Inc)}$. If, for instance, the neuron $n_{(1,3,Inc)}$ 
-is identified as the problematic neuron based on a counter-example, 
-we will reverse all the merges dependent on the $n_{(1,3,Inc)}$ neuron,
- including $\textit{Merge 2}$ and the $\textit{Root Node}$ merge. 
- Consequently, after implementing this reversal indicated in Figure 
- \ref{Figure 2}, our refinement phase will yield three distinct merge groups. 
- The first merge group comprises two neurons, namely $n_{(1,0,Inc)}$ and
- $n_{(1,1, Inc)}$. The second merge group and the third merge have single 
- neurons $n_{(1,2, Inc)}$ and $n_{(1,3,Inc)}$, respectively.
+\begin{equation*}
+\begin{aligned}
+    \|v^{*}_{\gamma}(\vct{\beta}) - v_{\gamma}(\vct{\beta})\|_{2} \cdot 
+    \big| \frac{\delta y(\vct{\beta})}{\delta v_{\gamma}} \big|
+\end{aligned}
+\end{equation*}
 
- A neuron, denoted as $\gamma$, is designated as a culprit neuron within a
-specific layer when absolute value of the product of the difference between
-$(v_{Rep(\gamma)}$ and $v_{\gamma})$ and the effective weight is maximized.
-\todo{Add the 3 different methods generating counter-examples. Scores should be
-avg over $\beta$ for a particular $\gamma$.}
+Here, $v_{\gamma}(\vct{\beta})$ is the value at the neuron $\gamma$ for input
+$\vct{\beta}$ in the original \cnc, while $v^{*}_{\gamma}(\vct{\beta})$ is the
+value of the neuron $\gamma$ has been merged to in our current \abs.
+$\frac{\delta y(\vct{\beta})}{\delta v_{\gamma}}$ is the gradient of the output
+$y$ of \cnc with respect to the value at $\gamma$ for the input $\vct{\beta}$.
 
-$||(v_{Rep(\gamma)} - v_{\gamma})||_{2} \cdot |(\textit{effective\_weight})|$
+\subsubsection{Cutting the Tree}
 
-In this context, $Rep$ signifies the representative neuron for neuron $\gamma$,
-$v_{\gamma}$ represents the value of the neuron $\gamma$ at counter-example $\beta$
-and $\textit{effective\_weight}$ represents the how much does the value of output
-neuron changes with respect to change in the value of the neuron under consideration,
-essentially corresponding to the ``$\textit{gradient}$'' at that particular example 
-``$\beta$''.
+We wish to find a cut in the tree where $\gamma$ is not merged to any other
+neuron, while also making sure that as many neurons remain merged as possible
+(therefore minimizing the increase in size of \abs). To do this, we delete
+precisely those nodes that are dependent on $\gamma$, starting form the parent
+of $\gamma$ and moving up the tree following the parent of each.
+
+Once we have cut the tree and decided on which neurons to leave merged, the
+actual merge operation is the exact same as that followed by \cite{cegar-nn}
+(Section \ref{s:nn-sam}). Therefore, we are able to provide concrete soundness
+guarantees.
+
+In our example, the culprit neuron is $\nr{1}{3}$. Thus, we traverse the tree
+following the blue edges Figure \ref{fig:Order_of_merging}, undoing $m_5$ and
+$m_6$. This produces three trees, corresponding to leaving $\nr{1}{0}$ and
+$\nr{1}{1}$ merged, while undoing the merge of $\nr{1}{2}$ and $\nr{1}{3}$.
+Therefore, we get the \abs shown in Figure \ref{fig:tree_cut_refine}. Note
+that in contrast to the refinement process followed by \cite{cegar-nn} \todo{Ref
+prev sections}, we retain merges of neurons that are semantically close, avoid
+proliferation of singletons and achieve a smaller \abs that is sufficient to
+prove the property in fewer iterations.
+
+\input{tree_cut_refine.tex}
+
+%\pagebreak
+%
+%We use the tree produced in the previous Section \ref{s:tree} to guide our
+%refinement process. Starting with the 
+%entire tree where everything is merged. We leverage it to refine the network.
+%This process commences by identifying the ``culprit neuron $\gamma$'' 
+%selected for refinement. A ``culprit neuron'' in a merge group is selected 
+%on the basis of how much the neuron contributed to the output. If change in 
+%output of  neuron changes the value of the output neuron significantly then
+%that neuron is a good candidate for ``culprit neuron". 
+%
+%Following this, we reverse all merges dependent on the culprit 
+%neuron $\gamma$. Therefore, refinement essentially involves finding a 
+%cut-point in the tree, precisely where all merges dependent on the 
+%culprit neuron $\gamma$ are undone. Each cut produces a set of trees, 
+%the merge groups then consist of neurons in the leaf nodes of the  these trees.
+%Therefore finding new merge groups for refinement is therefore just finding a 
+%cuts in the tree.
+%
+%\sncmt{Do we need to tell the LCA algorithm here?}
+%
+%Consider Figure \ref{Figure 2}, illustrating the merging sequence of 
+%neurons $n_{(1,0,Inc)}$, $n_{(1,1,Inc)}$, $n_{(1,2,Inc)}$, and 
+%$n_{(1, 3, Inc)}$. If, for instance, the neuron $n_{(1,3,Inc)}$ 
+%is identified as the problematic neuron based on a counter-example, 
+%we will reverse all the merges dependent on the $n_{(1,3,Inc)}$ neuron,
+% including $\textit{Merge 2}$ and the $\textit{Root Node}$ merge. 
+% Consequently, after implementing this reversal indicated in Figure 
+% \ref{Figure 2}, our refinement phase will yield three distinct merge groups. 
+% The first merge group comprises two neurons, namely $n_{(1,0,Inc)}$ and
+% $n_{(1,1, Inc)}$. The second merge group and the third merge have single 
+% neurons $n_{(1,2, Inc)}$ and $n_{(1,3,Inc)}$, respectively.
+%
+% A neuron, denoted as $\gamma$, is designated as a culprit neuron within a
+%specific layer when absolute value of the product of the difference between
+%$(v_{Rep(\gamma)}$ and $v_{\gamma})$ and the effective weight is maximized.
+%\todo{Add the 3 different methods generating counter-examples. Scores should be
+%avg over $\beta$ for a particular $\gamma$.}
+%
+%$||(v_{Rep(\gamma)} - v_{\gamma})||_{2} \cdot |(\textit{effective\_weight})|$
+%
+%In this context, $Rep$ signifies the representative neuron for neuron $\gamma$,
+%$v_{\gamma}$ represents the value of the neuron $\gamma$ at counter-example $\beta$
+%and $\textit{effective\_weight}$ represents the how much does the value of output
+%neuron changes with respect to change in the value of the neuron under consideration,
+%essentially corresponding to the ``$\textit{gradient}$'' at that particular example 
+%``$\beta$''.
+
+%\begin{algorithm}
+%    \caption{Finding Cuts in the Tree (find\_new\_merge\_groups)}
+%    \begin{algorithmic}[1]
+%        \State $\gamma= \arg \max_i \|v_{Rep(i)} -v_i \|_2 \cdot | \textit{effective\_weight}| $ 
+%        \State Find a sequence of nodes, $t_1,t_2,t_3,..,t_k$ representing a  path from $t_1=$root to $t_k=\gamma$.
+%        \State Remove the nodes $t_1,t_2,..,t_{k-1}$ denoting the merges dependent on $\gamma$ through this path, leading to our connected tree being split into a collection of disconnected sub-trees.
+%        \State New merge groups are the leaf nodes in our disconnected graph.
+%    \end{algorithmic}
+%    \hspace*{\algorithmicindent} \textbf{Output} New Merge Groups
+%\end{algorithm}
+
 
 \subsection{Optimality of Merge Groups}
 
@@ -274,17 +334,6 @@ contrast the quality and size with gk (if tracking example through gk). }
 
 
 
-
-\begin{algorithm}
-    \caption{Finding Cuts in the Tree (find\_new\_merge\_groups)}
-    \begin{algorithmic}[1]
-        \State $\gamma= \arg \max_i \|v_{Rep(i)} -v_i \|_2 \cdot | \textit{effective\_weight}| $ 
-        \State Find a sequence of nodes, $t_1,t_2,t_3,..,t_k$ representing a  path from $t_1=$root to $t_k=\gamma$.
-        \State Remove the nodes $t_1,t_2,..,t_{k-1}$ denoting the merges dependent on $\gamma$ through this path, leading to our connected tree being split into a collection of disconnected sub-trees.
-        \State New merge groups are the leaf nodes in our disconnected graph.
-    \end{algorithmic}
-    \hspace*{\algorithmicindent} \textbf{Output} New Merge Groups
-\end{algorithm}
 
 % \subsection{Optimality of the Trees}
 % Our objective is to determine the most efficient order for merging neurons, minimizing the introduction of over-approximation at each step. This approach aims to avoid creating networks with excessive over-approximation, which could lead to the generation of spurious counter-examples in response to queries. Opting not to mitigate over-approximation at each step would result in an increased number of refinement steps. This essentially entails making additional solver calls, incurring significant costs to eliminate the spurious counter-examples.
