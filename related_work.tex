@@ -4,18 +4,24 @@ In response to the increasing use of neural networks in safety-critical settings
 various techniques have been developed to analyze their behavior, including 
 verification, explainability etc. 
 
-A general approach that aids in verification of neural networks
-is structural abstraction which involves reducing the network size by 
-merging similar neurons. In \cite {cegar-nn, cegarette}, the authors have 
+The closest works related to our work are 
+syntactic and semantic structural abstraction techniques that
+have been proposed to reduce the network size by merging similar neurons. 
+In \cite {cegar-nn, cegarette}, the authors have 
 employed counterexample-guided syntactic abstraction
-refinement. 
-They have used syntactic constraints to achieve concrete soundness guarantees.
-The approach proposed in \cite{deep-abstract} utilizes clustering-based 
-semantic abstraction to decrease the network's size. However, this technique 
-offers only allows lifting certain bound propagation
+refinement. They have used syntactic constraints to achieve concrete soundness 
+guarantees. But unlike our approach their work does not take into account the global 
+\textit{semantic} behavior of the network, thus producing potentially sub-optimal
+abstractions.
+
+On the other hand the approach proposed in \cite{deep-abstract} utilizes
+clustering-based semantic abstraction to decrease the network's size. 
+However, this technique only allows lifting certain bound propagation
 based proofs. Also in \cite{lin-comb-abs-jan} the authors have used linear 
 combination of neurons to compress the networks but their method only provides 
-guarantees on a finite dataset. 
+guarantees on a finite dataset. In comparision we provide concrete soundness
+guarantees that allow us to lift any proofs from the abstract 
+network back to the original network.
 
 In general methodologies for verifying neural networks generally fall into two main
 categories: sound and complete methods \cite{reluplex, formal-ver-piece-wise, 
