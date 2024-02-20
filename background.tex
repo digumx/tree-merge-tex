@@ -1,17 +1,8 @@
 \section{Background}
-\subsection{Neural Network}
+\subsection{Notation}
 \todo{Edges should have arrow in nn}
 
-\dmcmt{There was some general definitions of what an nn is in this section,
-removed for now, nor really necessary, maybe can add a notation section if at
-all necessary}
-
-\sncmt{Notation is important. Will be required in the upcoming sections.}
-
-We conceptualize neural networks as directed acyclic graphs 
-comprising three types of layers: the input layer, intermediate hidden layers, 
-and the output layer. Our goal is to focus on the abstracting feed forward networks, 
-where neuron values are computed based on preceding layer neuron values. 
+In this work our focus is on fully connected, feed forward \relu \dnn. 
 Neurons in our network are denoted as $\nr{i}{j}$, where `$i$' signifies the 
 neuron number in layer `$j$'.  % Used
 The weight matrix between layers `${j-1}$' and `$j$' is denoted as `$W_{{j-1},
@@ -24,30 +15,19 @@ $[\vct{x_1} {\cdots} \vct{x_N}]$ and returns a vector with
 $[\nrf{i}{j}(\vct{x_1}) {\cdots} \nrf{i}{j}(\vct{x_N})]$ for a particular
 neuron $\nr{i}{j}$.  %Used
 
-The computation of `$V_{j}$' involves applying an ``activation function ($\phi$)" 
-to the ``weighted sum":
-
-\[V_{j} = \phi(W_{{j-1}, j} \cdot V_{j-1} + B_{j}).\] 
-
-We confine our activation function to the Rectified Linear Unit (ReLU), 
-which can be expressed as $V_{j} = \max(W_{j-1, j} \cdot V_{j-1} + B_{j}, 0)$.
-
 \subsection{ Formal Analysis of Neural Networks }
 \label{s:form-an}
-\dmcmt{This section used to be titled Neural Network Verification, and explained
-    the general idea of neural net verif, and some stuff on prop encoding. We
-    are not doing exclusively verif. So, some more general and shorter
-    discussion on formal analysis of nn added.}
 
 Several techniques and methods have been studied to improve the reliability and
 trustworthiness of \dnn deployed in safety critical settings via formal
 analysis. This includes verifying \dnn with respect to a given
 safety property \cite{reluplex, cegar-nn, deeppoly, cegarette, cleverest-nn,
 conv-abs-gk, deep-abstract, lin-comb-abs-jan}, providing formal explanations of
-the behavior of the \dnn \cite{minimal-image-fxai, overview-fxai}, and others.
-\dmcmt{Is the and others okay? Ref the backdoor attacks work?} To provide the
-formal guarantees behind the analysis performed, all of these techniques rely on
-making \textit{neural network queries}. 
+the behavior of the \dnn \cite{minimal-image-fxai, overview-fxai}, and defending
+against backdoor attacks,\cite{backdoor-verification} and others.
+\dmcmt{Is the and others okay?} To provide the formal guarantees behind the
+analysis performed, all of these techniques rely on making \textit{neural
+network queries}. 
 
 These neural network queries are of the form $(P, \mcnc, Q)$, and ask if
 for all inputs $x$ to $\mcnc$ for which the formula $P$ holds
@@ -57,11 +37,11 @@ remains an issue, and so reducing the size of \cnc is desirable.
 
 \subsection{Semantic Compressions and Abstractions with Empirical Guarantees}
 \label{s:emp-abs}
-\dmcmt{What is a better word than 'weak' here? Does 'empirical' work here?}
 
 Several techniques utilise semantic information, typically extracted via
-simulation of the \dnn, to obtain \abs. \dmcmt{Say: to improve scalability? }.
-Neural network compression techniques \todo{cite}, produce small \abs, but the
+simulation of the \dnn, to obtain a smaller \abs. 
+Neural network compression techniques \cite{dnn-compression}, produce small
+\abs, but the
 behavior of \abs in connection to \cnc is only characterized empirically.
 Similarly, some semantic abstraction techniques \cite{lin-comb-abs-jan} provide
 bi-simulation guarantees bounding the difference in the behavior of \abs and
@@ -74,14 +54,9 @@ Other techniques like \cite{deep-abstract} use bi-simulation to lift
 interval bound propagation performed on \abs to get sound bounds on \cnc. While
 this does provide a sound proof, interval bounds are typically not strong enough
 to prove many interesting and practically relevant neural network queries.
-\todo{cite}
 
 \subsection{Concrete Guarantees on Neural Network Abstractions}
 \label{s:conc-abs}
-\kmcmt{We need to add one is good for analysis and one is good for proofs.
-Not in negative light.} \dmcmt{ Even for analysis, we are trying to claim that
-our concrete guarantees are better than the empirical ones right? We show a case
-of proof, and a case of compression, so things are clear right?}
 
 The notion of providing concrete guarantees on the behavior of \abs relative to
 \cnc has been formalized in \cite{cegar-nn}. In particular, guarantees of the
@@ -91,10 +66,8 @@ guarantees in many settings. Two such settings are as follows:
 
 Firstly, since any general neural network query can be converted to a query of
 the form $(P, \mcnc, y < c)$ for some $c$ \cite{cegar-nn, reluplex} \todo{See
-\cite{cegar-nn}, they have another citation for this encoding} \dmcmt{It seems
-that \cite{cegar-nn}, \cite{reluplex} and we have 3 different encodings, but
-generally based on the same idea of implementing bool combs via extra nn
-layers}, such a guarantee is
+\cite{cegar-nn}, they have another citation for this encoding}, such a
+guarantee is
 useful for dispatching the query on a smaller network \cite{cegar-nn, cegarette,
 cleverest-nn}. This immediately makes an \abs with these guarantees useful for
 accelerating several formal analysis techniques (Section \ref{s:form-an}).
@@ -104,34 +77,27 @@ Consider the case of medical diagnosis\todo{cite} or aircraft
 collisions\cite{acasxu}, where
 for safety reasons, a classifier should be biased towards not producing false
 negatives. Guarantees such as above can formally ensure that the compressed \abs
-never produces any more false negatives than \cnc. \todo{Ref next sections}.
-\dmcmt{Should this be here?}
+never produces any more false negatives than \cnc (Section
+\ref{s:exp-mnist-comp}).
 
-Therefore, in this work we focus on developing a framework\dmcmt{Is this word
-here okay?} that produces
+Therefore, in this work we focus on developing a framework that produces
 abstract networks with this guarantee.
 
 \subsection{Quality of Abstractions and \gencex}
 \label{s:qual}
 
 A generally useful notion with respect to abstraction is \textit{quality},
-which we as the number of \textit{\gencex} that witness a difference in
+which we define as the number of \textit{\gencex} that witness a difference in
 the relevant behavior of \abs and \cnc. In the context of using \abs to
 accelerate formal analysis of \dnn, these \gencex may simply be
 \textit{spurious counterexamples} \cite{cegar-nn, cleverest-nn} to a query
 involving \abs that are not counterexamples for the same query involving \cnc.
 This notion may be generalized to other uses of abstractions as well. For
 instance, for safe compressions, they may be inputs from a dataset which
-are falsely classified as positive by \abs. \todo{Ref section}
+are falsely classified as positive by \abs (Section \ref{s:exp-mnist-comp}).
 
 \subsection{Syntactic Neural Network Splitting and Merging}
 \label{s:nn-sam}
-
-\dmcmt{Given that this section is critical to understanding our soundness
-    guarantees, and that this is mostly existing work, how much space should be
-spent here? Can we trust reader to read \cite{cegar-nn}}
-
-\dmcmt{Start a running example here}
 
 To transform \cnc into \abs so that the soundness guarantees hold, we follow
 \cite{cegar-nn} to \textit{split} neurons in \cnc into copies labelled with
@@ -151,36 +117,50 @@ We make a slight modification to the above: as a first optimization step, we
 re-merge the two copies of the \abs neurons that are otherwise the same, but
 have \posc and \negc labels respectively. This can always be done without
 changing the behavior of the network since these copies will have the same \inc,
-\dec labels and the same incoming weights. \dmcmt{Is this clear? Is it better to
-write this as a lemma, and then put a proof in appendix?} This optimisation
+\dec labels and the same incoming weights.  This optimisation
 allows us to discard the \posc and \negc class information, and reduces the size
-of the maximally merged network.
+of the maximally merged network by a factor of $2$.
+
+\input{original_net.tex}
+\input{gk_abs_sat.tex}
+
+For example, consider the network and property in Figure
+\ref{fig:Original_Net_Property}. For this example, all the neurons in the output
+and middle layer get classified as \inc. Thus, they are all merged together into
+one node, leading to to the network in Figure \ref{fig:full_abstract_net}.
 
 Note that this process only considers the syntactic structure of the network, no
 semantic information is used.
 
 \subsection{ Syntactic Refinement }
-\dmcmt{Jan Kretinsky's abstraction is based on semantic info, refinement is not.
-Given this, do we really need to talk about Jan's refinement here? If yes,
-how to weave it in?}
 
 The fully merged network obtained in Section \ref{s:nn-sam} may not have
 sufficient quality (Section \ref{s:qual}) to be useful. For instance, when doing
-formal analysis, there may be too many \gencex. In such
+formal analysis, there may be too many spurious counterexamples. In such
 situations, a common approach to obtain a better quality \abs is to perform
-refinement steps based on a \gencex$x$ \cite{cegar-nn,
+refinement steps based on a \gencex $\vct{\beta}$ \cite{cegar-nn,
 cegarette, cleverest-nn}. In
 existing techniques this is typically done restoring a single neuron in \cnc
 that had been merged \abs. The neuron chosen is typically one whose contribution
-to $x$ is estimated to be the highest.
+to $\vct{\beta}$ is estimated to be the highest.
 
 These techniques, however, do not consider any semantic behavior to guide their
 refinement. As such, the refinement process tends to produce a large number of
 restored neurons identical to neurons in \cnc, leading to and \abs of large
 size, while retaining a single abstract neuron formed by merging a large group
-of neurons in \cnc, affecting the quality of \abs.  \todo{example}
+of neurons in \cnc, affecting the quality of \abs. 
 
-\input{original_net.tex}
-\input{gk_abs_sat.tex}
+We can see this in our example. Say the fully merged network in Figure
+\ref{fig:full_abstract_net} we get a $\vct{\beta}$ given by the values in red.
+Then, in the next refinement step, the neuron $\nr{3}{1}$ gets restored, giving
+us the network in Figure \ref{fig:refine_step_1}. Again, the $\vct{\beta}$
+obtained is shown in red, and the next refinement step restores $\nr{0}{1}$
+leading to Figure \ref{fig:refine_step_2}. We see that in the resultant network,
+two semantically dis-similar neurons $\nr{1}{1}$ and $\nr{2}{1}$ remain merged,
+while the merges between the similar pairs of neurons $\nr{3}{1}$, $\nr{2}{1}$
+and $\nr{1}{1}$, $\nr{0}{1}$ have been un-done. Indeed, the network in Figure
+\ref{fig:refine_step_2} is not strong enough, as seen by the values in red, and
+we end up refining all the way to the original network.
+
 \input{gk_refine1.tex}
 \input{gk_refine2.tex}

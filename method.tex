@@ -35,7 +35,7 @@ produce an \abs of the desired quality with a much smaller size.
 Using these components, we propose a general abstraction-refinement loop based
 framework (Section \ref{s:abs-ref-fw}) that combines syntactic merge operation
 with semantic behavior. This framework is able to utilise \gencex from any
-source and continually refine until a \abs of desired strength is achieved.
+source and continually refine until a \abs of desired quality is achieved.
 
 \subsection{Semantic Closeness Factor}
 \label{s:semantic-closeness}
@@ -69,7 +69,7 @@ Therefore, we estimate it using a sample set of inputs $X$: $||\ob{i_1}{l}($X$)
 may be a set of randomly chosen input values satisfying $P$ when
 abstracting with respect to a query $(P, \mcnc, Q)$
 (Section \ref{s:exp-mnist-rob}), or a dataset when attempting to find a
-compression with no new false negatives (Section \ref{s:exp-mnist-comp}).
+safe compression (Section \ref{s:exp-mnist-comp}).
 
 \subsection{Tree of Merges}
 \label{s:tree}
@@ -271,12 +271,12 @@ exact arrangement of the loop depends on the particular application, but the
 general structure is as follows:
 
 We start with the fully merged network. Then, utilising \gencex, we iteratively
-refine the network until we have obtained an \abs with the desired strength.
+refine the network until we have obtained an \abs with the desired quality.
 
 Depending on the application, the \gencex used for refinement may come from
 several places, and our framework is agnostic to this. For example, when solving
 a neural network query, it may be a spurious counterexample returned by a solver
 call, in which case our general abstraction-refinement loop reduces to a
-standard CEGAR loop. On the other hand, when attempting to produce a compression
-with no new false negatives, the \gencex may come form a false positive
-classification on a training dataset.
+standard CEGAR loop. On the other hand, when attempting to produce a safe
+compression (Section \ref{s:exp-mnist-comp}), the \gencex may come form a false
+positive classification on a training dataset.
