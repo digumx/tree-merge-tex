@@ -7,36 +7,36 @@
       \node [text=red] at (-2,2) {1};
       \draw (0,-2) circle (1cm);
       \node [text=red] at (-2,-2) {1};
-      \node at (0,-2) {$n_{(0,1)}$};
+      \node at (0,-2) {$n_{(1,0)}$};
       \draw (5,4) circle (1cm);
       \node at (5,4) {$M4$};
       \node [text=red] at (5,2.5) {1.5};
       \draw (5,-4) circle (1cm);
-      \node at (5,-4) {$n_{(1,3,+)}$};
+      \node at (5,-4) {$n_{(3,1,+)}$};
       \node [text=red] at (5,-5.5) {1.5};
       \draw (5,0) circle (1cm);
-      \node at (5,0) {$n_{(1,2,+)}$};
+      \node at (5,0) {$n_{(2,1,+)}$};
       \node [text=red] at (5,-1.5) {1.9};
       \draw (10,0) circle (1cm);
-      \node at (10,0) {$n_{(2,0)}$};
+      \node at (10,0) {$n_{(0,2)}$};
       \node [text=red] at (12,0) {$6.8$};
     \draw[solid, postaction={decorate, decoration={text along path, 
     text={0.55}, text align=center, raise=1mm}}](1, 2) -- (4, 4);
-    \draw(1, -2) -- (4, 4);
+    \draw[->,>= angle 45] (1, -2) to (4, 4);
     \node at (3.75,3) {1};
-    \draw(1, 2) -- (4, 0);
+    \draw[myarrow](1, 2) -- (4, 0);
     \node at (3.75,1) {0.95};
-    \draw(1, -2) -- (4, 0);
+    \draw[myarrow](1, -2) -- (4, 0);
     \node at (3.75,-1) {0.55};
-    \draw(1, 2) -- (4, -4);
+    \draw[myarrow](1, 2) -- (4, -4);
     \node at (3.75,-3) {1};
-    \draw[solid, postaction={decorate, decoration={text along path, 
+    \draw[->, >= angle 45, postaction={decorate, decoration={text along path, 
     text={0.5}, text align=center, raise=1mm}}](1, -2) -- (4, -4);
-    \draw[solid, postaction={decorate, decoration={text along path,
+    \draw[-> , >= angle 45, postaction={decorate, decoration={text along path,
     text={1}, text align=center, raise=1mm}}] (6,-4) -- (9, 0);
-    \draw[solid, postaction={decorate, decoration={text along path,
+    \draw[->, >= angle 45, postaction={decorate, decoration={text along path,
     text={1}, text align=center, raise=1mm}}] (6,0) -- (9, 0);
-    \draw[solid, postaction={decorate, decoration={text along path,
+    \draw[->, >= angle 45, postaction={decorate, decoration={text along path,
     text={2}, text align=center, raise=1mm}}] (6,4) -- (9, 0);
    
     % \draw (1, -2) -- (4, 2);

@@ -3,48 +3,48 @@
     \begin{tikzpicture}[scale=0.5] % Adjust the scale factor as needed
       % Your TikZ code goes here
       \draw (5,-5) circle (1cm);
-      \node at (5,-5) {$n_{(1,3,+)}$};
+      \node at (5,-5) {$n_{(3,1,+)}$};
       \draw (5,-2) circle (1cm);
-      \node at (5,-2) {$n_{(1,2,+)}$};
+      \node at (5,-2) {$n_{(2,1,+)}$};
       \draw (0,2) circle (1cm);
       \node at (0,2) {$n_{(0,0)}$};
       \node at (-2,2) {[-1, 1]};
       \draw (0,-2) circle (1cm);
       \node at (-2,-2) {[-1, 1]};
-      \node at (0,-2) {$n_{(0,1)}$};
+      \node at (0,-2) {$n_{(1,0)}$};
       \draw (10,0) circle (1cm);
-      \node at (10,0) {$n_{(2,0)}$};
+      \node at (10,0) {$n_{(0,2)}$};
       \node at (12,0) {$< 6.1$};
       \draw (5, 5) circle (1cm);
-      \node at (5,5) {$n_{(1,0,+)}$};
+      \node at (5,5) {$n_{(0,1,+)}$};
       \draw (5, 2) circle (1cm);
       \node at (5,2) {$n_{(1,1,+)}$};
 
-    \draw (1, -2) -- (4, -5);
+    \draw[myarrow] (1, -2) to (4, -5);
     \node at (3.25,-4.75) {0.5};
-    \draw (1, 2) -- (4, -5);
+    \draw[ myarrow] (1, 2) to (4, -5);
     \node at (4,-4) {1};
-    \draw (1, -2) -- (4, -2);
+    \draw[ myarrow] (1, -2) to (4, -2);
     \node at (3.45,-2.5) {0.55};
-    \draw (1, 2) -- (4, -2);
+    \draw[ myarrow] (1, 2) to (4, -2);
     \node at (4.25,-0.75) {0.95};
-    \draw (1, -2) -- (4, 2);
+    \draw[ myarrow] (1, -2) to (4, 2);
     \node at (4.25, 0.75) {0.95};
-    \draw (1, -2) -- (4, 5);
+    \draw[ myarrow] (1, -2) to (4, 5);
     \node at (4, 4) {1};
-    \draw[solid, postaction={decorate, decoration={text along path,
-          text={0.55}, text align=right, raise=1mm}}] (1, 2) -- (4, 2);
-    \draw[solid, postaction={decorate, decoration={text along path,
-          text={0.5}, text align=right, raise=1mm}}] (1, 2) -- (4, 5);
+    \draw[ myarrow, solid, postaction={decorate, decoration={text along path,
+          text={0.55}, text align=right, raise=1mm}}] (1, 2) to (4, 2);
+    \draw[ myarrow, solid, postaction={decorate, decoration={text along path,
+          text={0.5}, text align=right, raise=1mm}}] (1, 2) to (4, 5);
 
-    \draw[solid, postaction={decorate, decoration={text along path,
-        text={1}, text align=center, raise=1mm}}] (6,-5) -- (9, 0);
-    \draw[solid, postaction={decorate, decoration={text along path,
-        text={1}, text align=center, raise=1mm}}] (6,-2) -- (9, 0);
-    \draw[solid, postaction={decorate, decoration={text along path,
-        text={1}, text align=center, raise=1mm}}] (6,2) -- (9, 0);
-    \draw[solid, postaction={decorate, decoration={text along path,
-        text={1}, text align=center, raise=1mm}}]  (6, 5) -- (9, 0);
+    \draw[ myarrow, solid, postaction={decorate, decoration={text along path,
+        text={1}, text align=center, raise=1mm}}] (6,-5) to (9, 0);
+    \draw[ myarrow, solid, postaction={decorate, decoration={text along path,
+        text={1}, text align=center, raise=1mm}}] (6,-2) to (9, 0);
+    \draw[ myarrow, solid, postaction={decorate, decoration={text along path,
+        text={1}, text align=center, raise=1mm}}] (6,2) to (9, 0);
+    \draw[ myarrow, solid, postaction={decorate, decoration={text along path,
+        text={1}, text align=center, raise=1mm}}]  (6, 5) to (9, 0);
       
     \end{tikzpicture}
     \caption{Original Network and Property \todo{Get rid of $+$, flip layer and
