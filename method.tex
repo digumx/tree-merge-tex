@@ -19,8 +19,8 @@ better control and guide the refinement process producing higher quality \abs
 while retaining concrete soundness. 
 
 In particular, we define a \textit{semantic
-closeness factor} that captures how close the semantic-behavior of two 
-neurons are. We utilise this semantic closeness factor to arrange the merge
+closeness metric} that captures how close the semantic-behavior of two 
+neurons are. We utilise this semantic closeness metric to arrange the merge
 operations into a tree where lower quality merges involving semantically far
 neurons appear higher and can be refined with higher priority. 
 
@@ -54,46 +54,48 @@ existing material can be re-organised into these headers.}
 }
 
 To guide the semantic abstraction process, we define a \textit{semantic
-closeness factor} $\cls$: Given two neurons $\nr{i_1}{l}$ and $\nr{i_2}{l}$ in
-the same layer $l$, $\cls(\nr{i_1}{l}, \nr{i_2}{l})$ is a real number that
+closeness metric} $\cls$: $\cls(\nr{i_1}{l}, \nr{i_2}{l})$ is function that
+takes two neurons $\nr{i_1}{l}$ and $\nr{i_2}{l}$ in
+the same layer $l$, and returns a real number that
 captures how close the behaviors of $\nr{i_1}{l}$ and $\nr{i_2}{l}$ are from a
 semantic point of
-view. Intuitively, this factor would characterise the semantic behavior of the
+view. Intuitively, this metric would characterise the semantic behavior of the
 neurons in layer $l$ relative to each other, and prioritise certain merges over
 others. 
 
-Depending on the application, the precise definition of this factor may be
+Depending on the application, the precise definition of this metric may be
 chosen in various ways. We note that our framework is agnostic to the particular
-choice of semantic factor, and a concrete soundness guarantee holds for any such
+choice of semantic metric, and a concrete soundness guarantee holds for any such
 choice. Inspired by \cite{deep-abstract}, in we chose as the
-semantic closeness factor how close the functions computed by the two neurons
+semantic closeness metric how close the functions computed by the two neurons
 are: $||\nrf{i_1}{l} - \nrf{i_2}{l}||$. 
 
 However, since $\nrf{i_1}{l}$ and $\nrf{i_2}{l}$ are functions, computing
-$||\nrf{i_1}{l} - \nrf{i_2}{l}||$ precisely is not possible.
+$||\nrf{i_1}{l} - \nrf{i_2}{l}||$ precisely is not feasible.
 Therefore, we estimate it using a sample set of inputs $X$: $||\ob{i_1}{l}($X$)
-- \nrf{i_2}{l}($X$)||_2$. This $X$ may be chosen in many ways, for example, it
+- \ob{i_2}{l}($X$)||_2$. This $X$ may be chosen in many ways, for example, it
 may be a set of randomly chosen input values satisfying $P$ when
 abstracting with respect to a query $(P, \mcnc, Q)$
 (Section \ref{s:exp-mnist-rob}), or a dataset when attempting to find a
 compression with no new false negatives (Section \ref{s:exp-mnist-comp}).
 
 \subsection{Tree of Merges}
+\label{s:tree}
 
 We use $\cls$ to create a tree structure to prioritise merges wherein leaf nodes
 represent the original neurons, and 
-non-leaf nodes represent merge groups\dmcmt{Do we need to define this
-somewhere?}. The construction of the tree 
+non-leaf nodes represent merge operations. The construction of the tree 
 follows a bottom-up approach, starting from individual neurons, 
-greedily merging the most similar pair of neurons or merge groups
-and delaying the merging of dissimilar ones. 
+greedily performing the merge operation involving the most similar groups of
+neurons, and delaying the merging of dissimilar ones. \todo{Refer to guarantees}
 
 Note that $\cls$ only provides us
 with a similarity measure for pairs of neurons. For this tree construction
-algorithm to work we must extend this to a similarity
-measure between pairs of merge groups with neurons
+algorithm to work we must extend this to a semantic closeness
+metric between groups of neurons
 $\{\nr{i_1}{l}, {\cdots}, \nr{i_p}{l}\}$ and $\{\nr{j_1}{l}, {\cdots},
-\nr{j_q}{l}\}$. To do this we take the pairwise maximum: 
+\nr{j_q}{l}\}$. To do this we take the pairwise maximum \todo{Motivate choice of
+maximum via section on optimum}: 
 
 \begin{equation*}
 \begin{aligned}
@@ -113,19 +115,21 @@ This process is detailed in Algorithm \ref{a:build-tree}.
 \begin{algorithmic}[1]
 
     \Require Neurons $\{\nr{i_1}{l}, {\cdots}, \nr{i_r}{l}\}$ with same class,
-    Closeness factor $\cls$
+    Closeness metric $\cls$
 
     
     \State Initialize a Binary Tree $T$ with leaves as
         $\{m_1, {\cdots}, m_r\}$ corresponding to $\{ \nr{i_1}{l}, {\cdots},
         \nr{i_r}{l} \}$
-    \State Initialize map $M(m_k) = \{ \nr{i_k}{l} \}$ taking tree nodes to sets
-        of neurons in corresponding merge group
+    %\State Initialize map $M(m_k) = \{ \nr{i_k}{l} \}$ taking tree nodes to sets
+    %    of neurons in corresponding merge group
     \State Initialize $Q=\{m_1, {\cdots}, m_r\}$ as the set of leaf nodes.
 
     \Function{PairwiseMax}{$m, m'$}
         
-            \Return $\max_{\nr{i_{k}}{l} \in M(m), \nr{i_{k'}}{l} \in M(m')} 
+            \State Let $L, L'$ be leaves of sub-tree rooted at $m, m'$
+
+            \Return $\max_{\nr{i_{k}}{l} \in S, \nr{i_{k'}}{l} \in S'} 
                 \cls( \nr{i_{k}}{l}, \nr{i_{k'}}{l} )$
 
     \EndFunction
@@ -136,7 +140,6 @@ This process is detailed in Algorithm \ref{a:build-tree}.
         \State Add new node $m_{j_3}$ to $T$ 
         \State Make $m_{j_1}, m_{j_2}$ children on $m_{j_3}$
         \State Remove $m_{j_1}, m_{j_2}$ from $Q$ and add $m_{j_3}$ to $Q$.
-        \State Add $M(m_{j_3}) = M(m_{j_1}) \cup M(m_{j_2})$ to the map
     \EndWhile
 
     \Ensure Tree of merges $T$
@@ -170,16 +173,16 @@ confusing potentially?}
 %$n_{(1, 3, Inc)}$, forming $\textit{Merge 2}$. Finally we combine 
 %$\textit{Merge 1}$ and $\textit{Merge 2}$ into the root node. 
 
-As we progress up the tree, the coarseness of abstraction one would get by
-merging all neurons in the merge group corresponding to each node increases. 
+As we progress up the tree, the coarseness introduced by the 
+merge operation increases. 
 This is due to the increasing difference in the semantic behavior of nodes
-within the same merge group. 
+involved. \todo{Connect with optimality}
 
-In our example, the merge group corresponding to
-$m_4$ is $\{\nr{0}{1}, \nr{1}{1}\}$, while that of $m_6$ is $\{\nr{0}{1},
+In our example, the merge operation
+$m_4$ involves $\{\nr{0}{1}, \nr{1}{1}\}$, while $m_6$ involves $\{\nr{0}{1},
 \nr{1}{1}, \nr{2}{1}, \nr{3}{1}\}$. Since the semantic behavior of $\nr{0}{1}$
-and $\nr{1}{1}$ are closer than $\nr{0}{1}, \nr{1}{1}, \nr{2}{1}, \nr{3}{1}$,
-$m_4$ represents a less coarse abstraction than $m_6$.
+and $\nr{1}{1}$ are closer than $\nr{0}{1}$, $\nr{1}{1}$, $\nr{2}{1}$,
+$\nr{3}{1}$, operation $m_4$ represents a less coarse abstraction than $m_6$.
 
 For our choice of $\cls$, (Section \ref{s:semantic-closeness}), Algorithm
 \ref{a:build-tree} reduces to \hcluster, allowing us to leverage existing
@@ -195,7 +198,12 @@ general algorithm presented here will work for any choice of $\cls$.
     culprit based refinement process. Clarify that the culprit selection
 heuristic can be replaced with any other heuristic within our framework.}
 
-We are guided by this tree as a prospective refinement method. Starting with the 
+%In the tree produced in the previous Section \ref{s:tree}, each node corresponds
+%to a group of neurons that may be merged. Thus, given a cut of the tree, we
+%can use it to define a merge 
+
+We use the tree produced in the previous Section \ref{s:tree} to guide our
+refinement process. Starting with the 
 entire tree where everything is merged. We leverage it to refine the network.
 This process commences by identifying the ``culprit neuron $\gamma$'' 
 selected for refinement. A ``culprit neuron'' in a merge group is selected 
