@@ -1,52 +1,44 @@
 \section{Methodology}
 \label{s:semantic-closeness}
 
-
-\dmcmt{Im not leading with the lang of partial order here, instead defining a
-    tree directly. This, I feel is easier to motivate and explain. What we have
-    really is more than just a partial order of merge operations - it is in fact
-    a tree. It is can be motivated by saying that it lets us define merge groups
-    in a way that is in some sense optimal. It is also easier to explain
-    precisely what the tree is by going over it's construction in an algo.
-    The tree then can be used to define / talk about the partial order in the
-intro, or the intro can itself be modified to refer to a tree instead. }
-
-\todo{Add refs to later sections}
- 
 In this work we aim to utilize information from the semantic behavior of \cnc to
 better control and guide the refinement process producing higher quality \abs
 while retaining concrete soundness. 
 
 In particular, we define a \textit{semantic
 closeness metric} that captures how close the semantic-behavior of two 
-neurons are. We utilise this semantic closeness metric to arrange the merge
+neurons are (Section \ref{s:semantic-closeness}). We utilise this semantic
+closeness metric to arrange the merge
 operations into a tree where lower quality merges involving semantically far
-neurons appear higher and can be refined with higher priority. 
+neurons appear higher and can be refined with higher priority (Section
+\ref{s:tree}). 
 
-Using this tree we build a framework \dmcmt{Is this okay?} where refinement can
-be done by making cuts of this tree. We show that the merge groups coming from
-such cuts have the property that any two neurons within the same group are 
-semantically closer than any two neurons from two different groups. Thus, via
-this tree-based refinement process, we are able to partition the neurons in \cnc
-into merge groups\dmcmt{Is it clear what a merge group is?} in a manner that is
-optimal with respect to the semantic information.
+Using this tree we build a framework where refinement can
+be done by making cuts of this tree, while still providing concrete soundness
+guarantees (Section \ref{s:refinement}). We show that
+the merges retained in this refinement process is optimal with respect to the
+semantic information (Section \ref{s:optimal-tree}).
 This allows us to avoid restoring large number of single neurons(see Section
 \ref{s:nn-sam}) and lets us retain merge operations of higher quality. Thus, we
-produce an \abs of the desired quality with a much smaller size. \todo{Ref later
-sections}
+produce an \abs of the desired quality with a much smaller size. 
 
-While the choice of which nodes to leave merged together is guided by the cuts
-of the tree, the weights attached to the abstract nodes are still chosen
-by following the procedures from Section \ref{s:nn-sam} and \cite{cegar-nn}.
-Thus, the concrete soundness guarantees still hold for the \abs obtained.
+%While the choice of which nodes to leave merged together is guided by the cuts
+%of the tree, the weights attached to the abstract nodes are still chosen
+%by following the procedures from Section \ref{s:nn-sam} and \cite{cegar-nn}.
+%Thus, the concrete soundness guarantees still hold for the \abs obtained.
+%\dmcmt{This point is repeated in \ref{s:refinement}, but this should be okay
+%right?}
 
-In the following sections we describe a general framework for such a unified
-syntactic and semantic refinement process, describing each component in detail.
+%In the following sections we describe a general framework for such a unified
+%syntactic and semantic refinement process, describing each component in detail.
 
-\dmcmt{This will be the general structure of the rest of this section. The
-existing material can be re-organised into these headers.}
+Using these components, we propose a general abstraction-refinement loop based
+framework (Section \ref{s:abs-ref-fw}) that combines syntactic merge operation
+with semantic behavior. This framework is able to utilise \gencex from any
+source and continually refine until a \abs of desired strength is achieved.
 
 \subsection{Semantic Closeness Factor}
+\label{s:semantic-closeness}
 
 \todo{If we are able to get the characterestic based exps run, we can talk
     about that as well.
@@ -87,15 +79,17 @@ represent the original neurons, and
 non-leaf nodes represent merge operations. The construction of the tree 
 follows a bottom-up approach, starting from individual neurons, 
 greedily performing the merge operation involving the most similar groups of
-neurons, and delaying the merging of dissimilar ones. \todo{Refer to guarantees}
+neurons, and delaying the merging of dissimilar ones. The resulting tree
+captures an optimal ordering of merge operations (Section \ref{s:optimal-tree}).
 
 Note that $\cls$ only provides us
 with a similarity measure for pairs of neurons. For this tree construction
 algorithm to work we must extend this to a semantic closeness
 metric between groups of neurons
 $\{\nr{i_1}{l}, {\cdots}, \nr{i_p}{l}\}$ and $\{\nr{j_1}{l}, {\cdots},
-\nr{j_q}{l}\}$. To do this we take the pairwise maximum \todo{Motivate choice of
-maximum via section on optimum}: 
+\nr{j_q}{l}\}$. To do this we take the pairwise maximum since it captures the
+notion of the largest difference in semantic behavior and ensures that the tree
+is optimal (Section \ref{s:optimal-tree}): 
 
 \begin{equation*}
 \begin{aligned}
@@ -109,7 +103,7 @@ refer to algo?}
 
 This process is detailed in Algorithm \ref{a:build-tree}.
 
-\begin{algorithm}[H]
+\begin{algorithm}
 \caption{Building the Tree}
 \label{a:build-tree}
 \begin{algorithmic}[1]
@@ -152,8 +146,7 @@ closest. Thus, in the tree, we merge these two first to get the node $m_4$.
 Then, the two semantically closest pairs are given by $\nr{2}{1}$ and
 $\nr{3}{1}$, so they are merged to $m_5$. Finally, $m_4$ and $m_5$ gets merged
 to $m_6$. This gives us the tree seen in the top half of Figure
-\ref{fig:Order_of_merging}.\dmcmt{Is it okay to refer to same figure? Can it be
-confusing potentially?}
+\ref{fig:Order_of_merging}.
 
 As we progress up the tree, the coarseness introduced by the 
 merge operation increases. 
@@ -233,7 +226,7 @@ of $\gamma$ and moving up the tree following the parent of each.
 
 Once we have cut the tree and decided on which neurons to leave merged, the
 actual merge operation is the exact same as that followed by \cite{cegar-nn}
-(Section \ref{s:nn-sam}). Therefore, we are able to provide concrete soundness
+(Section \ref{s:nn-sam}). Therefore, we are able to retain concrete soundness
 guarantees.
 
 In our example, the culprit neuron is $\nr{1}{3}$. Thus, we traverse the tree
@@ -249,6 +242,7 @@ prove the property in fewer iterations.
 \input{tree_cut_refine.tex}
 
 \subsection{Optimality of Tree}
+\label{s:optimal-tree}
 
 The tree $T$ produced in Section \ref{s:tree} captures an optimal ordering of
 merge operations with respect to the semantic information in the following
@@ -260,37 +254,29 @@ value of $\cls$ for any two neurons one from $T_1$ and another from $T_2$.
 \dmcmt{Make this a lemma?}
 
 This fact can be easily proved via induction on the combined size of $T_1$ and
-$T_2$ \todo{Ref appendix}. Thus, we have that for any cut in the tree, the
+$T_2$ \todo{Ref appendix}. Note that this proof crucially depends on the fact
+that we took pairwise maximum in Algorithm \ref{a:build-tree} in Section
+\ref{s:tree}.
+
+Thus, we have that for any cut in the tree, the
 maximum difference in the semantic behavior for nodes that have been left merged
 is less than the maximum difference in semantic behavior for nodes that have
 been un-merged.
 
-\subsection{Overall Algorithm}
-\begin{algorithm}[H]
-    \caption{Overall Algorithm}
-    \label{Overall Algorithm}
-    \begin{algorithmic}[1]
-        \State $\mathcal{N'}$ = split\_Inc\_Dec($\mathcal{N}$)
-        \State $\mathcal{N''}$ = abstract\_network($\mathcal{N'}$)
-        \State simulation\_dict = simulate\_network($\mathcal{N'}$)
-        \State $\mathcal{T}$ = find\_abstraction\_tree($\mathcal{N'}$, $simulation\_dict$)
-        \If{verify($\mathcal{N''}$, $\kappa$, $\lambda$) is UNSAT}{
+\subsection{General Abstraction-Refinement Loop}
+\label{s:abs-ref-fw}
 
-            \Return Property Holds
-            }
-        \Else
-            \State Extract counter-example $\beta$
-            \If{$\beta$ is not a spurious counter-example}
-            {
+We combine the pieces discussed so far into an abstraction-refinement loop. The
+exact arrangement of the loop depends on the particular application, but the
+general structure is as follows:
 
-                \Return ($\beta$, Property Violated)
-            }
-            \Else
-                \State Find culprit neuron $\gamma$
-                \State $merge\_groups$ = find\_new\_merge\_groups($\mathcal{T, \gamma}$)
-                \State $\mathcal{N''} = get\_abstract\_network(merge\_groups)$
-                \State \textbf{goto} step 5
-            \EndIf
-        \EndIf
-    \end{algorithmic}
-\end{algorithm}
+We start with the fully merged network. Then, utilising \gencex, we iteratively
+refine the network until we have obtained an \abs with the desired strength.
+
+Depending on the application, the \gencex used for refinement may come from
+several places, and our framework is agnostic to this. For example, when solving
+a neural network query, it may be a spurious counterexample returned by a solver
+call, in which case our general abstraction-refinement loop reduces to a
+standard CEGAR loop. On the other hand, when attempting to produce a compression
+with no new false negatives, the \gencex may come form a false positive
+classification on a training dataset.
