@@ -202,6 +202,23 @@ heuristic can be replaced with any other heuristic within our framework.}
 %to a group of neurons that may be merged. Thus, given a cut of the tree, we
 %can use it to define a merge 
 
+In our abstraction refinement loop, we start with the fully merged network.
+Then, whenever we get a \gencex $\vct{\beta}$ (Section \ref{s:qual})
+\dmcmt{Do we discuss where we get this beta from? Or is it okay to just talk abt
+it in the experiments section, with some brief things in intro to this
+section?}, we wish to refine the network, that is, we wish to chose which
+neurons should remain merged. Intuitively, we wish for this choice to be guided
+two factors: the semantic behavior of each node, and the point $\vct{\beta}$.
+
+The tree produced in the previous Section \ref{s:tree} captures the semantic
+behavior, and we use it to guide the refinement process as follows:
+Any cut of the tree correspond produces a set of trees. Then,  
+the groups of neurons that we chose to keep merged correspond to the leaf nodes
+of the  these trees. Therefore finding a refinement is reduces to finding a cuts
+in the tree.
+
+\pagebreak
+
 We use the tree produced in the previous Section \ref{s:tree} to guide our
 refinement process. Starting with the 
 entire tree where everything is merged. We leverage it to refine the network.

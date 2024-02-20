@@ -111,14 +111,14 @@ Therefore, in this work we focus on developing a framework\dmcmt{Is this word
 here okay?} that produces
 abstract networks with this guarantee.
 
-\subsection{Quality of Abstractions and Spurious Points}
+\subsection{Quality of Abstractions and \gencex}
 \label{s:qual}
 
 A generally useful notion with respect to abstraction is \textit{quality},
-which we as the number of \textit{spurious inputs} that witness a difference in
+which we as the number of \textit{\gencex} that witness a difference in
 the relevant behavior of \abs and \cnc. In the context of using \abs to
-accelerate formal analysis of \dnn, these spurious inputs may simply be
-\textit{spurious counterexamples} \cite{cegar-nn, cleverst-nn} to a query
+accelerate formal analysis of \dnn, these \gencex may simply be
+\textit{spurious counterexamples} \cite{cegar-nn, cleverest-nn} to a query
 involving \abs that are not counterexamples for the same query involving \cnc.
 This notion may be generalized to other uses of abstractions as well. For
 instance, for safe compressions, they may be inputs from a dataset which
@@ -166,12 +166,10 @@ how to weave it in?}
 
 The fully merged network obtained in Section \ref{s:nn-sam} may not have
 sufficient quality (Section \ref{s:qual}) to be useful. For instance, when doing
-formal analysis, there may be too many spurious counterexamples. In such
+formal analysis, there may be too many \gencex. In such
 situations, a common approach to obtain a better quality \abs is to perform
-refinement steps based on a spurious counterexample $x$ \cite{cegar-nn,
-cegarette, cleverest-nn}. \dmcmt{While \cite{cegar-nn} does it only for spurious cexes,
-it can be directly extended to spurious inputs. But, I'm speaking in terms of
-sp cex here to avoid confusion. Should I say spurious input instead?} In
+refinement steps based on a \gencex$x$ \cite{cegar-nn,
+cegarette, cleverest-nn}. In
 existing techniques this is typically done restoring a single neuron in \cnc
 that had been merged \abs. The neuron chosen is typically one whose contribution
 to $x$ is estimated to be the highest.
