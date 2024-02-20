@@ -4,59 +4,51 @@ In response to the increasing use of neural networks in safety-critical settings
 various techniques have been developed to analyze their behavior, including 
 verification, explainability etc. 
 
-The methodologies for verifying neural networks generally fall into two main
-categories: sound and complete methods \todo{cite all papers}, and sound and
-incomplete methods \todo{cite all papers}. Sound and complete methods aim to 
-explore the entire state space to verify the properties of neural networks.
-In contrast, sound and incomplete methods employ an overapproximation
-of the state space, sacrificing completeness for 
-scalability and efficiency.
-
-An instance of a sound and complete methodology is Reluplex, which extends the 
-simplex algorithm \todo{cite a reference for simplex} to 
-handle ReLU constraints. Initially, it focuses on finding an assignment that 
-satisfies the linear constraints, subsequently incorporating non-linear constraints 
-to validate their satisfaction. In \todo{cite Formal Verification of Piece-wise Linear Network} 
-the authors introduce triangular overapproximation, infer node phase fixtures,
-learn conflict clauses and safe node fixtures to aid in pruning the search 
-space, which is similar to classical SMT solving approaches. However, these methods
-often encounter scalability issues due to their exhaustive exploration of the
-entire state space. 
-
-On the other hand, alternative techniques like \todo{cite DeepPoly, cite crown}, which
-propagates linear upper and lower bound constraints, exhibit better
-scalability at the cost of overapproximation. \todo{cite alpha-CROWN} 
-\dmcmt{optimizes} the bounds (refer to DeepPoly and CROWN for citations) 
-using gradient descent. 
-\todo{cite beta-crown} incorporates ReLU split
-constraints into the CROWN bound propagation process allowing integration
- the branch and bound (BaB) framework \todo{cite material on bab}. 
-This combined implementation makes the \abcrown framework sound and complete.
-
-Another orthogonal approach of abstract is structural abstraction  
-which involves reducing the network size by merging similar neurons. 
-\todo{cite Elboher } employ counterexample-guided syntactic abstraction refinement.
+A general approach that aids in verification of neural networks
+is structural abstraction which involves reducing the network size by 
+merging similar neurons. In \cite {cegar-nn, cegarette}, the authors have 
+employed counterexample-guided syntactic abstraction
+refinement. 
 They have used syntactic constraints to achieve concrete soundness guarantees.
-The approach proposed in \todo{cite deep-abstract} utilizes clustering-based 
+The approach proposed in \cite{deep-abstract} utilizes clustering-based 
 semantic abstraction to decrease the network's size. However, this technique 
 offers only allows lifting certain bound propagation
 based proofs. Also in \cite{lin-comb-abs-jan} the authors have used linear 
 combination of neurons to compress the networks but their method only provides 
 guarantees on a finite dataset. 
 
-DNN compression has been explored \todo{cite survery paper, this looks 
-like that} in general to obtain a
+In general methodologies for verifying neural networks generally fall into two main
+categories: sound and complete methods \cite{reluplex, formal-ver-piece-wise, 
+comp-reachability-analysis, comp-milp, comp-out-range, comp-max-resilience, marabou,
+comp-safety-ver-dnn, beta-crown, alpha-crown-bab-fnc, gcp-crown}, and sound and
+incomplete methods \cite{deeppoly, crown, incomp-dual-approach, incomp-abs-inp, 
+incomp-robustness-certi, incomp-boost-robustness}. Sound and complete methods aim to 
+explore the entire state space to verify the properties of neural networks.
+In contrast, sound and incomplete methods employ an overapproximation
+of the state space, sacrificing completeness for 
+scalability and efficiency.
+
+An instance of a sound and complete methodology is Reluplex, which extends the 
+simplex algorithm \cite{simplex} to 
+handle ReLU constraints. Initially, it focuses on finding an assignment that 
+satisfies the linear constraints, subsequently incorporating non-linear constraints 
+to validate their satisfaction. In \cite{formal-ver-piece-wise}
+the authors introduce triangular overapproximation, infer node phase fixtures,
+learn conflict clauses and safe node fixtures to aid in pruning the search 
+space, which is similar to classical SMT solving approaches. However, these methods
+often encounter scalability issues due to their exhaustive exploration of the
+entire state space. 
+
+On the other hand, alternative techniques like \cite{crown, deeppoly}, which
+propagates linear upper and lower bound constraints, exhibit better
+scalability at the cost of overapproximation. \cite{alpha-crown-bab-fnc} 
+optimizes the bounds of \cite{crown} 
+using gradient descent. 
+\cite{beta-crown} incorporates ReLU split
+constraints into the CROWN bound propagation process allowing integration
+the branch and bound (BaB) framework \cite{bab-fw,bab-piecewise-nn, bab-lagrangian-decomp}. 
+This combined implementation makes the \abcrown framework sound and complete.
+
+DNN compression has been explored \cite{dnn-compression} in general to obtain a
 network of a smaller size as opposed to abstraction they donot provide any guarantees
 connecting the original network to the smaller compressed network. 
-
-While the aforementioned works focus on verifying specific properties of 
-networks, other works aim to understand the decision-making process of the network 
-itself. While works in \todo{cite an explainability survey from ML} provide
-emperical explaination, they donot provide any formal guarantees connecting
-the explaination to network leaving room for adverasial attacks \todo{add citations
-this looks like that or does it}. 
-In \todo{cite formal XAI}, the authors employ formal
-explainability techniques to identify a subset of input features that 
-influence the network's decision. Another interesting line of work is verification
-of the networks against backdoor attacks \todo{cite backdoor paper}. 
-For all of these works, our method can help to improve scalability. 

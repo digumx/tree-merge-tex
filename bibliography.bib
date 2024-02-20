@@ -468,103 +468,297 @@
   biburl       = {https://dblp.org/rec/conf/nips/XuS0WCHKLH20.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
-@Article{numpy,
- title         = {Array programming with {NumPy}},
- author        = {Charles R. Harris and K. Jarrod Millman and St{\'{e}}fan J.
-                 van der Walt and Ralf Gommers and Pauli Virtanen and David
-                 Cournapeau and Eric Wieser and Julian Taylor and Sebastian
-                 Berg and Nathaniel J. Smith and Robert Kern and Matti Picus
-                 and Stephan Hoyer and Marten H. van Kerkwijk and Matthew
-                 Brett and Allan Haldane and Jaime Fern{\'{a}}ndez del
-                 R{\'{i}}o and Mark Wiebe and Pearu Peterson and Pierre
-                 G{\'{e}}rard-Marchant and Kevin Sheppard and Tyler Reddy and
-                 Warren Weckesser and Hameer Abbasi and Christoph Gohlke and
-                 Travis E. Oliphant},
- year          = {2020},
- month         = sep,
- journal       = {Nature},
- volume        = {585},
- number        = {7825},
- pages         = {357--362},
- doi           = {10.1038/s41586-020-2649-2},
- publisher     = {Springer Science and Business Media {LLC}},
- url           = {https://doi.org/10.1038/s41586-020-2649-2}
-}
-@ARTICLE{scipy,
-  author  = {Virtanen, Pauli and Gommers, Ralf and Oliphant, Travis E. and
-            Haberland, Matt and Reddy, Tyler and Cournapeau, David and
-            Burovski, Evgeni and Peterson, Pearu and Weckesser, Warren and
-            Bright, Jonathan and {van der Walt}, St{\'e}fan J. and
-            Brett, Matthew and Wilson, Joshua and Millman, K. Jarrod and
-            Mayorov, Nikolay and Nelson, Andrew R. J. and Jones, Eric and
-            Kern, Robert and Larson, Eric and Carey, C J and
-            Polat, {\.I}lhan and Feng, Yu and Moore, Eric W. and
-            {VanderPlas}, Jake and Laxalde, Denis and Perktold, Josef and
-            Cimrman, Robert and Henriksen, Ian and Quintero, E. A. and
-            Harris, Charles R. and Archibald, Anne M. and
-            Ribeiro, Ant{\^o}nio H. and Pedregosa, Fabian and
-            {van Mulbregt}, Paul and {SciPy 1.0 Contributors}},
-  title   = {{{SciPy} 1.0: Fundamental Algorithms for Scientific
-            Computing in Python}},
-  journal = {Nature Methods},
-  year    = {2020},
-  volume  = {17},
-  pages   = {261--272},
-  adsurl  = {https://rdcu.be/b08Wh},
-  doi     = {10.1038/s41592-019-0686-2},
-}
-@misc{scipy-hcluster-linkage,
-    title = "{The library function scipy.cluster.hierarchy.linkage}",
-    note = "https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html\#scipy.cluster.hierarchy.linkage",
-    url = {https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html\#scipy.cluster.hierarchy.linkage},
-    year = {2024},
-}
-@article{mnist,
-  title={The mnist database of handwritten digit images for machine learning research},
-  author={Deng, Li},
-  journal={IEEE Signal Processing Magazine},
-  volume={29},
-  number={6},
-  pages={141--142},
-  year={2012},
-  publisher={IEEE}
-}
-@article{vnncomp-1-3,
-  author       = {Christopher Brix and
-                  Mark Niklas M{\"{u}}ller and
-                  Stanley Bak and
-                  Taylor T. Johnson and
-                  Changliu Liu},
-  title        = {First three years of the international verification of neural networks
-                  competition {(VNN-COMP)}},
-  journal      = {Int. J. Softw. Tools Technol. Transf.},
-  volume       = {25},
-  number       = {3},
-  pages        = {329--339},
-  year         = {2023},
-  url          = {https://doi.org/10.1007/s10009-023-00703-4},
-  doi          = {10.1007/S10009-023-00703-4},
-  timestamp    = {Wed, 01 Nov 2023 08:59:23 +0100},
-  biburl       = {https://dblp.org/rec/journals/sttt/BrixMBJL23.bib},
+
+@inproceedings{formal-ver-piece-wise,
+  author       = {R{\"{u}}diger Ehlers},
+  editor       = {Deepak D'Souza and
+                  K. Narayan Kumar},
+  title        = {Formal Verification of Piece-Wise Linear Feed-Forward Neural Networks},
+  booktitle    = {Automated Technology for Verification and Analysis - 15th International
+                  Symposium, {ATVA} 2017, Pune, India, October 3-6, 2017, Proceedings},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {10482},
+  pages        = {269--286},
+  publisher    = {Springer},
+  year         = {2017},
+  url          = {https://doi.org/10.1007/978-3-319-68167-2\_19},
+  doi          = {10.1007/978-3-319-68167-2\_19},
+  timestamp    = {Tue, 21 Mar 2023 20:59:41 +0100},
+  biburl       = {https://dblp.org/rec/conf/atva/Ehlers17.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
-@article{vnncomp-4,
-  author       = {Christopher Brix and
-                  Stanley Bak and
-                  Changliu Liu and
-                  Taylor T. Johnson},
-  title        = {The Fourth International Verification of Neural Networks Competition
-                  {(VNN-COMP} 2023): Summary and Results},
+
+@article{bab-piecewise-nn,
+  author       = {Rudy Bunel and
+                  Jingyue Lu and
+                  Ilker Turkaslan and
+                  Philip H. S. Torr and
+                  Pushmeet Kohli and
+                  M. Pawan Kumar},
+  title        = {Branch and Bound for Piecewise Linear Neural Network Verification},
+  journal      = {J. Mach. Learn. Res.},
+  volume       = {21},
+  pages        = {42:1--42:39},
+  year         = {2020},
+  url          = {http://jmlr.org/papers/v21/19-468.html},
+  timestamp    = {Thu, 18 Jun 2020 22:13:25 +0200},
+  biburl       = {https://dblp.org/rec/journals/jmlr/BunelLTTKK20.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{bab-lagrangian-decomp,
+  author       = {Alessandro De Palma and
+                  Rudy Bunel and
+                  Alban Desmaison and
+                  Krishnamurthy Dvijotham and
+                  Pushmeet Kohli and
+                  Philip H. S. Torr and
+                  M. Pawan Kumar},
+  title        = {Improved Branch and Bound for Neural Network Verification via Lagrangian
+                  Decomposition},
   journal      = {CoRR},
-  volume       = {abs/2312.16760},
-  year         = {2023},
-  url          = {https://doi.org/10.48550/arXiv.2312.16760},
-  doi          = {10.48550/ARXIV.2312.16760},
+  volume       = {abs/2104.06718},
+  year         = {2021},
+  url          = {https://arxiv.org/abs/2104.06718},
   eprinttype    = {arXiv},
-  eprint       = {2312.16760},
-  timestamp    = {Thu, 18 Jan 2024 14:58:27 +0100},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2312-16760.bib},
+  eprint       = {2104.06718},
+  timestamp    = {Mon, 19 Apr 2021 16:45:47 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2104-06718.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 
+@book{simplex,
+author="Dantzig, George Bernard",
+title="Linear Programming and Extensions",
+address="Santa Monica, CA",
+year="1963",
+doi="10.7249/R366",
+publisher="RAND Corporation"
+}
 
+@inproceedings{backdoor-verification,
+  author       = {Long H. Pham and
+                  Jun Sun},
+  editor       = {Sharon Shoham and
+                  Yakir Vizel},
+  title        = {Verifying Neural Networks Against Backdoor Attacks},
+  booktitle    = {Computer Aided Verification - 34th International Conference, {CAV}
+                  2022, Haifa, Israel, August 7-10, 2022, Proceedings, Part {I}},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {13371},
+  pages        = {171--192},
+  publisher    = {Springer},
+  year         = {2022},
+  url          = {https://doi.org/10.1007/978-3-031-13185-1\_9},
+  doi          = {10.1007/978-3-031-13185-1\_9},
+  timestamp    = {Tue, 09 Aug 2022 17:05:51 +0200},
+  biburl       = {https://dblp.org/rec/conf/cav/PhamS22.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{comp-reachability-analysis,
+  author       = {Alessio Lomuscio and
+                  Lalit Maganti},
+  title        = {An approach to reachability analysis for feed-forward ReLU neural
+                  networks},
+  journal      = {CoRR},
+  volume       = {abs/1706.07351},
+  year         = {2017},
+  url          = {http://arxiv.org/abs/1706.07351},
+  eprinttype    = {arXiv},
+  eprint       = {1706.07351},
+  timestamp    = {Mon, 13 Aug 2018 16:48:12 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/LomuscioM17.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{comp-milp,
+  author       = {Matteo Fischetti and
+                  Jason Jo},
+  title        = {Deep neural networks and mixed integer linear optimization},
+  journal      = {Constraints An Int. J.},
+  volume       = {23},
+  number       = {3},
+  pages        = {296--309},
+  year         = {2018},
+  url          = {https://doi.org/10.1007/s10601-018-9285-6},
+  doi          = {10.1007/S10601-018-9285-6},
+  timestamp    = {Fri, 13 Mar 2020 10:58:32 +0100},
+  biburl       = {https://dblp.org/rec/journals/constraints/FischettiJ18.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{comp-out-range,
+  author       = {Souradeep Dutta and
+                  Susmit Jha and
+                  Sriram Sankaranarayanan and
+                  Ashish Tiwari},
+  editor       = {Aaron Dutle and
+                  C{\'{e}}sar A. Mu{\~{n}}oz and
+                  Anthony Narkawicz},
+  title        = {Output Range Analysis for Deep Feedforward Neural Networks},
+  booktitle    = {{NASA} Formal Methods - 10th International Symposium, {NFM} 2018,
+                  Newport News, VA, USA, April 17-19, 2018, Proceedings},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {10811},
+  pages        = {121--138},
+  publisher    = {Springer},
+  year         = {2018},
+  url          = {https://doi.org/10.1007/978-3-319-77935-5\_9},
+  doi          = {10.1007/978-3-319-77935-5\_9},
+  timestamp    = {Wed, 06 Nov 2019 16:45:49 +0100},
+  biburl       = {https://dblp.org/rec/conf/nfm/DuttaJST18.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{comp-max-resilience,
+  author       = {Chih{-}Hong Cheng and
+                  Georg N{\"{u}}hrenberg and
+                  Harald Ruess},
+  title        = {Maximum Resilience of Artificial Neural Networks},
+  journal      = {CoRR},
+  volume       = {abs/1705.01040},
+  year         = {2017},
+  url          = {http://arxiv.org/abs/1705.01040},
+  eprinttype    = {arXiv},
+  eprint       = {1705.01040},
+  timestamp    = {Mon, 13 Aug 2018 16:46:40 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/ChengNR17.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{comp-safety-ver-dnn,
+  author       = {Daniel Neider and
+                  Taylor T. Johnson},
+  editor       = {Bernhard Steffen},
+  title        = {Track {C1:} Safety Verification of Deep Neural Networks (DNNs)},
+  booktitle    = {Bridging the Gap Between {AI} and Reality - First International Conference,
+                  AISoLA 2023, Crete, Greece, October 23-28, 2023, Proceedings},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {14380},
+  pages        = {217--224},
+  publisher    = {Springer},
+  year         = {2023},
+  url          = {https://doi.org/10.1007/978-3-031-46002-9\_12},
+  doi          = {10.1007/978-3-031-46002-9\_12},
+  timestamp    = {Sat, 13 Jan 2024 17:35:00 +0100},
+  biburl       = {https://dblp.org/rec/conf/vecos/NeiderJ23.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{incomp-dual-approach,
+  author       = {Krishnamurthy Dvijotham and
+                  Robert Stanforth and
+                  Sven Gowal and
+                  Timothy A. Mann and
+                  Pushmeet Kohli},
+  editor       = {Amir Globerson and
+                  Ricardo Silva},
+  title        = {A Dual Approach to Scalable Verification of Deep Networks},
+  booktitle    = {Proceedings of the Thirty-Fourth Conference on Uncertainty in Artificial
+                  Intelligence, {UAI} 2018, Monterey, California, USA, August 6-10,
+                  2018},
+  pages        = {550--559},
+  publisher    = {{AUAI} Press},
+  year         = {2018},
+  url          = {http://auai.org/uai2018/proceedings/papers/204.pdf},
+  timestamp    = {Wed, 09 Mar 2022 16:53:19 +0100},
+  biburl       = {https://dblp.org/rec/conf/uai/DvijothamSGMK18.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{incomp-abs-inp,
+  author       = {Timon Gehr and
+                  Matthew Mirman and
+                  Dana Drachsler{-}Cohen and
+                  Petar Tsankov and
+                  Swarat Chaudhuri and
+                  Martin T. Vechev},
+  title        = {{AI2:} Safety and Robustness Certification of Neural Networks with
+                  Abstract Interpretation},
+  booktitle    = {2018 {IEEE} Symposium on Security and Privacy, {SP} 2018, Proceedings,
+                  21-23 May 2018, San Francisco, California, {USA}},
+  pages        = {3--18},
+  publisher    = {{IEEE} Computer Society},
+  year         = {2018},
+  url          = {https://doi.org/10.1109/SP.2018.00058},
+  doi          = {10.1109/SP.2018.00058},
+  timestamp    = {Fri, 24 Mar 2023 00:03:11 +0100},
+  biburl       = {https://dblp.org/rec/conf/sp/GehrMDTCV18.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{incomp-robustness-certi,
+  author       = {Gagandeep Singh and
+                  Timon Gehr and
+                  Matthew Mirman and
+                  Markus P{\"{u}}schel and
+                  Martin T. Vechev},
+  editor       = {Samy Bengio and
+                  Hanna M. Wallach and
+                  Hugo Larochelle and
+                  Kristen Grauman and
+                  Nicol{\`{o}} Cesa{-}Bianchi and
+                  Roman Garnett},
+  title        = {Fast and Effective Robustness Certification},
+  booktitle    = {Advances in Neural Information Processing Systems 31: Annual Conference
+                  on Neural Information Processing Systems 2018, NeurIPS 2018, December
+                  3-8, 2018, Montr{\'{e}}al, Canada},
+  pages        = {10825--10836},
+  year         = {2018},
+  url          = {https://proceedings.neurips.cc/paper/2018/hash/f2f446980d8e971ef3da97af089481c3-Abstract.html},
+  timestamp    = {Mon, 16 May 2022 15:41:51 +0200},
+  biburl       = {https://dblp.org/rec/conf/nips/SinghGMPV18.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{incomp-boost-robustness,
+  author       = {Gagandeep Singh and
+                  Timon Gehr and
+                  Markus P{\"{u}}schel and
+                  Martin T. Vechev},
+  title        = {Boosting Robustness Certification of Neural Networks},
+  booktitle    = {7th International Conference on Learning Representations, {ICLR} 2019,
+                  New Orleans, LA, USA, May 6-9, 2019},
+  publisher    = {OpenReview.net},
+  year         = {2019},
+  url          = {https://openreview.net/forum?id=HJgeEh09KQ},
+  timestamp    = {Thu, 21 Jan 2021 17:36:45 +0100},
+  biburl       = {https://dblp.org/rec/conf/iclr/SinghGPV19.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{dnn-compression,
+  author       = {Yu Cheng and
+                  Duo Wang and
+                  Pan Zhou and
+                  Tao Zhang},
+  title        = {A Survey of Model Compression and Acceleration for Deep Neural Networks},
+  journal      = {CoRR},
+  volume       = {abs/1710.09282},
+  year         = {2017},
+  url          = {http://arxiv.org/abs/1710.09282},
+  eprinttype    = {arXiv},
+  eprint       = {1710.09282},
+  timestamp    = {Thu, 11 Nov 2021 15:42:44 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-1710-09282.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{backdoor-poisoning,
+  author       = {Xinyun Chen and
+                  Chang Liu and
+                  Bo Li and
+                  Kimberly Lu and
+                  Dawn Song},
+  title        = {Targeted Backdoor Attacks on Deep Learning Systems Using Data Poisoning},
+  journal      = {CoRR},
+  volume       = {abs/1712.05526},
+  year         = {2017},
+  url          = {http://arxiv.org/abs/1712.05526},
+  eprinttype    = {arXiv},
+  eprint       = {1712.05526},
+  timestamp    = {Mon, 22 Jul 2019 13:37:30 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-1712-05526.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
