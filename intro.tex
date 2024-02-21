@@ -1,119 +1,86 @@
 
 \section{Introduction}
 
-\todo{ Re-work }
-
 Advances in Deep Neural Networks (\dnn) have enabled the scalable solution
-of several previously intractable problems like image recognition.\todo{ add
-more egs, cite} Due to this, \dnn have been increasingly assumed a central role
-across various domains. These include several safety critical domains like
+of several previously intractable problems like image recognition and natural
+language processing. Due to this, \dnn have been increasingly assumed a central
+role across various domains. These include several safety critical domains like
 healthcare \cite{b1}, where they contribute significantly to medical diagnostics
 and predictive analysis \cite{b2}, and autonomous vehicles, where DNNs serve as
 the backbone for sophisticated perception systems, supporting tasks such as
 object recognition and decision-making \cite{b3}. 
 
-However, \dnn are well known to be vulnerable to adversarial attacks, backdoor attacks
-\cite{backdoor-poisoning} etc. \todo{cite} and, being generally un-interpretable, can often produce 
+However, \dnn are well known to be vulnerable to adversarial attacks\todo{cite},
+backdoor attacks \cite{backdoor-poisoning} etc.  and, being generally
+un-interpretable, can often produce 
 unexpected behaviours. Therefore, to build trust on safety critical systems 
-that utilize \dnn, it is \dmcmt{has become?} critical to understand, interpret 
-and validate the possible behaviors of these \dnn via formal analysis.
-\dmcmt{ Cite some dnn verif case studies, like nn-lander-verif,
-Prof Deepak's work, etc? Mention verification / interpretability here?}
-\sncmt{Verifying generalization in 
-deep neural networks- Aurora benchmark for congestion control. Lunar lander
-verifying generalizations in neural networks}
+that utilize \dnn, it is  critical to understand, interpret 
+and validate the possible behaviors of these \dnn via formal analysis
+\cite{overview-fxai, minimal-image-fxai, backdoor-verification, nn-lander-verif,
+camera-verif-dsouza, generalization-verif}.
 
 A number of techniques have been proposed to build trust on the reliability
 of \dnn in safety-critical settings, including verification \cite{reluplex,
-deeppoly} \todo{cite others}, formal explainability \cite{overview-fxai,
-minimal-image-fxai} and others \todo{cite}. While verification of neural networks 
-aims at verifying specific properties of networks, 
-explainability aims to understand the decision-making process of the network 
-itself. For most of these
-techniques, it is necessary to make queries to neural network verification
-solvers (such as \cite{reluplex}) to ascertain the trustworthy-ness of the \dnn.
-\dmcmt{What I mean here is to get verif / produce the interpretation. Is wording
-okay?} However, since solving these queries is NP-Hard (see appendix of
-\cite{reluplex}) \dmcmt{Should I point to appendix?}, formal analysis of \dnn
-often faces scalability issues, and is highly sensitive to the size of the \dnn.
+deeppoly, crown, beta-crown, cegar-nn}  and formal
+explainability \cite{overview-fxai, minimal-image-fxai}. For most of these
+techniques, it is necessary to make queries to neural
+network verification solvers (such as \cite{reluplex, beta-crown}) to ascertain
+the trustworthy-ness of the \dnn.
+ However, since solving these queries is NP-Hard (see appendix of
+\cite{reluplex}), and real world \dnn are trained for accuracy and not 
+size, formal analysis of \dnn often faces scalability issues.
 
-Structural abstraction based on the \textit{syntax} (the local weights and biases at each
-node of the \dnn) form the basis of several techniques attempting to alleviate
+Structural abstraction based on the \textit{syntax} (the local weights and
+biases at each
+neuron of the \dnn) form the basis of several techniques attempting to alleviate
 this issue \cite{cegar-nn, cegarette, cleverest-nn, conv-abs-gk}. These
 techniques work by converting a large \textit{concrete} \dnn \cnc into a smaller
-\textit{abstract} DNN \abs via \textit{merging} groups of neurons belonging to
-the same \textit{merge group} in \cnc into single neurons in \abs. Each such
-merge step is done in a way that ensures that there are concrete, formal
-\textit{soundness} guarantees linking the behavior of \cnc and \abs. Then, one
-can make queries on \abs, and using the concrete \textit{soundness} guarantees,
+\textit{abstract} DNN \abs via \textit{merging} groups of neurons in \cnc into
+single neurons in \abs. Each such
+merge is done in a way that ensures that there are \textit{concrete}, formal
+soundness guarantees linking the behavior of \cnc and \abs. Then, one
+can make queries on \abs, and using the concrete soundness guarantees,
 lift the results to \cnc argue about it's reliability. However, these techniques
 do not take into account the global \textit{semantic} behavior of the network,
-thus producing potentially sub-optimal abstractions. \dmcmt{This last bit is not necessarily exposed by our
-experiments..}
+thus producing potentially sub-optimal abstractions.
 
-On the other hand, neural network compression techniques \todo{cite} and
-semantic abstraction techniques \cite{deep-abstract, lin-comb-abs-jan} take into
-account the global semantic information within the network. However,
+On the other hand, neural network compression techniques \cite{dnn-compression}
+and semantic abstraction techniques \cite{deep-abstract, lin-comb-abs-jan} take
+into account the global \textit{semantic} information within the network.
+However,
 compression techniques provide no soundness guarantees, while the semantic
 abstraction techniques provide limited soundness guarantees. In particular, the
 guarantees provided by \cite{deep-abstract} are limited to lifting specific
 bound propagation based proofs, and those provided by \cite{lin-comb-abs-jan}
-only characterise soundness on a finite subset of the input space.\dmcmt{Is this
-okay, or too much detail / bad in any other way?} This limits the applicability
-of these techniques to situation where concrete, hard guarantees may be
-necessary.
+only characterise soundness on a finite subset of the input space. This limits
+the applicability of these techniques to situation where concrete, hard
+guarantees may be necessary.
 
 In this work we combine the syntactic and semantic approaches into a single
 framework for generating an abstract network. By splitting and labelling the
-neurons \textit{inc} and \textit{dec} similar to \cite{cegar-nn}, we can
-restrict ourselves to merges involving only similarly labelled neurons, and can
-guarantee soundness. Using the global semantic information obtained from
-simulating \cnc on a set of input points, we estimate the IO-similarity of
-neurons \dmcmt{Should we say this: similar to \cite{deep-abstract}?}. Based on this
-similarity, we then construct a partial order of possible merges in each layer
-capturing the relative contribution of each merge to the quality of the
-abstraction. Finally, if the resulting \abs
-is not strong \dmcmt{wording okay?} enough to be effective \dmcmt{Avoiding language like
-over-approximate}, we can refine it by eliminating the merge operation involving
-a neuron that contributes most to the poor quality \dmcmt{Wording here? Or use
-weakness?} of \abs and any merge operations that appear higher in the partial
-order.
+neurons \textit{inc} and \textit{dec} similar to \cite{cegar-nn}, and
+restricting ourselves to merges involving only similarly labelled neurons, we
+provide concrete soundness guarantees linking the behavior of \cnc and \abs via
+syntactic constraints.
+On the other hand, to take into account the global semantic behavior we
+introduce a semantic closeness metric between two neurons in the same layer.
+Using this metric, we construct a tree of merge operations that 
+captures the relative contribution of each merge to the quality of the
+abstraction. We propose a refinement procedure that uses this
+tree as a guide to undo the merge operations that
+contribute most to the poor quality of \abs. \dmcmt{I don't talk about
+    counterexamples here, is that okay?} We show that in the resulting
+refined network, groups of neurons that remain merged are semantically closer
+than neurons that get un-merged. Thus, we are able to refine \abs in a way that
+is optimal with respect to the semantic behavior.
 
-\dmcmt{The next 3 paras, esp the next para, are too verbose. Shorten}
-
-We describe a way to efficiently implement this partial order based refinement
-procedure to be able to iterate through potential refinements with minimal
-computational overheads. We do this by creating tree-based data structures that
-allows us to pre-compute a significant portion of the relevant information at
-the beginning of the refinement loop. Then, refinement operations can be
-performed via very quick index manipulations. This allows us to iterate through
-and screen several possible refinements very fast. \dmcmt{We don't explicitly
-measure the speed in the experiments section, so is this okay? Less verbose,
-more concreteness necessary. Talk about later in paper?}
-
-We demonstrate the effectiveness of our abstraction via three case studies.
-Firstly, we attempt to verify the standard \acasxu benchmarks via a CEGAR loop
-utilizing our abstraction and refinement procedures. \dmcmt{Not saying anything
-more} Then, we plot the number of spurious counterexamples our technique
-introduces with respect to the size reduction obtained for $\epsilon$-robustness
-properties on the \mnist networks, demonstrating significant size reductions
-with minimal introduction of spurious counterexamples. 
-
-There are several classification problems for neural networks where
-\textit{false negatives} with respect to a certain class is highly undesirable,
-for example,
-medical diagnosis and collision detection. In the final case study, we
-demonstrate how our method can be used to obtain compressed networks for these
-applications with the guarantee that the compression procedure will not
-introduce any new false negatives. We plot the number of \textit{false
-positives} introduced in this compression process as well, and find that our
-method is able to produce compressed networks without introducing any new false
-negatives and very few false positives. \dmcmt{Is one para for this okay?}
-\sncmt{For the Aurora benchmark what we can do is see if there is a loss of reward
-with the abstraction.}
-
-\dmcmt{Mention restriction to fully connected feed forward relu dnn somewhere?}
-
-\dmcmt{We need a word for the generalized notion of over-approximate-ness of our
-   abstraction, I've used 'weakness' and 'quality' here, what should we have as
-a word in general?}\sncmt{Use 'quality'}
+We assemble these pieces into an abstraction-refinement framework that can
+generate high quality \abs by starting with a fully merged network and
+iteratively refining until a strong enough network is obtained. We demonstrate
+the usefulness of this framework by using it to find safe compressions of \mnist
+networks that are guaranteed to not introduce any false negatives, while
+minimising the number of false positives introduced. Apart from this, we also
+demonstrate the quality of the abstract networks produced for \mnist networks
+and $\epsilon$-robustness properties, and evaluate the verification of the
+\acasxu benchmarks via a \cegar loop based on our abstraction-refinement
+framework.
