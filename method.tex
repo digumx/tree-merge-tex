@@ -22,16 +22,6 @@ This allows us to avoid restoring large number of single neurons(see Section
 \ref{s:nn-sam}) and lets us retain merge operations of higher quality. Thus, we
 produce an \abs of the desired quality with a much smaller size. 
 
-%While the choice of which nodes to leave merged together is guided by the cuts
-%of the tree, the weights attached to the abstract nodes are still chosen
-%by following the procedures from Section \ref{s:nn-sam} and \cite{cegar-nn}.
-%Thus, the concrete soundness guarantees still hold for the \abs obtained.
-%\dmcmt{This point is repeated in \ref{s:refinement}, but this should be okay
-%right?}
-
-%In the following sections we describe a general framework for such a unified
-%syntactic and semantic refinement process, describing each component in detail.
-
 Using these components, we propose a general abstraction-refinement loop based
 framework (Section \ref{s:abs-ref-fw}) that combines syntactic merge operation
 with semantic behavior. This framework is able to utilise \gencex from any
@@ -97,9 +87,6 @@ is optimal (Section \ref{s:optimal-tree}):
     k_2 \in \{1, {\cdots}, q\}} \cls( \nr{i_{k_1}}{l}, \nr{j_{k_2}}{l} )
 \end{aligned}
 \end{equation*}
-
-\dmcmt{Is the above notation necessary, or can we just say pairwise maximum and
-refer to algo?}
 
 This process is detailed in Algorithm \ref{a:build-tree}.
 
@@ -248,7 +235,8 @@ sense:
 Let $T_1$ and $T_2$ be two sub-trees of $T$. Then, the maximum value of $\cls$
 for any two neurons that are leaves $T_1$ (or $T_2$) is smaller than the maximum
 value of $\cls$ for any two neurons one from $T_1$ and another from $T_2$.
-\dmcmt{Make this a lemma?}
+\todo{Write as a lemma. Make notation clear. Intro notation for leaves being a
+part of the tree in \ref{s:tree}}
 
 This fact can be easily proved via induction on the combined size of $T_1$ and
 $T_2$ \todo{Ref appendix}. Note that this proof crucially depends on the fact
@@ -262,10 +250,10 @@ have been un-merged. In particular, this implies that after each refinement
 step, the groups of neurons that remain merged together are optimal with respect
 to the semantic behavior of the network.
 
-\dmcmt{Since semantic closeness doesn't actually anything concrete and
+\todo{Since semantic closeness doesn't actually anything concrete and
     quantitative about what happens at the output, this optimality is not able
-to claim anything about output values. Discuss this? Bringing this up may invite
-more questions, and so an appropriate discussion may take too much space...}
+to claim anything about output values. Discuss this, consider pushing parts of
+this to future work}
 
 \subsection{General Abstraction-Refinement Loop}
 \label{s:abs-ref-fw}

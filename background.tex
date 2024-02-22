@@ -1,6 +1,6 @@
 \section{Background}
 \subsection{Notation}
-\todo{Edges should have arrow in nn}
+\todo{Fix arrow heads to solid in nn}
 
 In this work our focus is on fully connected, feed forward \relu \dnn. 
 Neurons in our network are denoted as $\nr{i}{j}$, where `$i$' signifies the 
@@ -24,8 +24,8 @@ analysis. This includes verifying \dnn with respect to a given
 safety property \cite{reluplex, cegar-nn, deeppoly, cegarette, cleverest-nn,
 conv-abs-gk, deep-abstract, lin-comb-abs-jan}, providing formal explanations of
 the behavior of the \dnn \cite{minimal-image-fxai, overview-fxai}, and defending
-against backdoor attacks,\cite{backdoor-verification} and others.
-\dmcmt{Is the and others okay?} To provide the formal guarantees behind the
+against backdoor attacks \cite{backdoor-verification}.
+ To provide the formal guarantees behind the
 analysis performed, all of these techniques rely on making \textit{neural
 network queries}. 
 
@@ -60,8 +60,7 @@ to prove many interesting and practically relevant neural network queries.
 
 The notion of providing concrete guarantees on the behavior of \abs relative to
 \cnc has been formalized in \cite{cegar-nn}. In particular, guarantees of the
-form $\forall x, \mabs(x) \geq \mcnc(x)$ \dmcmt{
-Should I format this as definition?} are useful as a general notion of concrete
+form $\forall x, \mabs(x) \geq \mcnc(x)$ are useful as a general notion of concrete
 guarantees in many settings. Two such settings are as follows: 
 
 Firstly, since any general neural network query can be converted to a query of
@@ -111,7 +110,7 @@ previous layer neuron with a single edge with the maximum (minimum) of the
 original edge weights. Outgoing edges to the same next layer neuron are replaced
 with a single edge with the sum of the weights for both the \inc and \dec case.
 
-\dmcmt{Do we need to add a reference for 2-class? It may help shorten section.} 
+\todo{Add a reference for 2-class and review following section.} 
 
 We make a slight modification to the above: as a first optimization step, we
 re-merge the two copies of the \abs neurons that are otherwise the same, but
@@ -151,7 +150,8 @@ size, while retaining a single abstract neuron formed by merging a large group
 of neurons in \cnc, affecting the quality of \abs. 
 
 We can see this in our example. Say the fully merged network in Figure
-\ref{fig:full_abstract_net} we get a $\vct{\beta}$ given by the values in red.
+\ref{fig:full_abstract_net} we get a $\vct{\beta}$ given by the values in red
+\todo{don't use color, use italics, bold or something else}.
 Then, in the next refinement step, the neuron $\nr{3}{1}$ gets restored, giving
 us the network in Figure \ref{fig:refine_step_1}. Again, the $\vct{\beta}$
 obtained is shown in red, and the next refinement step restores $\nr{0}{1}$
