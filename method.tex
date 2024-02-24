@@ -88,7 +88,13 @@ is optimal (Section \ref{s:optimal-tree}):
 \end{aligned}
 \end{equation*}
 
-This process is detailed in Algorithm \ref{a:build-tree}.
+\textbf{Notation:} We introduce the following notation. Given a (sub)tree $T$ of
+merge operations, we say a neuron $\nr{i}{l} \in T$ if and only if $T$ has a
+leaf node corresponding to $\nr{i}{l}$. That is, $\nr{i}{l} \in T$ if and only
+if the merge operations forming $T$ involves $\nr{i}{l}$ at any point.
+
+Using this notation, the bottom-up process for constructing the tree is detailed
+in Algorithm \ref{a:build-tree}.
 
 \begin{algorithm}
 \caption{Building the Tree}
@@ -108,9 +114,9 @@ This process is detailed in Algorithm \ref{a:build-tree}.
 
     \Function{PairwiseMax}{$m, m'$}
         
-            \State Let $L, L'$ be leaves of sub-tree rooted at $m, m'$
+            \State Let $T, T'$ be leaves of sub-tree rooted at $m, m'$
 
-            \Return $\max_{\nr{i_{k}}{l} \in S, \nr{i_{k'}}{l} \in S'} 
+            \Return $\max_{\nr{i_{k}}{l} \in T, \nr{i_{k'}}{l} \in S'} 
                 \cls( \nr{i_{k}}{l}, \nr{i_{k'}}{l} )$
 
     \EndFunction
@@ -232,28 +238,45 @@ The tree $T$ produced in Section \ref{s:tree} captures an optimal ordering of
 merge operations with respect to the semantic information in the following
 sense:
 
-Let $T_1$ and $T_2$ be two sub-trees of $T$. Then, the maximum value of $\cls$
-for any two neurons that are leaves $T_1$ (or $T_2$) is smaller than the maximum
-value of $\cls$ for any two neurons one from $T_1$ and another from $T_2$.
-\todo{Write as a lemma. Make notation clear. Intro notation for leaves being a
-part of the tree in \ref{s:tree}}
+\begin{lemma}
+Let $T_1$ and $T_2$ be two sub-trees of $T$. Then, we have:
 
+\begin{equation*}
+\begin{aligned}
+    \max_{ \substack{ \nr{i_1}{l} \in T_1 \\ \nr{i_1'}{l} \in T_1 }} 
+    \cls( \nr{i_1}{l}, \nr{i_1'}{l} ) \leq
+    \max_{ \substack{ \nr{i_1}{l} \in T_1 \\ \nr{i_2}{l} \in T_2 }} 
+    \cls( \nr{i_1}{l}, \nr{i_2}{l} )
+\end{aligned}
+\end{equation*}
+
+%the maximum value of $\cls$
+%for any two neurons that are leaves $T_1$ (or $T_2$) is smaller than the maximum
+%value of $\cls$ for any two neurons one from $T_1$ and another from $T_2$.
+\end{lemma}
+\begin{proof}
 This fact can be easily proved via induction on the combined size of $T_1$ and
-$T_2$ \todo{Ref appendix}. Note that this proof crucially depends on the fact
-that we took pairwise maximum in Algorithm \ref{a:build-tree} in Section
-\ref{s:tree}.
+$T_2$. If a violation holds to the inequality there may be two cases. In the
+first case, $\nr{i_1}{l}, \nr{i_1'}{l} \in T_1'$ where $T_1'$ is a sub-tree of
+$T_1$, but then $T_1'$ and $T_2$ would form a violation of the induction
+hypothesis. The other case directly violates the pairwise maximum used in the
+construction of the tree in Algorithm \ref{a:build-tree} in Section \ref{s:tree}.
+\end{proof}
 
-Thus, we have that for any cut in the tree, the
+Intuitively, the lemma shows that for any cut in the tree, the
 maximum difference in the semantic behavior for neurons that have been left
 merged is less than the maximum difference in semantic behavior for neurons that
 have been un-merged. In particular, this implies that after each refinement
 step, the groups of neurons that remain merged together are optimal with respect
 to the semantic behavior of the network.
 
-\todo{Since semantic closeness doesn't actually anything concrete and
-    quantitative about what happens at the output, this optimality is not able
-to claim anything about output values. Discuss this, consider pushing parts of
-this to future work}
+However, note that our semantic closeness metric fails to say anything about the
+value produced at the output layer of the network for any given input. Thus,
+although we have optimality with respect to semantic behavior, we are unable to
+predict the result of making a cut on the output for the given \gencex.
+Attempting to make such a prediction, or provide some guarantees on the output
+of the network for a given \gencex would, nonetheless be an interesting
+direction for future work.
 
 \subsection{General Abstraction-Refinement Loop}
 \label{s:abs-ref-fw}

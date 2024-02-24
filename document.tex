@@ -2,6 +2,7 @@
 
 \usepackage{blindtext}
 \usepackage{amsmath}
+\usepackage{amsthm}
 %\usepackage{amssymb}
 \usepackage{xspace}
 \usepackage{graphicx}
@@ -11,6 +12,8 @@
 \usepackage{algpseudocode}
 \usetikzlibrary{decorations.text}
 \usetikzlibrary{arrows}
+
+\newtheorem{lemma}{Lemma}
 
 \tikzset{
     myarrow/.style={
@@ -59,7 +62,7 @@
 \newcommand{\marabou}{Marabou \cite{reluplex, marabou, marabouv2}\xspace}
 \newcommand{\acasxu}{ACAS Xu \cite{acasxu, reluplex}\xspace}
 \newcommand{\mnist}{VNNComp MNIST \cite{vnncomp-1-3, vnncomp-4, mnist}\xspace}
-\newcommand{\pgd}{PGD-attack \todo{cite}\xspace}
+\newcommand{\pgd}{PGD-attack \cite{pgd}\xspace} 
 \newcommand{\cegar}{CEGAR \cite{cegar-nn, cegar}\xspace}
 \newcommand{\dnn}{DNN\xspace}
 \newcommand{\quality}{quality\xspace} % The word for measure of quality of abs

@@ -64,9 +64,8 @@ form $\forall x, \mabs(x) \geq \mcnc(x)$ are useful as a general notion of concr
 guarantees in many settings. Two such settings are as follows: 
 
 Firstly, since any general neural network query can be converted to a query of
-the form $(P, \mcnc, y < c)$ for some $c$ \cite{cegar-nn, reluplex} \todo{See
-\cite{cegar-nn}, they have another citation for this encoding}, such a
-guarantee is
+the form $(P, \mcnc, y < c)$ for some $c$ \cite{cegar-nn, reluplex,
+lipschitz-reach} , such a guarantee is
 useful for dispatching the query on a smaller network \cite{cegar-nn, cegarette,
 cleverest-nn}. This immediately makes an \abs with these guarantees useful for
 accelerating several formal analysis techniques (Section \ref{s:form-an}).
