@@ -25,7 +25,15 @@ obtain abstract networks with the aim of proving a given property, plotting the
 number of spurious counterexamples introduced as the size of the abstract
 network reduces (Section \ref{s:exp-mnist-rob}). Finally, in the last set of
 experiments, we show how our technique may be used in a CEGAR loop
-\cite{cegar-nn} to verify the \acasxu properties.
+\cite{cegar-nn} to verify the \acasxu properties. We utilized \abcrown as the 
+solver in the backend for these experiments.
+
+
+The experiments were carried out on a system equipped with a \todo{get details} RAM,
+\todo{get details} processor, running the \todo{get details} operating system. 
+The entirety of the code, networks, datasets, and properties utilized in our 
+evaluation can be found on \href{https://github.com/digumx/semantic-neuron-merge}{https://github.com/digumx/semantic-neuron-merge}.
+
 
 \todo{TODO add gh link and exp machine details}
 
@@ -39,12 +47,12 @@ collision detection, a false negative is far more dangerous than a false
 positive.
 
 Safety critical analysis of neural networks is highly sensitive to the size of
-the network. While several neural network compression techniques exist
-\todo{cite}, they do not formal guarantees connecting the behavior
-of the compressed network and the original network. Similarly, although existing
-semantic abstraction techniques have been proposed as a way to compress neural
-networks, the guarantees provided by such techniques are of an empirical nature
-\cite{lin-comb-abs-jan}.
+the network. While several neural network compression techniques exist 
+\cite{dnn-compression} \todo{cite}, they do not formal guarantees 
+connecting the behavior of the compressed network and the original network. Similarly,
+although existing semantic abstraction techniques have been proposed as 
+a way to compress neural networks, the guarantees provided by such 
+techniques are of an empirical nature \cite{lin-comb-abs-jan}.
 This lack of guarantees also limits the usefulness of these compression
 techniques as optimisation steps when deploying a network to a
 resource-constrained environment. 
@@ -110,7 +118,7 @@ culprit at random, and serves as a baseline. For the other three methods, we
 choose a number of reference points to calculate scores, and choose the culprit
 neuron with the highest score. For 'samples', the reference points are random
 generated input points that satisfy the precondition. For 'pgd', the samples are
-generated via a PGD \todo{cite} attack on the abstract network at each step. For
+generated via a PGD \cite{pgd, pgd-attack} attack on the abstract network at each step. For
 'samples-pgd', we do some initial refinement steps using the randomly generated
 samples, when all the samples have been exhausted, we then perform 'pgd'. We use
 the implementation of 'pgd' inside \abcrown for our experiments.
