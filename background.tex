@@ -110,6 +110,8 @@ original edge weights. Outgoing edges to the same next layer neuron are replaced
 with a single edge with the sum of the weights for both the \inc and \dec case.
 
 \todo{Add a reference for 2-class and review following section.} 
+\kmcmt{Let us use these references for the 2-class classification:~\cite{chauhan2022efficiently,liu2022abstraction,10.1145/3644387}. Also, I think it might be better to state the 2-class directly as a modification. Something like, ``Instead of the four-way split, we consider only a two-way split of neurons as \emph{inc} and \emph{dec}.'' And then let us preserve the term ``re-merging'' for merging an increment and its corresponding decrement neuron back into one. I think the following para, and possibly relevant parts of the following sections, will have to be changed accordingly.}
+
 
 We make a slight modification to the above: as a first optimization step, we
 re-merge the two copies of the \abs neurons that are otherwise the same, but
