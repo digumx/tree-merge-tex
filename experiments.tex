@@ -37,8 +37,17 @@ evaluation can be found on \href{https://github.com/digumx/semantic-neuron-merge
 
 \todo{TODO add gh link and exp machine details}
 
+The experiments were ran on a machine running on an Intel(R) Core(TM) i7-9700K
+with 8 cpus running at 3.60GHz, having 16 GB ram and running Ubuntu 22.04 LTS.
+
 \subsection{Compression with Guarantees on Critical Classes}
 \label{s:exp-mnist-comp}
+
+\todo{ Say this: In the graph we see that there is a small window where most of
+    the spuriousness is being eliminated. This indicates that, guided by the
+    semantic information, we are able to do precisely the right refinement
+    operations to eliminate most of the spuriousness without introducing too
+many neurons back. }
 
 In several safety-critical applications of \dnn as classifiers, there are
 certain `critical` classes for which a false negative classification is far more
@@ -212,7 +221,21 @@ of target network and property, our framework allows the use of either, and
 in-fact, any other method for generating the counterexamples.
 
 \subsection{Verification of \acasxu}
-\todo{These set of experiments still needs to be rerun}
+
+\todo{ Talk about the
+    fact that if we refine after the first solver call, then we end up refining
+all the way.
+}
+
+\todo{ Say this: Our fw makes it possible to use the semantic beh to
+    unambiguously order refinement operations. Therefore, in a cegar loop
+    setting, we are able to make refinement operations precisely until the point
+    where the current sp.cex. is eliminated. Prev. techniques needed heuristics
+    to guide the refinement order, or chose an arbitrary number of refinement
+    steps. Thus, we get fewer solver calls (number) , and between each each call
+    we are making precisely the right number of refinemets in an order optimal
+    wrt sem.info.
+}
 
 In these set of experiments, we have taken the \acasxu set of
 networks \todo{add detailed table} and
@@ -233,8 +256,7 @@ safe       &        40.404  &         4.4875 &   14.198  \\
 unsafe     &       100      &        55.6071 &   12.7916 \\
 \hline
 \end{tabular}
-\caption{Summary of \acasxu Results \todo{Add full table in
-appendix}}
+\caption{Summary of \acasxu Results }
 \label{t:acas-summary}
 \end{table}
 
