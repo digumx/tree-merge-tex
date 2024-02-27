@@ -8,7 +8,7 @@ We have used a linkage-matrix \cite{scipy-hcluster-linkage}  based
 data structure to store the tree, and have precomputed and cached several
 operations that may need to be repeated every refinement iteration. This allows
 us to quickly perform the merge and split operations and calculate the
-scores, \todo{ ref earlier sections} without having to do (relatively)
+scores (Section \ref{s:refinement}), without having to do (relatively)
 expensive tree traversal operations in each iteration of the abstraction
 refinement loop. 
 
