@@ -7,17 +7,21 @@ interesting devise mechanisms that approach optimal refinement as
 closely as possible.
 
 Exploring alternative measures for the semantic closeness factor $\cls$ 
-beyond our current demonstrations is an intriguing prospect facilitated by 
-our framework. Specifically, we want to identify an improved metric for the 
-semantic closeness factor that minimizes over-approximation at the output 
-neuron during abstraction processes. This optimization would help reduce the number 
-of refinement steps by enabling the addition of the fewest possible neurons.
+is an intriguing prospect. Note that our framework allows one to seamlessly 
+experiment  with any $\cls$.  Our current $\cls$ does capture optimality with respect 
+to I/O behavior of the neurons but we are not able to guarantee minimization of
+over-approximation at the output layer. In future, we want to identify an
+improved metric for the semantic closeness factor that minimizes 
+over-approximation at the output neuron during abstraction processes. 
 
 In our experimentation, we noticed that the time needed to verify a specific 
 property of a network is not solely determined by the network's size. It's possible 
 that a larger network can be verified quickly, while a smaller one may take longer 
-or even fail to be verified altogether. In the future, our objective is to conduct a 
-comprehensive investigation into the underlying reasons for this occurrence.
+or even fail to be verified altogether. In the future, it would be interesting
+to conduct a comprehensive investigation into the underlying reasons 
+for this occurrence. In general obtaining a more accurate 
+measure of the effort required to verify a network would provide a better optimization
+target for abstraction used in the context of verification.
 
 In future we would like to explore whether this optimal refinement 
 could involve merging neurons across different layers, rather than confining 
