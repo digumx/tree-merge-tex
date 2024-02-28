@@ -1,7 +1,9 @@
-\section{Experiments}
+\section{Experiments} 
 
-We have implemented our method in python \footnote{The entirety of the code, networks, datasets, and properties utilized in our 
-evaluation can be found on \todo{add github link}.}, utilising the NumPy \cite{numpy}
+We have implemented our method in python\footnote{The entirety of the code,
+    networks, datasets, and properties utilized in our evaluation will be made
+    available via a publicly hosted code repository in the
+camera ready version.}., utilising the NumPy \cite{numpy}
 library for linear algebra operations and the SciPy \cite{scipy} library for an
 implementation of \hcluster.
 We have used a linkage-matrix \cite{scipy-hcluster-linkage}  based
@@ -146,7 +148,8 @@ $4\times256$ & samples-pgd & 40.1 \%   & 95.8 \%  &   1017 \\
 $6\times256$ & samples-pgd & 45.5 \%   & 96.9 \%  &   2425 \\ 
 \hline
 \end{tabular}
-\caption{Summary of \mnist compression Results \todo{Use Reduction Rate Data}}
+\caption{Summary of \mnist compression Results \todo{Use Reduction Rate Data,
+re-run without re-merging}}
 \label{t:mnist-compr-summary}
 \end{table}
 
@@ -193,7 +196,6 @@ to remove spurious counterexamples. We start with the abstract network and
 iteratively perform refinements, measuring the number of spurious
 counterexamples at each step. 
 
-
 \begin{figure}
 
     \begin{subfigure}{0.475\linewidth}
@@ -226,11 +228,14 @@ accuracy.}}
     \label{f:ncex}
 \end{figure}
 
-We experimented with two sets of networks and properties: \mnist and \acasxu.
+We experimented with two sets of networks and properties: \mnist with
+adversarial robustness properties and \acasxu with both original properties from
+\cite{reluplex} and adversarial properties discussed in \cite{cegar-nn}.
 Figure \ref{f:ncex} shows some typical plots
-for these experiments. Here the x-axis measures the reduction rate, and the
-y-axis one minus the rate of true counterexamples within a random sample - thus
-a high value indicates a good abstraction.
+for these experiments. Here the x-axis measures the reduction rate with respect
+to the \inc-\dec split networks and the y-axis is one minus the rate of true
+counterexamples within a random sample - thus a high value indicates a good
+abstraction.
 
  We see that as we refine the
 network and the reduction rate reduces (moving right to left along the graph),
