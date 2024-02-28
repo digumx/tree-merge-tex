@@ -50,8 +50,6 @@ ran on a machine running on an Intel(R) Core(TM) i7-9700K with 8 cpus running at
 
 \todo{ Re-run without re-merging}
 
-\todo{ Re-run without re-merging}
-
 In several safety-critical applications of \dnn as classifiers, there are
 certain `critical` classes for which a false negative classification is far more
 dangerous than a false positive one. For example, for medical diagnosis and
@@ -81,7 +79,8 @@ abstract network will also classify this input as critical. We will however pay
 for this compression by introducing false positives.
 
 We demonstrate the effectiveness of our abstraction method as a
-compression-with-guarantees via some experiments on \mnist. We set the class '0'
+compression-with-guarantees technique via some experiments on \mnist. We set the
+class '0'
 as the critical class. Then, starting with the fully merged network, we
 iteratively perform refinements while measuring the accuracy, false/true
 positive/negative rates. We perform this experiments with four strategies of

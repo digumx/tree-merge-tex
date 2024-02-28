@@ -103,7 +103,10 @@ we opt for a two-way split method \cite{chauhan2022efficiently,liu2022abstractio
 10.1145/3644387}. This involves partitioning neurons in \cnc into duplicate
 copies labeled with either {\inc, \dec}, ensuring that any increase 
 (decrease) in the value of a neuron labeled \inc (\dec) only results in 
-an increase in the output value. Then, following \cite{cegar-nn}, a sound 
+an increase in the output value. \todo{ We can do this because it is not
+    necessary to perform \posc-\negc splitting to soundly obtain an \inc-\dec
+    split, as seen in  \cite{chauhan2022efficiently,liu2022abstraction,
+10.1145/3644387} }Then, following \cite{cegar-nn}, a sound 
 abstraction can be obtained by \textit{merging} all similarly 
 labelled neurons as follows: if the neurons have
 the label \inc (\dec), replace incoming edges from the same
