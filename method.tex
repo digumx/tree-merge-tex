@@ -200,7 +200,7 @@ when the following value is maximum for that neuron:
 
 Here, $v_{\gamma}(\vct{\beta})$ is the value at the neuron $\gamma$ for input
 $\vct{\beta}$ in the original \cnc, while $v^{*}_{\gamma}(\vct{\beta})$ is the
-value of the neuron $\gamma$ has been merged to in our current \abs.
+value of the neuron that $\gamma$ has been merged into within our current \abs.
 $\frac{\delta y(\vct{\beta})}{\delta v_{\gamma}}$ is the gradient of the output
 $y$ of \cnc with respect to the value at $\gamma$ for the input $\vct{\beta}$.
 
@@ -209,7 +209,7 @@ $y$ of \cnc with respect to the value at $\gamma$ for the input $\vct{\beta}$.
 We wish to find a cut in the tree where $\gamma$ is not merged to any other
 neuron, while also making sure that as many neurons remain merged as possible
 (therefore minimizing the increase in size of \abs). To do this, we delete
-precisely those nodes that are dependent on $\gamma$, starting form the parent
+precisely those nodes that are dependent on $\gamma$, starting from the parent
 of $\gamma$ and moving up the tree following the parent of each.
 
 Once we have cut the tree and decided on which neurons to leave merged, the
