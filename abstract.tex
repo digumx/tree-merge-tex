@@ -1,12 +1,18 @@
 
 \begin{abstract}
-    \todo{Add line for emb-sys themes}
 Deep Neural Networks (DNNs), today, are being trained and trusted for
 performing fairly complex tasks, even in safety-critical applications such as
-automated driving, medical diagnosis, and air-traffic control. Proving
-trustworthiness, typically using formal verification or formal explainability,
-is a difficult task though. The biggest challenge in this comes from the size
-of the DNNs -- real-world networks are trained for performance, and
+automated driving, medical diagnosis, and air-traffic control.
+These advancements make the utilization of these DNNs in embedded systems 
+highly appealing. However, two challenges arise:
+1. The inference process of DNNs on resource-limited embedded 
+devices can often be time-consuming. 
+2. Proving their trustworthiness for safety critical settings, typically using 
+formal verification or formal explainability, is difficult.
+Both of these challenges stem from the size of the DNNs. 
+Their large size necessitates significant resources for decision-making,
+which poses a problem in resource-limited embedded systems.
+Also since real-world networks are trained for performance ,
 compromising size for accuracy is therefore a natural thing to do. To address
 this issue, several abstraction methods have been proposed. This includes
 techniques that perform an abstract analysis of the network, and those that
