@@ -117,11 +117,14 @@ smilar to later section for various mnist sizes?}
 
 \subsection{Robustness on \mnist}
 \label{s:exp-mnist-rob}
-\todo{If time permits try: 1. These experiments on ACAS, 2. pgd then samples}
+\todo{Change title}
 
-In this section, we start with our abstraction and progressively refine it using
-our refinement technique, measuring the number of spurious counterexamples at
-each step. To perform the refinement at each step, we try four methods to
+In this section, we explore how well our abstraction refinement process is able
+to remove spurious counterexamples. We start with the abstract network and
+iteratively perform refinements, measuring the number of spurious
+counterexamples at each step. 
+
+To perform the refinement at each step, we try four methods to
 perform the culprit neuron selection. The first method 'random' simply chooses a
 culprit at random, and serves as a baseline. For the other three methods, we
 choose a number of reference points to calculate scores, and choose the culprit
@@ -130,30 +133,60 @@ generated input points that satisfy the precondition. For 'pgd', the samples are
 generated via a PGD \cite{pgd, pgd-attack} attack on the abstract network at each step. For
 'samples-pgd', we do some initial refinement steps using the randomly generated
 samples, when all the samples have been exhausted, we then perform 'pgd'. We use
-the implementation of 'pgd' inside \abcrown for our experiments.
+the implementation of 'pgd' inside \abcrown for our experiments. \todo{Move this
+para to prev. subsec once table is there}.
 
 \begin{figure}
-    \includegraphics[scale=0.4]{figs/mnist_2_256_prop_0_0.03_samples.png}
+
+    \begin{subfigure}{0.475\linewidth}
+        \includegraphics[scale=0.225]{figs/mnist_2_256_prop_0_0.03_samples.png}
+        \caption{}
+        \label{f:mnist-prop-samples}
+    \end{subfigure}
+    \begin{subfigure}{0.475\linewidth}
+        \includegraphics[scale=0.225]{figs/mnist_2_256_prop_0_0.03_pgd.png}
+        \caption{}
+        \label{f:mnist-prop-pgd}
+    \end{subfigure}
+
+    \begin{subfigure}{0.475\linewidth}
+        \includegraphics[scale=0.275]{figs/acas_ncex_1_5_4_samples.png}
+        \caption{}
+        \label{f:acas-ncex-samples}
+    \end{subfigure}
+    \begin{subfigure}{0.475\linewidth}
+        \includegraphics[scale=0.275]{figs/acas_ncex_1_5_4_pgd.png}
+        \caption{}
+        \label{f:mnist-prop-pgd}
+    \end{subfigure}
+
     \caption{Accuracy vs Reduction Rate plot for \mnist of size $2 \times 256$
-        with $\epsilon$-Robustness property. Refinement done via the 'samples'
-    method.}
-    \label{f:mnist-prop-samples}
-\end{figure}
-\begin{figure}
-    \includegraphics[scale=0.4]{figs/mnist_2_256_prop_0_0.03_pgd.png}
-    \caption{Accuracy vs Reduction Rate plot for \mnist of size $2 \times 256$
-        with $\epsilon$-Robustness property. Refinement done via the 'pgd'
-    method.}
-    \label{f:mnist-prop-pgd}
+        with $\epsilon$-Robustness property. Refinement done via the 'pgd' in
+        \ref{f:mnist-prop-pgd} and 'samples' in \ref{f:mnist-prop-samples}
+    method. \todo{Make compression rate wrt inc-dec-split size, do 1-current
+accuracy.}}
+    \label{f:ncex}
 \end{figure}
 
-Figure \ref{f:mnist-prop-samples} \ref{f:mnist-prop-pgd} shows a typical plot
-for these experiments.  Here accuracy measures the number of true
-counterexamples within a random sample
+We experimented with two sets of networks and properties: \mnist and \acasxu.
+Figure \ref{f:ncex} shows some typical plots
+for these experiments. Here the x-axis measures the reduction rate, and the
+y-axis one minus the rate of true counterexamples within a random sample - thus
+a high value indicates a good abstraction.
+
  We see that as we refine the
 network and the reduction rate reduces (moving right to left along the graph),
-the accuracy remains close to zero. At some point however, the accuracy jumps up
-sharply and becomes close to $100\%$. This indicates that there are a few
+the y-value remains close to zero. At some point however, it jumps up
+sharply and becomes close to $1$. Thus, we have a small window of reduction rate
+values in the graph where we see all the improvement in over-approximation, as
+opposed to having a lingering tail of continual improvements as the reduction
+rate continues to decrease.
+This indicates that, while our refinement process is not able to produce small
+improvements in the over-approximation rate, guided by the semantic information
+we undo precisely those merges that leads to most improvement in quality while
+introducing the least number of neurons 
+
+This indicates that there are a few
 critical refinement steps that remove almost all spurious counterexamples. This
 may be due the fact that with epsilon robustness properties that are being
 explored here, the pre-condition region may be very small, so a single
@@ -220,6 +253,21 @@ relative performance of `pgd` and `samples` may be different for a different set
 of target network and property, our framework allows the use of either, and
 in-fact, any other method for generating the counterexamples.
 
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Benchmark         &    Size  & \% Sp. Cex. & Steps   \\
+\hline
+samples           & 326.878  &  87.0\%     & 294.111  \\
+random            & 294.306  &  96.4\%     & 512.011  \\
+pgd               & 295.422  &  83.9\%     & 235.606  \\
+pgd-after-samples & 329.311  &  94.7\%     & 299.272  \\
+\hline
+\end{tabular}
+\caption{Summary of \acasxu, measuring the percentage of spurious counterexample }
+\label{t:acas-ncex}
+\end{table}
+
 \subsection{Verification of \acasxu}
 
 \todo{ Talk about the
@@ -248,15 +296,17 @@ the culprit neuron (\ref{s:refinement}). With the culprit neuron selected, we
 then refine the network.
 
 \begin{table}
-\begin{tabular}{ |c|c|c|c| }
+\footnotesize
+\begin{tabular}{ |c|c|c|c|c|c| }
 \hline
-Benchmarks &    \% Verified &  Avg Reduction &  Avg Time \\
+Benchmark   & \% Verified & Size     & Time    & No. Refine & Solver Calls \\ 
 \hline
-safe       &        40.404  &         4.4875 &   14.198  \\
-unsafe     &       100      &        55.6071 &   12.7916 \\
-\hline
+prop-Safe   &   64\%      & 339      & 11.1    & 302        & 5.8      \\
+prop-Unsafe &   93\%      & 140      & 10.0    & 137        & 2.8      \\
+adv-unsafe  &  100\%      & 18       & 1.2     & -          & -        \\
+\hline                                                                
 \end{tabular}
-\caption{Summary of \acasxu Results }
+\caption{Summary of \acasxu verification }
 \label{t:acas-summary}
 \end{table}
 
