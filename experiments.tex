@@ -199,137 +199,110 @@ counterexamples at each step.
 \begin{figure}
 
     \begin{subfigure}{0.475\linewidth}
-        \includegraphics[scale=0.225]{figs/mnist_2_256_prop_0_0.03_samples.png}
+        \includegraphics[scale=0.275]{figs/mnist_2_256_prop_0_0.03_samples.png}
         \caption{}
         \label{f:mnist-prop-samples}
     \end{subfigure}
     \begin{subfigure}{0.475\linewidth}
-        \includegraphics[scale=0.225]{figs/mnist_2_256_prop_0_0.03_pgd.png}
+        \includegraphics[scale=0.275]{figs/mnist_2_256_prop_0_0.03_pgd.png}
         \caption{}
         \label{f:mnist-prop-pgd}
     \end{subfigure}
 
     \begin{subfigure}{0.475\linewidth}
-        \includegraphics[scale=0.275]{figs/acas_ncex_1_5_4_samples.png}
+        \includegraphics[scale=0.275]{figs/acas_ncex_5_8_3_samples.png}
         \caption{}
         \label{f:acas-ncex-samples}
     \end{subfigure}
     \begin{subfigure}{0.475\linewidth}
-        \includegraphics[scale=0.275]{figs/acas_ncex_1_5_4_pgd.png}
+        \includegraphics[scale=0.275]{figs/acas_ncex_5_8_3_pgd.png}
         \caption{}
-        \label{f:mnist-prop-pgd}
+        \label{f:acas-ncex-pgd}
     \end{subfigure}
 
-    \caption{Accuracy vs Reduction Rate plot for \mnist of size $2 \times 256$
-        with $\epsilon$-Robustness property. Refinement done via the 'pgd' in
-        \ref{f:mnist-prop-pgd} and 'samples' in \ref{f:mnist-prop-samples}
-    method. \todo{Make compression rate wrt inc-dec-split size, do 1-current
-accuracy.}}
+    \caption{
+        Spurious counterexample vs Reduction Rate plot for \mnist of size $2
+        \times 256$ with $\epsilon$-Robustness property are given in 
+        \ref{f:mnist-prop-pgd} and \ref{f:mnist-prop-samples}. 
+        Spurious counterexample vs Reduction Rate plot for \acasxu network 5-8,
+        property 3 in \ref{f:acas-ncex-samples} and \ref{f:acas-ncex-pgd}
+        Refinement done via the \textit{pgd} method in
+        \ref{f:mnist-prop-pgd} and \ref{f:acas-ncex-pgd} and 
+        via \textit{samples} method in \ref{f:mnist-prop-samples} and
+        \ref{f:acas-ncex-samples}.
+    }
     \label{f:ncex}
 \end{figure}
 
 We experimented with two sets of networks and properties: \mnist with
-adversarial robustness properties and \acasxu with both original properties from
-\cite{reluplex} and adversarial properties discussed in \cite{cegar-nn}.
+adversarial robustness properties and \acasxu with the properties from
+\cite{reluplex}. For each, we tried the 4 strategies for choosing $\gamma$ from
+Section \ref{s:exp-mnist-comp}.
 Figure \ref{f:ncex} shows some typical plots
 for these experiments. Here the x-axis measures the reduction rate with respect
-to the \inc-\dec split networks and the y-axis is one minus the rate of true
-counterexamples within a random sample - thus a high value indicates a good
+to the \inc-\dec split networks and the y-axis is the rate of true
+counterexamples within a random sample - thus a low value indicates a good
 abstraction.
 
- We see that as we refine the
-network and the reduction rate reduces (moving right to left along the graph),
-the y-value remains close to zero, At some point however, it jumps up
-sharply and becomes close to $1$. Thus, we have a small window of reduction rate
-values in the graph where we see all the improvement in over-approximation, as
-opposed to having a lingering tail of continual improvements as the reduction
-rate continues to decrease.
-This indicates that, while our refinement process is not able to produce small
-improvements in the over-approximation rate, guided by the semantic information
-we undo precisely those merges that leads to most improvement in quality while
-introducing the least number of neurons.
-
-This indicates that there are a few
-critical refinement steps that remove almost all spurious counterexamples. This
-may be due the fact that with epsilon robustness properties that are being
-explored here, the pre-condition region may be very small, so a single
-refinement step may change the behavior of the network on that small region in a
-way that eliminates all possible spurious counterexamples from that region.
-\todo{Make graphs smaller, and include the vs steps graphs}
+Similar to Section \ref{s:exp-mnist-comp}, we see that there is a small window
+of reduction rate values where most of the improvement in over-approximation
+occurs. As before, we believe that this is evidence that we are able to use
+semantic information and undo merge operations optimally.
 
 \begin{table}
 \begin{tabular}{|c|c|c|c|c|}
     \hline
-    Net Size     & Refinement  & Reduction & Accuracy & No. Steps \\
+    Net Size     & Refinement  & Reduction & Cex. Rate & No. Steps \\
     \hline
-    $2\times256$ & random      & $49.1\%$  & $100\%$  & $ 809$    \\
-    $4\times256$ & random      & $49.6\%$  & $100\%$  & $1778$    \\
-    $6\times256$ & random      & $49.7\%$  & $100\%$  & $2602$    \\
-    $2\times256$ & samples     & $50.3\%$  & $100\%$  & $  27$    \\
-    $4\times256$ & samples     & $49.9\%$  & $100\%$  & $ 648$    \\
-    $6\times256$ & samples     & $47.9\%$  & $100\%$  & $1199$    \\
-    $2\times256$ & pgd         & $50.4\%$  & $100\%$  & $  28$    \\
-    $4\times256$ & pgd         & $88.6\%$  & $  0\%$  & $  14$    \\
-    $6\times256$ & pgd         & $83.3\%$  & $  0\%$  & $  82$    \\
-    $2\times256$ & samples-pgd & $50.3\%$  & $100\%$  & $  27$    \\
-    $4\times256$ & samples-pgd & $49.9\%$  & $100\%$  & $ 648$    \\
-    $6\times256$ & samples-pgd & $47.9\%$  & $100\%$  & $1209$    \\
+    $2\times256$ & random      & $49.1\%$  & $  0\%$  & $ 809$    \\
+    $4\times256$ & random      & $49.6\%$  & $  0\%$  & $1778$    \\
+    $6\times256$ & random      & $49.7\%$  & $  0\%$  & $2602$    \\
+    $2\times256$ & samples     & $50.3\%$  & $  0\%$  & $  27$    \\
+    $4\times256$ & samples     & $49.9\%$  & $  0\%$  & $ 648$    \\
+    $6\times256$ & samples     & $47.9\%$  & $  0\%$  & $1199$    \\
+    $2\times256$ & pgd         & $50.4\%$  & $  0\%$  & $  28$    \\
+    $4\times256$ & pgd         & $88.6\%$  & $100\%$  & $  14$    \\
+    $6\times256$ & pgd         & $83.3\%$  & $100\%$  & $  82$    \\
+    $2\times256$ & samples-pgd & $50.3\%$  & $  0\%$  & $  27$    \\
+    $4\times256$ & samples-pgd & $49.9\%$  & $  0\%$  & $ 648$    \\
+    $6\times256$ & samples-pgd & $47.9\%$  & $  0\%$  & $1209$    \\
     \hline
 \end{tabular}
-\caption{Summary of \mnist Results on a single robustness property \todo{Add
-        column with time per refine, and number of neurons eliminated per
-refine.}}
+\caption{Summary of \mnist Results on a single robustness property }
 \label{t:mnist-prop-summary}
 \end{table}
 
-Table \ref{t:mnist-prop-summary} summarizes these results for multiple \mnist
-networks and multiple refinement methods. Accuracy here refers to the final
-accuracy of the best network found when the refinement process stops due to lack
-of counterexamples. Firstly, we find that 'pgd' performs poorly on the $4$ and
-$6$ layer networks, where while the number of steps are relatively low and the
-reduction rate is high, the accuracy is very low. This is because the \abcrown
-implementation of \pgd fails to find a spurious counterexample early on in the
-refinement process for these instances, leading to early termination without
-ever hitting the accuracy jump. 
-
-Apart from these exceptions, the other instances and methods seem to perform
-comparably on the same network in terms of reduction rate. This is evidence for
-the fact that, within the limited search space of abstractions defined by our
-tree, there exists a strong enough abstract network with a good reduction rate,
-and that it is possible to find this network via a \cegar-like approach. 
-
-Further, we see significant difference in the number of steps taken by 'random'
-and the other methods in finding the abstract network. This indicates that our
-heuristics for finding a culprit neuron to base the refinement on indeed
-shortens the search for the refined network. We also observe that
-'samples','samples-pgd' and for the $2$ layer network 'pgd' take similar number
-of refinement steps, indicating that each method may be taking close to the
-optimal set of refinement steps. So, although the 'pgd' method
-incurs a significant time overhead \dmcmt{Measure?} it does not necessarily
-provide any benefits. 
-
-We note that in \cite{cleverest-nn}, an eager pgd-attack before each solver call
-has been effectively used to accelerate the CEGAR loop. We do not see such
-benefits from using pgd, and instead observe that the global view given by
-the large number of samples in the `samples` method performs better. While the
-relative performance of `pgd` and `samples` may be different for a different set
-of target network and property, our framework allows the use of either, and
-in-fact, any other method for generating the counterexamples.
+Table \ref{t:mnist-prop-summary} summarizes our observations for \mnist. We
+choose a network to report the reduction rate in a manner similar to Section
+\ref{s:exp-mnist-comp} and make similar observations. \textit{pgd} performs
+relatively poorly, which may be attributed to the PGD-attack failing to produce
+counterexamples. All the other methods arrive at \abs with similar reduction and
+counterexample rates. Indeed, all other methods are able to eliminate all
+counterexamples. Again, we see that \textit{random} takes more number of steps
+to arrive at the \abs, indicating that heuristics for finding $\gamma$ shortens
+the search for \abs.
 
 \begin{table}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-Benchmark         &    Size  & \% Sp. Cex. & Steps   \\
+Benchmark   & Reduction  & \% Sp. Cex. & Steps    \\
 \hline
-samples           & 326.878  &  87.0\%     & 294.111  \\
-random            & 294.306  &  96.4\%     & 512.011  \\
-pgd               & 295.422  &  83.9\%     & 235.606  \\
-pgd-after-samples & 329.311  &  94.7\%     & 299.272  \\
+samples     & 45.5\%     &  13.0\%     & 294.111  \\
+random      & 50.9\%     &  3.6\%      & 512.011  \\
+pgd         & 50.8\%     &  16.1\%     & 235.606  \\
+samples-pgd & 45.1\%     &  5.3\%      & 299.272  \\
 \hline
 \end{tabular}
 \caption{Summary of \acasxu, measuring the percentage of spurious counterexample }
 \label{t:acas-ncex}
 \end{table}
+
+Table \ref{t:acas-ncex} summarises the results for the \acasxu networks. Here,
+we see that all 4 strategies for selecting $\gamma$ seem to produce much more
+similar \abs. Indeed, PGD-attack was much more successful in finding
+$\vct{\beta}$ for these networks, only producing slightly more counterexamples.
+Again, we find that \textit{random} takes many more steps but arrives at a
+network of similar size.
 
 \subsection{Verification of \acasxu}
 
