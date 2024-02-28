@@ -140,15 +140,15 @@ formal analysis, there may be too many spurious counterexamples. In such
 situations, a common approach to obtain a better quality \abs is to perform
 refinement steps based on a \gencex $\vct{\beta}$ \cite{cegar-nn,
 cegarette, cleverest-nn}. In
-existing techniques this is typically done restoring a single neuron in \cnc
-that had been merged \abs. The neuron chosen is typically one whose contribution
-to $\vct{\beta}$ is estimated to be the highest.
+existing techniques this is typically done restoring a single neuron coming from \cnc
+that had been merged with other neuorns in \abs. The neuron chosen is typically one 
+whose contribution to $\vct{\beta}$ is estimated to be the highest.
 
 These techniques, however, do not consider any semantic behavior to guide their
 refinement. As such, the refinement process tends to produce a large number of
-restored neurons identical to neurons in \cnc, leading to and \abs of large
-size, while retaining a single abstract neuron formed by merging a large group
-of neurons in \cnc, affecting the quality of \abs. 
+restored neurons, which were not merged with any other neurons, which led 
+to \abs of a larger size. At the same time, a large group of neurons remains 
+merged in \abs, which affects the quality of \abs. 
 
 We can see this in our example. Say the fully merged network in Figure
 \ref{fig:full_abstract_net} we get a $\vct{\beta}$ given by the values in \textbf{bold}.
