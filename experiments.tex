@@ -1,7 +1,5 @@
 \section{Experiments}
 
-\todo{Add 2 columns in Table 2}
-
 We have implemented our method in python \footnote{The entirety of the code, networks, datasets, and properties utilized in our 
 evaluation can be found on \todo{add github link}.}, utilising the NumPy \cite{numpy}
 library for linear algebra operations and the SciPy \cite{scipy} library for an
@@ -330,24 +328,8 @@ pgd-after-samples & 329.311  &  94.7\%     & 299.272  \\
 
 \subsection{Verification of \acasxu}
 
-\todo{ Talk about the
-    fact that if we refine after the first solver call, then we end up refining
-all the way.
-}
-
-\todo{ Say this: Our fw makes it possible to use the semantic beh to
-    unambiguously order refinement operations. Therefore, in a cegar loop
-    setting, we are able to make refinement operations precisely until the point
-    where the current sp.cex. is eliminated. Prev. techniques needed heuristics
-    to guide the refinement order, or chose an arbitrary number of refinement
-    steps. Thus, we get fewer solver calls (number) , and between each each call
-    we are making precisely the right number of refinemets in an order optimal
-    wrt sem.info.
-}
-
 In these set of experiments, we have taken the \acasxu set of
-networks \todo{add detailed table} and
-properties and attempt to verify them using a \cegar approach. We use our
+networks and properties and attempt to verify them using a \cegar approach. We use our
 technique to generate the abstraction, and attempt to verify the property on the
 abstract network using an existing neural network verification solver. If the
 solver returns a counterexample, and if that counterexample is not spurious, we
@@ -380,8 +362,7 @@ easier to verify by typical solvers like \marabou.
 We notice that for the unsafe cases, we are able to refute the
 properties via a counterexample obtained on a significantly smaller network. In
 fact, for most networks, we are able to refute based on a counterexample from
-the fully abstracted network of size $18$ (See \todo{Add ref to full table in
-appendix after re-runs}. Note that since we use only two classes in our
+the fully abstracted network of size $18$. Note that since we use only two classes in our
 fully abstracted network as opposed to 4 in \cite{cegar-nn}, the size of this
 network is significantly smaller. 
 
@@ -389,11 +370,21 @@ For safe cases, we see only negligible improvement in the size of the network.
 We believe that this is because for these benchmarks, there is not much room for
 improvement via abstraction. We are also able to only verify a smaller
 percentage of these benchmarks, because the underlying solver call would time
-out on mid-sized abstract networks \todo{Ref full table in appendix}, stalling
+out on mid-sized abstract networks, stalling
 the CEGAR loop. We note that some timeouts were also reported in
-\cite{cegar-nn}, and thus may be expected. 
+\cite{cegar-nn}, and thus may be expected.
 
-In our experiments we find that the time taken for a solver call are more
+Additionally, we observe that our approach makes very few number of 
+solver calls (Table \ref{t:acas-verif}). This is unlike previous methods that
+relied on heuristics to guide refinement order and arbitrarily choose the 
+number of refinement steps \cite{cegar-nn} to ensure not too many solver calls 
+take place. On the other hand we precisely take the number of refine steps 
+which are necessary between each solver call that are required to 
+eliminate one particular counterexample. This optimality comes from 
+our framework's utilization of semantic closeness factor ($\cls$) to 
+unambiguously order refinement operations. 
+
+In our experiments we also find that the time taken for a solver call are more
 dependent on the particular solver, solver configuration and benchmark than on
 the size of the network. Thus it may seem that the effort needed to verify a
 network is dependent on other factors than simply the size of the network. While
