@@ -1,7 +1,9 @@
 \section{Experiments}
+
 \todo{Add 2 columns in Table 2}
 
-We have implemented our method in python, utilising the NumPy \cite{numpy}
+We have implemented our method in python \footnote{The entirety of the code, networks, datasets, and properties utilized in our 
+evaluation can be found on \todo{add github link}.}, utilising the NumPy \cite{numpy}
 library for linear algebra operations and the SciPy \cite{scipy} library for an
 implementation of \hcluster.
 We have used a linkage-matrix \cite{scipy-hcluster-linkage}  based
@@ -26,13 +28,7 @@ number of spurious counterexamples introduced as the size of the abstract
 network reduces (Section \ref{s:exp-mnist-rob}). Finally, in the last set of
 experiments, we show how our technique may be used in a CEGAR loop
 \cite{cegar-nn} to verify the \acasxu properties. We utilized \abcrown as the 
-solver in the backend for these experiments.
-
-
-
-\footnote{The entirety of the code, networks, datasets, and properties utilized in our 
-evaluation can be found on \todo{add github link}}.
-
+solver in the backend for these experiments. 
 
 The experimental results in Tables
 \ref{t:acas-verif},\ref{t:mnist-compr-summary} and \ref{t:acas-ncex} were
