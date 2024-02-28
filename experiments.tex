@@ -17,7 +17,7 @@ demonstrate the usefulness of our technique. In several safety critical
 settings, such as medical diagnosis and collision detection, where \dnn are
 deployed as classifiers, false negative classification with respect to some
 classes are highly undesirable. In the first set of experiments, we show that
-our abstraction technique can be leverage to obtain effective compression of
+our abstraction technique can be leveraged to obtain effective compression of
 \dnn in such settings with a guarantee that the compression does not introduce
 any new false negative classifications (Section \ref{s:exp-mnist-comp}). In our
 second set of experiments, we demonstrate how our technique may be used to
@@ -57,7 +57,7 @@ positive.
 
 Safety critical analysis of neural networks is highly sensitive to the size of
 the network. While several neural network compression techniques exist 
-\cite{dnn-compression}, they do not formal guarantees 
+\cite{dnn-compression}, they do not provide any formal guarantees 
 connecting the behavior of the compressed network and the original network. Similarly,
 although existing semantic abstraction techniques have been proposed as 
 a way to compress neural networks, the guarantees provided by such 
@@ -73,7 +73,7 @@ corresponding to the critical class in the output layer as inc, and all other
 neurons in that layer as dec.  Then, for any input that the concrete network
 classified into the critical class, $n_c$ will have the largest value in the
 output layer, and as it has been marked as inc, it will continue to have the
-larges value in the output layer for the abstract network as well. Thus, the
+largest value in the output layer for the abstract network as well. Thus, the
 abstract network will also classify this input as critical. We will however pay
 for this compression by introducing false positives, and in the subsequent plots
 we plot the number of false positives introduced with respect to size of the
@@ -87,8 +87,8 @@ compressed network.
     \label{f:mnist-class-samples}
 \end{figure}
 
-We demonstrate the effectiveness of our abstraction method as such a compression
-with guarantees technique via some experiments on \mnist and show the results in
+We demonstrate the effectiveness of our abstraction method as a compression
+technique with guarantees via experiments on \mnist and show the results in
 figure \ref{f:mnist-class-samples}. We set the class '0'
 as the critical class, and use our abstraction technique to obtain a compressed
 network. Then, we use the 'samples' method described previously to progressively
@@ -98,10 +98,10 @@ from the \mnist training dataset, and the accuracies were plotted using the
 \mnist test dataset.
 
 We notice that, as guaranteed by the theory, the false negative rate never
-increases, even as the reduction rate approaches close to $100\%$. Thus, even
-for highly compressed networks, we never introduce any new false positives, and
-in fact, the false negative rate improves, as some of the points that are going
-to be newly classified as positive may in fact be true positives. However, as
+increases, even as the reduction rate approaches close to $100\%$. Thus, even 
+for highly compressed networks, we do not introduce any new false positives. 
+In fact, the false negative rate improves, as some of the points that are now 
+newly classified as our critical class in fact might be true positives. However, as
 discussed before, we do pay for the compression by introducing false positives,
 which rises steeply in the graph. Thus, we see that a few refinement steps
 contribute most to eliminating almost all of the false positives. 
@@ -291,7 +291,7 @@ properties and attempt to verify them using a \cegar approach. We use our
 technique to generate the abstraction, and attempt to verify the property on the
 abstract network using an existing neural network verification solver. If the
 solver returns a counterexample, and if that counterexample is not spurious, we
-use that counterexample as a reference point for score calculation  to select
+use that counterexample to perform the score calculation for selecting
 the culprit neuron (\ref{s:refinement}). With the culprit neuron selected, we
 then refine the network.
 
