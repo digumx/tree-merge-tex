@@ -12,11 +12,18 @@ and predictive analysis \cite{b2}, and autonomous vehicles, where DNNs serve as
 the backbone for sophisticated perception systems, supporting tasks such as
 object recognition and decision-making \cite{b3}. 
 
-However, \dnn are well known to be vulnerable to adversarial
+Given the substantial computational requirements of these \dnn solutions, 
+including CPU, memory, and power resources, their implementation on embedded 
+devices for decision-making is often unfeasible. 
+This obstacle becomes especially apparent when integrating \dnn into 
+embedded systems for performing safety-critical tasks, such as obstacle 
+recognition in autonomous vehicles.
+
+As \dnn are well known to be vulnerable to adversarial
 attacks\cite{l-bfgs, fgsm, deep-fool, pgd, ground-truth-adv-attack, cw-attack},
 backdoor attacks \cite{backdoor-poisoning} etc.  and, being generally
 un-interpretable, can often produce 
-unexpected behaviours. Therefore, to build trust on safety critical systems 
+unexpected behaviours. Therefore, to build trust on safety critical embedded systems 
 that utilize \dnn, it is  critical to understand, interpret 
 and validate the possible behaviors of these \dnn via formal analysis
 \cite{overview-fxai, minimal-image-fxai, backdoor-verification, nn-lander-verif,
