@@ -15,10 +15,11 @@ these \dnn solutions in terms of CPU, memory, and power, their implementation
 on embedded devices for decision-making is often infeasible.  This obstacle
 becomes especially apparent when integrating DNNs into embedded systems for
 performing safety-critical tasks, such as obstacle recognition in autonomous
-vehicles. \dnn are well known to be vulnerable to adversarial~\cite{l-bfgs,
+vehicles. Additionally, \dnn are well known to be vulnerable to
+adversarial~\cite{l-bfgs,
 fgsm, deep-fool, pgd, ground-truth-adv-attack, cw-attack} and backdoor
 attacks~\cite{backdoor-poisoning}, and are also difficult to interpret.
-Therefore, to build trust on safety- and business-critical embedded systems
+Therefore, to build trust on safety and business-critical embedded systems
 that utilize \dnn, it is critical to understand, interpret and validate their
 behaviour via formal analysis \cite{overview-fxai, minimal-image-fxai,
 backdoor-verification, nn-lander-verif, camera-verif-dsouza,
@@ -26,8 +27,9 @@ generalization-verif}. While a number of techniques have been proposed to build
 trust on the reliability of \dnn in safety-critical settings, including
 verification \cite{reluplex, deeppoly, crown, beta-crown, cegar-nn}  and formal
 explainability \cite{overview-fxai, minimal-image-fxai}, the size of the DNNs
-continues to be the limiting factor in making this applicable in embedded
-systems, and likewise in any resource-limited setting.
+continues to be the limiting factor for the scalability of these techniques.
+Therefore, for these two reasons, the applicability of \dnn in safety critical
+ embedded systems remains limited.
 
 %For most of these techniques, it is
 %necessary to make queries to neural network verification solvers (such as
