@@ -37,8 +37,8 @@ them by taking the sum of the outgoing edges. Note that this does not change the
 behavior of \abs.
 
 The experimental results in Tables
-\ref{t:acas-verif},\ref{t:mnist-compr-summary}, \ref{t:mnist-compr-summary},
-\ref{t:acas-ncex} and Figures \ref{f:acas-ncex-samples},
+\ref{t:mnist-compr-summary}, 
+\ref{t:acas-ncex} , \ref{t:acas-verif} and Figures \ref{f:acas-ncex-samples},
 \ref{f:acas-ncex-pgd}, \ref{f:acas-verif-ref},
 \ref{f:mnist-class} were
 run on a machine running on an Intel(R) Core(TM) i7-9700K with 8 CPUs running at
@@ -118,7 +118,7 @@ We use the \abcrown implementation for \pgd.
     \caption{Accuracy and True/False Positive/Negative Rates vs Reduction Rate
         plot for \mnist of size $4 \times 256$ with critical class 0. Refinement
     done via the \textit{samples-pgd} and \textit{samples} method in
-    \ref{f:mnist-compr-samples-pgd} and \ref{f:mnist-compr-samples}
+    \ref{f:mnist-compr-samples} and \ref{f:mnist-compr-samples-pgd} 
     respectively. }
     \label{f:mnist-class}
 \end{figure}
@@ -239,7 +239,7 @@ counterexamples at each step.
     \caption{
         Spurious counterexample vs Reduction Rate plot for \mnist of size $2
         \times 256$ with $\epsilon$-Robustness property are given in 
-        \ref{f:mnist-prop-pgd} and \ref{f:mnist-prop-samples}. 
+        \ref{f:mnist-prop-samples} and \ref{f:mnist-prop-pgd}. 
         Spurious counterexample vs Reduction Rate plot for \acasxu network 5-8,
         property 3 in \ref{f:acas-ncex-samples} and \ref{f:acas-ncex-pgd}
         Refinement done via the \textit{pgd} method in
