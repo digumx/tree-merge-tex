@@ -1,37 +1,29 @@
-\section{Future Work}
-Achieving optimal refinement is difficult. In the abstract network, 
-there shouldn't be any neurons that can be merged back without introducing 
-spurious counterexamples. This implies that we should have added the minimum number of 
-neurons necessary to prevent spurious counterexamples. In the future it would 
-interesting devise mechanisms that approach optimal refinement as
-closely as possible.
+\section{Conclusion and Future Work}
 
-Exploring alternative measures for the semantic closeness factor $\cls$ 
-is an intriguing prospect. Note that our framework allows one to seamlessly 
-experiment  with any $\cls$.  Our current $\cls$ does capture optimality with respect 
-to I/O behavior of the neurons but we are not able to guarantee minimization of
-over-approximation at the output layer. In future, we want to identify an
-improved metric for the semantic closeness factor that minimizes 
+This paper puts forth a framework to combine syntactic and semantic approaches
+for DNN abstraction. While this opens several directions for future work, an
+immediate question that can be asked is about achieving ``optimal refinement''.
+In the abstract network, there shouldn't be any neurons that can be merged back
+without introducing spurious counterexamples. This implies that we should have
+added the minimum number of neurons necessary to prevent spurious
+counterexamples. This seems to depend on the direction in which one starts
+refining. Of the multiple refinement paths that are possible, is there one that
+is guaranteed to do a \emph{minimal} refinement?
+
+Exploring alternative measures for the semantic closeness factor $\cls$ is
+another intriguing prospect. Note that our framework allows one to seamlessly
+experiment  with any $\cls$.  Our current $\cls$ does capture optimality with
+respect to I/O behavior of the neurons but we are not able to guarantee
+minimization of over-approximation at the output layer. In future, we want to
+identify an improved metric for the semantic closeness factor that minimizes
 over-approximation at the output neuron during abstraction processes. 
 
-In our experimentation, we noticed that the time needed to verify a specific 
-property of a network is not solely determined by the network's size. It's possible 
-that a larger network can be verified quickly, while a smaller one may take longer 
-or even fail to be verified altogether. In the future, it would be interesting
-to conduct a comprehensive investigation into the underlying reasons 
-for this occurrence. In general obtaining a more accurate 
-measure of the effort required to verify a network would provide a better optimization
-target for abstraction used in the context of verification.
-
-In future we would like to explore whether this optimal refinement 
-could involve merging neurons across different layers, rather than confining 
-ourselves to just a single layer. However the framework for soundness needs to be
-incorporated into such a setting.
-
-
-
-
-
+In our experiments, we noticed that the time needed to verify a specific
+property of a network is not solely determined by the network's size. It's
+possible that a larger network can be verified quickly, while a smaller one may
+take longer or even fail to be verified altogether. Obtaining a more accurate
+measure of the effort required to verify a network would provide a better
+optimization target for abstraction used in the context of verification.
 
 
 
