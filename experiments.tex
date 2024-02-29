@@ -1,5 +1,4 @@
 \section{Experiments} 
-\todo{Discuss ordering}
 
 We have implemented our method in python\footnote{The entirety of the code,
     networks, datasets, and properties utilized in our evaluation will be made
@@ -42,6 +41,7 @@ Intel(R) Core(TM) i7-13700 with 24 CPUs running at
 
 \subsection{Compression with Guarantees on Critical Classes}
 \label{s:exp-mnist-comp}
+\todo{Do with re-merging}
 
 In several safety-critical applications of \dnn as classifiers, there are
 certain `critical` classes for which a false negative classification is far more
@@ -146,7 +146,8 @@ $4\times256$ & samples-pgd & 29.8 \%   & 96.05 \%  &   1023 \\
 $6\times256$ & samples-pgd & 26.43 \%   & 95 \%  &   1650 \\ 
 \hline
 \end{tabular}
-\caption{Summary of \mnist compression Results}
+\caption{Summary of \mnist compression Results \todo{Show false positive rate
+instead of accuracy. Make changes in expl.}}
 \label{t:mnist-compr-summary}
 \end{table}
 
@@ -186,6 +187,7 @@ counterexamples.
 
 \subsection{Eliminating Spurious Counterexamples}
 \label{s:exp-mnist-rob}
+\todo{Run with re-merging}
 
 In this section, we explore how well our abstraction refinement process is able
 to remove spurious counterexamples. We start with the abstract network and
@@ -312,20 +314,19 @@ calculation  to select the culprit neuron (\ref{s:refinement}). With the culprit
 neuron selected, we then refine the network.
 
 \begin{table}
-\footnotesize
-\begin{tabular}{ |c|c|c|c|c|c| }
+%\footnotesize
+\begin{tabular}{ |c|c|c|c| }
 \hline
-Benchmark   & \% Verified & Size     & Time    & Ref. Size  & Solver Calls \\ 
+Benchmark   & \% Verified & Size     & Time \\ 
 \hline
-prop-Safe   &   64\%      & 339      & 11.1    & 52         & 5.8      \\
-prop-Unsafe &   93\%      & 140      & 10.0    & 49         & 2.8      \\
-adv-unsafe  &  100\%      & 18       & 1.2     & -          & -        \\
+prop-Safe   &   64\%      & 339      & 11.1  \\
+prop-Unsafe &   93\%      & 140      & 10.0  \\
+adv-unsafe  &  100\%      & 18       & 1.2   \\
 \hline                                                                
 \end{tabular}
 \caption{Summary of \acasxu verification. `prop-Safe/Unsafe' refers to
 safe/unsafe instances of the original properties from \cite{reluplex},
-`adv-unsafe' refers to adversarial properties from \cite{cegar-nn}. \todo{Decide
-if to remove last 2 cols}}
+`adv-unsafe' refers to adversarial properties from \cite{cegar-nn}. }
 \label{t:acas-verif}
 \end{table}
 
@@ -374,8 +375,7 @@ and on how late in the \cegar loop we are. This is unlike previous methods
 that arbitrarily and uniformly choose the number of un-merges
 \cite{cegar-nn} to be performed between each solver call. We believe
 that this is more evidence for the fact that our framework is able to take into
-account the larger semantic context of each refinement step. \todo{Discuss: does
-this make sense?}
+account the larger semantic context of each refinement step. 
 
 In our experiments we also find that the time taken for a solver call are more
 dependent on the particular solver, solver configuration and benchmark than on
@@ -384,10 +384,6 @@ network is dependent on other factors than simply the size of the network. While
 this may be interesting to explore in future work, we nonetheless argue that
 network size is a relevant metric. This is as more and more solvers are designed
 and optimized for various kinds of networks, the underlying worst case
-performance will almost certainly remain exponential in the size of the network.
-Furthermore, in the previous experiments (Sections \ref{s:exp-mnist-comp},
-\ref{s:exp-mnist-rob}) we have demonstrated that our abstraction technique does
-produce a reduction in network size whose usefulness extends beyond improving
-verification time. \todo{Discuss: Should we bring this into focus? Given changed
-picture of experiment section, does stressing on this make sense?}
+performance will almost certainly remain exponential in the size of the network
+\cite{reluplex}.
 
