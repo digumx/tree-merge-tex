@@ -1,93 +1,90 @@
 
 \section{Introduction}
 
-Advances in Deep Neural Networks (\dnn) have enabled the scalable solution
-of several previously intractable problems like image recognition and natural
-language processing. Due to this, \dnn have increasingly assumed a central
-role across various domains. These include several safety critical domains like
-healthcare \cite{b1}, where they contribute significantly to medical diagnostics
-and predictive analysis \cite{b2}, and autonomous vehicles, where DNNs serve as
-the backbone for sophisticated perception systems, supporting tasks such as
-object recognition and decision-making \cite{b3}. 
+Advances in Deep Neural Networks (\dnn) have enabled the scalable solution of
+several previously intractable problems like image recognition and natural
+language processing. Due to this, \dnn have increasingly assumed a central role
+across various domains. These include several safety critical domains like
+healthcare \cite{b1}, where they contribute significantly to medical
+diagnosis and predictive analysis \cite{b2}, and autonomous vehicles, where
+DNNs serve as the backbone for sophisticated perception systems, supporting
+tasks such as object recognition and decision-making \cite{b3}. 
 
-Given the substantial computational requirements of these \dnn solutions, 
-including CPU, memory, and power resources, their implementation on embedded 
-devices for decision-making is often unfeasible. 
-This obstacle becomes especially apparent when integrating DNNs into 
-embedded systems for performing safety-critical tasks, such as obstacle 
-recognition in autonomous vehicles.
+However, given the enormous size and the substantial resource requirements of
+these \dnn solutions in terms of CPU, memory, and power, their implementation
+on embedded devices for decision-making is often infeasible.  This obstacle
+becomes especially apparent when integrating DNNs into embedded systems for
+performing safety-critical tasks, such as obstacle recognition in autonomous
+vehicles. \dnn are well known to be vulnerable to adversarial~\cite{l-bfgs,
+fgsm, deep-fool, pgd, ground-truth-adv-attack, cw-attack} and backdoor
+attacks~\cite{backdoor-poisoning}, and are also difficult to interpret.
+Therefore, to build trust on safety- and business-critical embedded systems
+that utilize \dnn, it is critical to understand, interpret and validate their
+behaviour via formal analysis \cite{overview-fxai, minimal-image-fxai,
+backdoor-verification, nn-lander-verif, camera-verif-dsouza,
+generalization-verif}. While a number of techniques have been proposed to build
+trust on the reliability of \dnn in safety-critical settings, including
+verification \cite{reluplex, deeppoly, crown, beta-crown, cegar-nn}  and formal
+explainability \cite{overview-fxai, minimal-image-fxai}, the size of the DNNs
+continues to be the limiting factor in making this applicable in embedded
+systems, and likewise in any resource-limited setting.
 
-As \dnn are well known to be vulnerable to adversarial
-attacks\cite{l-bfgs, fgsm, deep-fool, pgd, ground-truth-adv-attack, cw-attack},
-backdoor attacks \cite{backdoor-poisoning} etc.  and, being generally
-un-interpretable, can often produce 
-unexpected behaviours. Therefore, to build trust on safety critical embedded systems 
-that utilize \dnn, it is  critical to understand, interpret 
-and validate the possible behaviors of these \dnn via formal analysis
-\cite{overview-fxai, minimal-image-fxai, backdoor-verification, nn-lander-verif,
-camera-verif-dsouza, generalization-verif}.
-
-A number of techniques have been proposed to build trust on the reliability
-of \dnn in safety-critical settings, including verification \cite{reluplex,
-deeppoly, crown, beta-crown, cegar-nn}  and formal
-explainability \cite{overview-fxai, minimal-image-fxai}. For most of these
-techniques, it is necessary to make queries to neural
-network verification solvers (such as \cite{reluplex, beta-crown}) to ascertain
-the trustworthiness of the \dnn.
- However, since solving these queries is NP-Hard (see appendix of
-\cite{reluplex}), and real world \dnn are trained for accuracy and not 
-size, formal analysis of \dnn often faces scalability issues.
+%For most of these techniques, it is
+%necessary to make queries to neural network verification solvers (such as
+%\cite{reluplex, beta-crown}) to ascertain the trustworthiness of the \dnn.
+%However, since solving these queries is NP-Hard~\cite{reluplex}, and real world
+%\dnn are trained for accuracy at the cost of size, formal analysis of \dnn
+%often facesi scalability issues.
 
 Structural abstraction based on the \textit{syntax} (the local weights and
-biases at each
-neuron of the \dnn) form the basis of several techniques attempting to alleviate
-this issue \cite{cegar-nn, cegarette, cleverest-nn, conv-abs-gk}. These
-techniques work by converting a large \textit{concrete} \dnn \cnc into a smaller
-\textit{abstract} DNN \abs via \textit{merging} groups of neurons in \cnc into
-single neurons in \abs. Each such
-merge is done in a way that ensures that there are \textit{concrete}, formal
-soundness guarantees linking the behavior of \cnc and \abs. Then, one can make 
-queries on \abs, and using the concrete soundness guarantees, lift the result to 
-\cnc and argue about its reliability. However, these techniques
-do not take into account the global \textit{semantic} behavior of the network,
-thus producing potentially sub-optimal abstractions.
+biases at each neuron of the \dnn) form the basis of several techniques
+attempting to alleviate this issue \cite{cegar-nn, cegarette, cleverest-nn,
+conv-abs-gk}. These techniques work by converting a large \textit{concrete}
+\dnn \cnc into a smaller \textit{abstract} DNN \abs via \textit{merging} groups
+of neurons in \cnc into single neurons in \abs. Each such merge is done in a
+way that ensures that there are \textit{concrete}, formal soundness guarantees
+linking the behavior of \cnc and \abs. Then, one can make queries on \abs, and
+using the concrete soundness guarantees, lift the result to \cnc and argue
+about its reliability. However, these techniques do not take into account the
+global \textit{semantic} behavior of the network, thus producing potentially
+sub-optimal abstractions.
 
 On the other hand, neural network compression techniques \cite{dnn-compression}
 and semantic abstraction techniques \cite{deep-abstract, lin-comb-abs-jan} take
 into account the global \textit{semantic} information within the network.
-However,
-compression techniques provide no soundness guarantees, while the semantic
-abstraction techniques provide limited soundness guarantees. In particular, the
-guarantees provided by \cite{deep-abstract} are limited to lifting specific
-bound propagation based proofs, and those provided by \cite{lin-comb-abs-jan}
-only characterise soundness on a finite subset of the input space. This limits
-the applicability of these techniques to situations where concrete, hard
-guarantees may be necessary.
+However, compression techniques provide no soundness guarantees, while the
+semantic abstraction techniques provide limited soundness guarantees. In
+particular, the guarantees provided by \cite{deep-abstract} are limited to
+lifting specific bound propagation based proofs, and those provided by
+\cite{lin-comb-abs-jan} only characterise soundness on a finite subset of the
+input space. This limits the applicability of these techniques to situations
+where concrete, hard guarantees may be necessary.
 
 In this work we combine the syntactic and semantic approaches into a single
 framework for generating an abstract network. By splitting and labelling the
 neurons \textit{inc} and \textit{dec} similar to \cite{cegar-nn}, and
 restricting ourselves to merges involving only similarly labelled neurons, we
 provide concrete soundness guarantees linking the behavior of \cnc and \abs via
-syntactic constraints.
-On the other hand, to take into account the global semantic behavior we
-introduce a semantic closeness metric between two neurons in the same layer.
-Using this metric, we construct a tree of merge operations that 
-captures the relative contribution of each merge to the quality of the
-abstraction. We propose a refinement procedure that uses this
-tree as a guide to undo the merge operations that
-contribute most to the poor quality of \abs.  We show that in the resulting
-refined network, groups of neurons that remain merged are semantically closer
-than neurons that get un-merged. Thus, we are able to refine \abs in a way that
-is optimal with respect to the semantic behavior.
+syntactic constraints. At the same time, to take into account the global
+semantic behavior we introduce a semantic closeness metric between two neurons
+in the same layer.  Using this metric, we construct a tree of merge operations
+that captures the relative contribution of each merge to the quality of the
+abstraction. We propose a refinement procedure that uses this tree as a guide
+to undo the merge operations that contribute most to the poor quality of \abs.
+We show that in the resulting refined network, groups of neurons that remain
+merged are semantically closer than neurons that get un-merged. Thus, we are
+able to refine \abs in a way that is optimal with respect to the semantic
+behavior.
 
 We assemble these pieces into an abstraction-refinement framework that can
 generate high quality \abs by starting with a fully merged network and
 iteratively refining until a strong enough network is obtained. We demonstrate
-the usefulness of this framework by using it to find safe compressions of \mnist
-networks that are guaranteed to not introduce any false negatives, while
+the usefulness of this framework by using it to find safe compressions of
+\mnist networks that are guaranteed to not introduce any false negatives, while
 minimising the number of false positives introduced. Apart from this, we also
 demonstrate the quality of the abstract networks produced for \mnist networks
 and $\epsilon$-robustness properties, and evaluate the verification of the
 \acasxu benchmarks via a \cegar loop based on our abstraction-refinement
 framework.
+
+
