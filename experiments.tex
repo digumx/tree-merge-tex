@@ -31,14 +31,13 @@ experiments, we show how our technique may be used in a CEGAR loop
 solver in the backend for these experiments. 
 
 The experimental results in Tables
-\ref{t:acas-verif},\ref{t:mnist-compr-summary} and \ref{t:acas-ncex} were
+\ref{t:acas-verif},\ref{t:mnist-compr-summary}, \ref{t:mnist-compr-summary},
+\ref{t:acas-ncex} and Figures \ref{f:ncex}, \ref{f:acas-verif-ref} were
 run on a machine running on an Intel(R) Core(TM) i7-9700K with 8 CPUs running at
-3.60GHz, having 16 GB RAM and running Ubuntu 22.04 LTS. The results in
+3.60GHz, having 16 GB RAM and running Ubuntu 22.04 LTS. The results in Figure
 \ref{f:mnist-class} were produced on a machine running on an 
 Intel(R) Core(TM) i7-13700 with 24 CPUs running at
 5.20GHz, having 32 GB RAM and running Ubuntu 23.10.
-
-\todo{Add details of other experiments}
 
 \subsection{Compression with Guarantees on Critical Classes}
 \label{s:exp-mnist-comp}
@@ -187,9 +186,8 @@ different for a different set of target network and property, our framework
 allows the use of either, and in-fact, any other method for generating the
 counterexamples.
 
-\subsection{Robustness on \mnist}
+\subsection{Eliminating Spurious Counterexamples}
 \label{s:exp-mnist-rob}
-\todo{Change title}
 
 In this section, we explore how well our abstraction refinement process is able
 to remove spurious counterexamples. We start with the abstract network and
@@ -305,37 +303,38 @@ Again, we find that \textit{random} takes many more steps but arrives at a
 network of similar size.
 
 \subsection{Verification of \acasxu}
+\todo{Re-run without re-merging}
 
 In these set of experiments, we have taken the \acasxu set of
-networks and properties and attempt to verify them using a \cegar approach. We use our
-technique to generate the abstraction, and attempt to verify the property on the
-abstract network using an existing neural network verification solver. If the
-solver returns a counterexample, and if that counterexample is not spurious, we
-use that counterexample as a reference point for score calculation  to select
-the culprit neuron (\ref{s:refinement}). With the culprit neuron selected, we
-then refine the network.
+networks and properties and attempt to verify them using a \cegar approach. We
+use our technique to generate the abstraction, and attempt to verify the
+property on the abstract network using an existing neural network verification
+solver. If the solver returns a counterexample, and if that counterexample is
+not spurious, we use that counterexample as a reference point for score
+calculation  to select the culprit neuron (\ref{s:refinement}). With the culprit
+neuron selected, we then refine the network.
 
 \begin{table}
 \footnotesize
 \begin{tabular}{ |c|c|c|c|c|c| }
 \hline
-Benchmark   & \% Verified & Size     & Time    & No. Refine & Solver Calls \\ 
+Benchmark   & \% Verified & Size     & Time    & Ref. Size  & Solver Calls \\ 
 \hline
-prop-Safe   &   64\%      & 339      & 11.1    & 302        & 5.8      \\
-prop-Unsafe &   93\%      & 140      & 10.0    & 137        & 2.8      \\
+prop-Safe   &   64\%      & 339      & 11.1    & 52         & 5.8      \\
+prop-Unsafe &   93\%      & 140      & 10.0    & 49         & 2.8      \\
 adv-unsafe  &  100\%      & 18       & 1.2     & -          & -        \\
 \hline                                                                
 \end{tabular}
-\caption{Summary of \acasxu verification }
+\caption{Summary of \acasxu verification. `prop-Safe/Unsafe' refers to
+safe/unsafe instances of the original properties from \cite{reluplex},
+`adv-unsafe' refers to adversarial properties from \cite{cegar-nn}. \todo{Decide
+if to remove last 2 cols}}
 \label{t:acas-verif}
 \end{table}
 
 The results are summarised in table \ref{t:acas-verif}. The solver we used was
 \abcrown. The average times reported here do not include instances where the
-verification failed due to timeout, and the reduction rate is with respect to
-the network size after inc-dec split. We report these figures since, as noted in
-\cite{cegar-nn}, the networks obtained after inc-dec split, while larger, are
-easier to verify by typical solvers like \marabou.
+verification failed due to timeout.
 
 We notice that for the unsafe cases, we are able to refute the
 properties via a counterexample obtained on a significantly smaller network. In
@@ -352,15 +351,34 @@ out on mid-sized abstract networks, stalling
 the CEGAR loop. We note that some timeouts were also reported in
 \cite{cegar-nn}, and thus may be expected.
 
-Additionally, we observe that our approach makes very few number of 
-solver calls (Table \ref{t:acas-verif}). This is unlike previous methods that
-relied on heuristics to guide refinement order and arbitrarily choose the 
-number of refinement steps \cite{cegar-nn} to ensure not too many solver calls 
-take place. On the other hand we precisely take the number of refine steps 
-which are necessary between each solver call that are required to 
-eliminate one particular counterexample. This optimality comes from 
-our framework's utilization of semantic closeness factor ($\cls$) to 
-unambiguously order refinement operations. 
+\begin{figure}
+    \begin{subfigure}{0.475\linewidth}
+        \centering
+        \includegraphics[scale=0.25]{figs/acas_verif_ref_sizes_safe.png}
+        \caption{}
+        \label{f:acas-verif-ref-safe}
+    \end{subfigure}
+    \begin{subfigure}{0.475\linewidth}
+        \centering
+        \includegraphics[scale=0.25]{figs/acas_verif_ref_sizes_unsafe.png}
+        \caption{}
+        \label{f:acas-verif-ref-unsafe}
+    \end{subfigure}
+    \caption{Number of neurons un-merged vs solver call number for \acasxu. Safe
+        cases in \ref{f:acas-verif-ref-safe}, unsafe in
+        \ref{f:acas-verif-ref-unsafe}}
+    \label{f:acas-verif-ref}
+\end{figure}
+
+In Figure \ref{f:acas-verif-ref} we show scatter plots of the number of neurons
+un-merged in between each solver call. We observe that the number is highly
+dependent on the specific benchmark instance,
+and on how late in the \cegar loop we are. This is unlike previous methods
+that arbitrarily and uniformly choose the number of un-merges
+\cite{cegar-nn} to be performed between each solver call. We believe
+that this is more evidence for the fact that our framework is able to take into
+account the larger semantic context of each refinement step. \todo{Discuss: does
+this make sense?}
 
 In our experiments we also find that the time taken for a solver call are more
 dependent on the particular solver, solver configuration and benchmark than on
@@ -373,5 +391,6 @@ performance will almost certainly remain exponential in the size of the network.
 Furthermore, in the previous experiments (Sections \ref{s:exp-mnist-comp},
 \ref{s:exp-mnist-rob}) we have demonstrated that our abstraction technique does
 produce a reduction in network size whose usefulness extends beyond improving
-verification time. 
+verification time. \todo{Discuss: Should we bring this into focus? Given changed
+picture of experiment section, does stressing on this make sense?}
 
