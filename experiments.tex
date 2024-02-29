@@ -43,8 +43,6 @@ Intel(R) Core(TM) i7-13700 with 24 CPUs running at
 \subsection{Compression with Guarantees on Critical Classes}
 \label{s:exp-mnist-comp}
 
-\todo{ Re-run without re-merging}
-
 In several safety-critical applications of \dnn as classifiers, there are
 certain `critical` classes for which a false negative classification is far more
 dangerous than a false positive one. For example, for medical diagnosis and
@@ -134,22 +132,21 @@ information to order and undo merge operations in an optimal way.
 \hline
 Net Size     & Refinement  & Reduction & Accuracy & Steps  \\ 
 \hline
-$2\times256$ & random      & 50   \%   & 98.1 \%  &    923 \\ 
-$4\times256$ & random      & 50   \%   & 97.6 \%  &   1917 \\ 
-$6\times256$ & random      & 50   \%   & 96.9 \%  &   2999 \\ 
-$2\times256$ & samples     & 45.7 \%   & 98.0 \%  &    326 \\ 
-$4\times256$ & samples     & 40.1 \%   & 95.7 \%  &   1028 \\ 
-$6\times256$ & samples     & 45.5 \%   & 96.9 \%  &   2425 \\ 
-$2\times256$ & pgd         & 53.4 \%   & 13.7 \%  &     85 \\ 
-$4\times256$ & pgd         & 96.9 \%   & 09.8 \%  &      0 \\ 
-$6\times256$ & pgd         & 30.6 \%   & 15.1 \%  &   1482 \\ 
-$2\times256$ & samples-pgd & 46.0 \%   & 97.8 \%  &    316 \\ 
-$4\times256$ & samples-pgd & 40.1 \%   & 95.8 \%  &   1017 \\ 
-$6\times256$ & samples-pgd & 45.5 \%   & 96.9 \%  &   2425 \\ 
+$2\times256$ & random      & 0.39   \%  &  98.08 \%  &   1011 \\ 
+$4\times256$ & random      & 0.049   \%   & 97.64  \%  &   1916 \\ 
+$6\times256$ & random      & 0.032   \%   & 96.89 \%  &   2866 \\ 
+$2\times256$ & samples     & 36.33 \%   & 96.08 \%  &     306 \\ 
+$4\times256$ & samples     & 29.88 \%   & 95.69 \%  &   1018 \\ 
+$6\times256$ & samples     & 26.10 \%   & 95.2 \%  &   1652 \\ 
+$2\times256$ & pgd         & 53.3 \%   & 13.7 \%  &     85 \\ 
+$4\times256$ & pgd         & 33.15 \%   & 16 \%  &      864 \\ 
+$6\times256$ & pgd         & 26.49 \%   & 15.01 \%  &   1451 \\ 
+$2\times256$ & samples-pgd & 35.15 \%   & 96.55 \%  &    310 \\ 
+$4\times256$ & samples-pgd & 29.8 \%   & 96.05 \%  &   1023 \\ 
+$6\times256$ & samples-pgd & 26.43 \%   & 95 \%  &   1650 \\ 
 \hline
 \end{tabular}
-\caption{Summary of \mnist compression Results \todo{Use Reduction Rate Data,
-re-run without re-merging}}
+\caption{Summary of \mnist compression Results}
 \label{t:mnist-compr-summary}
 \end{table}
 
@@ -304,7 +301,6 @@ Again, we find that \textit{random} takes many more steps but arrives at a
 network of similar size.
 
 \subsection{Verification of \acasxu}
-\todo{Re-run without re-merging}
 
 In these set of experiments, we have taken the \acasxu set of
 networks and properties and attempt to verify them using a \cegar approach. We
