@@ -30,18 +30,26 @@ experiments, we show how our technique may be used in a CEGAR loop
 \cite{cegar-nn} to verify the \acasxu properties. We utilized \abcrown as the 
 solver in the backend for these experiments. 
 
+If the \abs produced has multiple neurons with the exact same set of incoming
+edges in the same layer, these neurons compute the same function and are
+redundant. Therefore, as an added optimization step, we safely \textit{re-merge}
+them by taking the sum of the outgoing edges. Note that this does not change the
+behavior of \abs.
+
 The experimental results in Tables
 \ref{t:acas-verif},\ref{t:mnist-compr-summary}, \ref{t:mnist-compr-summary},
-\ref{t:acas-ncex} and Figures \ref{f:ncex}, \ref{f:acas-verif-ref} were
+\ref{t:acas-ncex} and Figures \ref{f:acas-ncex-samples},
+\ref{f:acas-ncex-pgd}, \ref{f:acas-verif-ref},
+\ref{f:mnist-class} were
 run on a machine running on an Intel(R) Core(TM) i7-9700K with 8 CPUs running at
 3.60GHz, having 16 GB RAM and running Ubuntu 22.04 LTS. The results in
-Figures \ref{f:mnist-prop-samples}, Figures \ref{f:mnist-prop-pgd} and Table \ref{t:mnist-prop-summary} were produced on a 
+Figures \ref{f:mnist-prop-samples}, Figures \ref{f:mnist-prop-pgd} and Table
+\ref{t:mnist-prop-summary} were produced on a 
 machine running on an Intel(R) Core(TM) i7-13700 with 24 CPUs running at
 5.20GHz, having 32 GB RAM and running Ubuntu 23.10.
 
 \subsection{Compression with Guarantees on Critical Classes}
 \label{s:exp-mnist-comp}
-\todo{Do with re-merging}
 
 In several safety-critical applications of \dnn as classifiers, there are
 certain `critical` classes for which a false negative classification is far more
@@ -97,10 +105,21 @@ selecting the culprit neuron $\gamma$ to refine:
 We use the \abcrown implementation for \pgd.
 
 \begin{figure}
-    \includegraphics[scale=0.6]{figs/mnist_2_256_compr_pgd-after-samples.png}
+    \begin{subfigure}{0.475\linewidth}
+        \includegraphics[scale=0.275]{figs/mnist-compr-4-256-samples.png}
+        \caption{}
+        \label{f:mnist-compr-samples}
+    \end{subfigure}
+    \begin{subfigure}{0.475\linewidth}
+        \includegraphics[scale=0.275]{figs/mnist-compr-4-256-pgd-after-samples.png}
+        \caption{}
+        \label{f:mnist-compr-samples-pgd}
+    \end{subfigure}
     \caption{Accuracy and True/False Positive/Negative Rates vs Reduction Rate
-        plot for \mnist of size $2 \times 256$ with critical class 0. Refinement
-    done via the \textit{samples-pgd} method. \todo{Add more graphs}}
+        plot for \mnist of size $4 \times 256$ with critical class 0. Refinement
+    done via the \textit{samples-pgd} and \textit{samples} method in
+    \ref{f:mnist-compr-samples-pgd} and \ref{f:mnist-compr-samples}
+    respectively. }
     \label{f:mnist-class}
 \end{figure}
 
@@ -130,44 +149,44 @@ information to order and undo merge operations in an optimal way.
 \begin{table}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-Net Size     & Refinement  & Reduction & Accuracy & Steps  \\ 
+Net Size     & Refinement  & Reduction & False Positives & Steps  \\ 
 \hline
-$2\times256$ & random      & 0.39   \%  &  98.08 \%  &   1011 \\ 
-$4\times256$ & random      & 0.049   \%   & 97.64  \%  &   1916 \\ 
-$6\times256$ & random      & 0.032   \%   & 96.89 \%  &   2866 \\ 
-$2\times256$ & samples     & 36.33 \%   & 96.08 \%  &     306 \\ 
-$4\times256$ & samples     & 29.88 \%   & 95.69 \%  &   1018 \\ 
-$6\times256$ & samples     & 26.10 \%   & 95.2 \%  &   1652 \\ 
-$2\times256$ & pgd         & 53.3 \%   & 13.7 \%  &     85 \\ 
-$4\times256$ & pgd         & 33.15 \%   & 16 \%  &      864 \\ 
-$6\times256$ & pgd         & 26.49 \%   & 15.01 \%  &   1451 \\ 
-$2\times256$ & samples-pgd & 35.15 \%   & 96.55 \%  &    310 \\ 
-$4\times256$ & samples-pgd & 29.8 \%   & 96.05 \%  &   1023 \\ 
-$6\times256$ & samples-pgd & 26.43 \%   & 95 \%  &   1650 \\ 
+$2\times256$ & random      & 50.0 \%   & 0.2  \%         &  923   \\  
+$4\times256$ & random      & 50.0 \%   & 0.2  \%         & 1917    \\ 
+$6\times256$ & random      & 50.0 \%   & 0.2  \%         & 2999    \\ 
+$2\times256$ & samples     & 45.7 \%   & 0.3  \%         &  326    \\ 
+$4\times256$ & samples     & 38.7 \%   & 2.2  \%         & 1037    \\ 
+$6\times256$ & samples     & 45.5 \%   & 0.2  \%         & 2425    \\ 
+$2\times256$ & pgd         & 53.4 \%   & 95.6 \%         &   85    \\ 
+$4\times256$ & pgd         & 96.9 \%   & 100  \%         &    0    \\ 
+$6\times256$ & pgd         & 30.6 \%   & 94.1 \%         & 1482    \\ 
+$2\times256$ & samples-pgd & 46.0 \%   & 0.5  \%         &  316    \\ 
+$4\times256$ & samples-pgd & 39.2 \%   & 2.1  \%         & 1027    \\ 
+$6\times256$ & samples-pgd & 45.5 \%   & 0.2  \%         & 2425    \\ 
 \hline
 \end{tabular}
-\caption{Summary of \mnist compression Results \todo{Show false positive rate
-instead of accuracy. Make changes in expl.}}
+\caption{Summary of \mnist compression Results}
 \label{t:mnist-compr-summary}
 \end{table}
 
 Table \ref{t:mnist-compr-summary} summarises the results from running all the
 \mnist compression experiments. For each instance, we report the best reduction
-rate achieved for a network whose accuracy was close to the best accuracy seen
+rate achieved for a network whose false positive rate was close to the best
+false positive rate seen
 throughout the refinement process. Note that we currently do not stop our
 refinement loop at the precise point where this network is produced, but may
 continue to refine beyond this point.
 
 Firstly, we find that \textit{pgd} performs relatively poorly, with fewer
-refinements being performed, producing a low accuracy, small network that has
-been merged too much. This is because the \abcrown
+refinements being performed, producing an small network that is too abstract and
+has a high false positive rate. This is because the \abcrown
 implementation of \pgd fails to find a spurious counterexample early on in the
 refinement process for these instances, leading to early termination. 
 
 The other instances and methods seem to perform
-comparably on the same network in terms of reduction rate and accuracy. This is
-evidence for the fact that, regardless of what specific strategy is used to
-find $\gamma$ in the refinement process, our framework uses the
+comparably on the same network in terms of reduction rate and false positive
+rate. This is evidence for the fact that, regardless of what specific strategy
+is used to find $\gamma$ in the refinement process, our framework uses the
 semantic information to guide the refinement to reach equally optimal \abs.
 
 Further, we see some difference in the number of steps taken by \textit{random}
