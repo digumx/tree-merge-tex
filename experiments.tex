@@ -272,10 +272,9 @@ semantic information and undo merge operations optimally.
 
 Table \ref{t:mnist-prop-summary} summarizes our observations for \mnist. We
 choose a network to report the reduction rate in a manner similar to Section
-\ref{s:exp-mnist-comp} and make similar observations. \textit{pgd} performs
-relatively poorly, which may be attributed to the PGD-attack failing to produce
-counterexamples. All the other methods arrive at \abs with similar reduction and
-counterexample rates. Indeed, all other methods are able to eliminate all
+\ref{s:exp-mnist-comp} and make similar observations. All the methods arrive at
+\abs with similar reduction and counterexample rates. Indeed, 
+all methods are able to eliminate all
 counterexamples. Again, we see that \textit{random} takes more number of steps
 to arrive at the \abs, indicating that heuristics for finding $\gamma$ shortens
 the search for \abs.
