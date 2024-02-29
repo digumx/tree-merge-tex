@@ -34,9 +34,9 @@ The experimental results in Tables
 \ref{t:acas-verif},\ref{t:mnist-compr-summary}, \ref{t:mnist-compr-summary},
 \ref{t:acas-ncex} and Figures \ref{f:ncex}, \ref{f:acas-verif-ref} were
 run on a machine running on an Intel(R) Core(TM) i7-9700K with 8 CPUs running at
-3.60GHz, having 16 GB RAM and running Ubuntu 22.04 LTS. The results in Figure
-\ref{f:mnist-class} were produced on a machine running on an 
-Intel(R) Core(TM) i7-13700 with 24 CPUs running at
+3.60GHz, having 16 GB RAM and running Ubuntu 22.04 LTS. The results in
+Figures \ref{f:mnist-prop-samples}, Figures \ref{f:mnist-prop-pgd} and Table \ref{t:mnist-prop-summary} were produced on a 
+machine running on an Intel(R) Core(TM) i7-13700 with 24 CPUs running at
 5.20GHz, having 32 GB RAM and running Ubuntu 23.10.
 
 \subsection{Compression with Guarantees on Critical Classes}
@@ -252,18 +252,18 @@ semantic information and undo merge operations optimally.
     \hline
     Net Size     & Refinement  & Reduction & Cex. Rate & No. Steps \\
     \hline
-    $2\times256$ & random      & $49.1\%$  & $  0\%$  & $ 809$    \\
-    $4\times256$ & random      & $49.6\%$  & $  0\%$  & $1778$    \\
-    $6\times256$ & random      & $49.7\%$  & $  0\%$  & $2602$    \\
+    $2\times256$ & random      & $49.1\%$  & $  0\%$  & $ 899$    \\
+    $4\times256$ & random      & $49.6\%$  & $  0\%$  & $1929$    \\
+    $6\times256$ & random      & $49.7\%$  & $  0\%$  & $2818$    \\
     $2\times256$ & samples     & $50.3\%$  & $  0\%$  & $  27$    \\
     $4\times256$ & samples     & $49.9\%$  & $  0\%$  & $ 648$    \\
     $6\times256$ & samples     & $47.9\%$  & $  0\%$  & $1199$    \\
     $2\times256$ & pgd         & $50.4\%$  & $  0\%$  & $  28$    \\
-    $4\times256$ & pgd         & $88.6\%$  & $100\%$  & $  14$    \\
-    $6\times256$ & pgd         & $83.3\%$  & $100\%$  & $  82$    \\
-    $2\times256$ & samples-pgd & $50.3\%$  & $  0\%$  & $  27$    \\
-    $4\times256$ & samples-pgd & $49.9\%$  & $  0\%$  & $ 648$    \\
-    $6\times256$ & samples-pgd & $47.9\%$  & $  0\%$  & $1209$    \\
+    $4\times256$ & pgd         & $49.8\%$  & $  0\%$  & $ 648$    \\
+    $6\times256$ & pgd         & $47.9\%$  & $  0\%$  & $1203$    \\
+    $2\times256$ & samples-pgd & $50.4\%$  & $  0\%$  & $  28$    \\
+    $4\times256$ & samples-pgd & $49.8\%$  & $  0\%$  & $ 648$    \\
+    $6\times256$ & samples-pgd & $47.9\%$  & $  0\%$  & $1201$    \\
     \hline
 \end{tabular}
 \caption{Summary of \mnist Results on a single robustness property }
