@@ -60,20 +60,20 @@ safe compression (Section \ref{s:exp-mnist-comp}).
 \subsection{Tree of Merges}
 \label{s:tree}
 
-We use $\cls$ to create a tree structure to prioritize merges wherein leaf nodes
-represent the original neurons, and 
+We use $\cls$ to create a tree structure to prioritize merges where: leaf nodes
+represent the original neurons and 
 non-leaf nodes represent merge operations. The construction of the tree 
-follows a bottom-up approach, starting from individual neurons, 
-greedily performing the merge operation involving the most similar groups of
-neurons, and delaying the merging of dissimilar ones. The resulting tree
+follows a bottom-up approach, where we start from individual neurons, 
+and greedily perform the merge operation involving the most similar groups of
+neurons, delaying the merging of dissimilar ones. The resulting tree
 captures an optimal ordering of merge operations (Section \ref{s:optimal-tree}).
 
 Note that $\cls$ only provides us
 with a similarity measure for pairs of neurons. For this tree construction
-algorithm to work we must extend this to a semantic closeness
-metric between groups of neurons
+algorithm to work, we must extend this to estimate semantic closeness
+between two groups of neurons
 $\{\nr{i_1}{l}, {\cdots}, \nr{i_p}{l}\}$ and $\{\nr{j_1}{l}, {\cdots},
-\nr{j_q}{l}\}$. To do this we take the pairwise maximum since it captures the
+\nr{j_q}{l}\}$. To do this, we take the pairwise maximum since it captures the
 notion of the largest difference in semantic behavior and ensures that the tree
 is optimal (Section \ref{s:optimal-tree}): 
 
@@ -84,10 +84,10 @@ is optimal (Section \ref{s:optimal-tree}):
 \end{aligned}
 \end{equation*}
 
-\textbf{Notation:} We introduce the following notation. Given a (sub)tree $T$ of
+\textbf{Notation:} Given a (sub)tree $T$ of
 merge operations, we say a neuron $\nr{i}{l} \in T$ if and only if $T$ has a
 leaf node corresponding to $\nr{i}{l}$. That is, $\nr{i}{l} \in T$ if and only
-if the merge operations forming $T$ involves $\nr{i}{l}$ at any point.
+if the merge operations forming $T$ involve $\nr{i}{l}$ at any point.
 
 Using this notation, the bottom-up process for constructing the tree is detailed
 in Algorithm \ref{a:build-tree}.
@@ -108,20 +108,20 @@ in Algorithm \ref{a:build-tree}.
     %    of neurons in corresponding merge group
     \State Initialize $Q=\{m_1, {\cdots}, m_r\}$ as the set of leaf nodes.
 
-    \Function{PairwiseMax}{$m, m'$}
+    \Function{PairwiseMax}{$m_1, m_2$}
         
-            \State Let $T, T'$ be leaves of sub-tree rooted at $m, m'$
+            \State Let $T_1, T_2$ be the sub-trees rooted at $m_1, m_2$ in $T$
 
-            \Return $\max_{\nr{i_{k}}{l} \in T, \nr{i_{k'}}{l} \in S'} 
-                \cls( \nr{i_{k}}{l}, \nr{i_{k'}}{l} )$
+            \Return $\max_{\nr{k_1}{l} \in T_1, \nr{k_2}{l} \in T_2} 
+                \cls( \nr{k_1}{l}, \nr{k_2}{l} )$
 
     \EndFunction
 
     \While{$|Q|>1$}
-        \State $m_{j_1}, m_{j_2} = \arg\min_{\substack{m, m' \in Q}} 
-            \text{PairwiseMax}(m, m')$
+        \State $m_{j_1}, m_{j_2} = \arg\min_{\substack{m_1, m_2 \in Q}} 
+            \text{PairwiseMax}(m_1, m_2)$
         \State Add new node $m_{j_3}$ to $T$ 
-        \State Make $m_{j_1}, m_{j_2}$ children on $m_{j_3}$
+        \State Make $m_{j_1}, m_{j_2}$ children of $m_{j_3}$ in $T$
         \State Remove $m_{j_1}, m_{j_2}$ from $Q$ and add $m_{j_3}$ to $Q$.
     \EndWhile
 
@@ -133,7 +133,7 @@ For instance, considering the middle layer in Figure
 \ref{fig:Original_Net_Property}, $\nr{0}{1}$ and $\nr{1}{1}$ are semantically
 closest. Thus, in the tree, we merge these two first to get the node $m_4$.
 Then, the two semantically closest pairs are given by $\nr{2}{1}$ and
-$\nr{3}{1}$, so they are merged to $m_5$. Finally, $m_4$ and $m_5$ gets merged
+$\nr{3}{1}$, so they are merged to $m_5$. Finally, $m_4$ and $m_5$ get merged
 to $m_6$. This gives us the tree seen in the top half of Figure
 \ref{fig:Order_of_merging}.
 
@@ -144,12 +144,14 @@ introduced by the merge operation increases.
 In our example, the merge operation
 $m_4$ involves $\{\nr{0}{1}, \nr{1}{1}\}$, while $m_6$ involves $\{\nr{0}{1},
 \nr{1}{1}, \nr{2}{1}, \nr{3}{1}\}$. Since the semantic behavior of $\nr{0}{1}$
-and $\nr{1}{1}$ are closer than $\nr{0}{1}$, $\nr{1}{1}$, $\nr{2}{1}$,
-$\nr{3}{1}$, operation $m_4$ represents a less coarse abstraction than $m_6$.
+and $\nr{1}{1}$ are closer than $\nr{0}{1}$ and $\nr{2}{1}$, and since
+$\nr{0}{1}$ and
+$\nr{2}{1}$ are merged in the operation $m_6$, operation $m_4$
+represents a less coarse abstraction than $m_6$.
 
 For our choice of $\cls$, (Section \ref{s:semantic-closeness}), Algorithm
 \ref{a:build-tree} reduces to \hcluster, allowing us to leverage existing
-efficient implementations \cite{scipy-hcluster-linkage}. Nonetheless, the
+efficient implementations. Nonetheless, the
 general algorithm presented here will work for any choice of $\cls$.
 
 \subsection{Tree-cuts and Refinement}
@@ -158,7 +160,7 @@ general algorithm presented here will work for any choice of $\cls$.
 \input{our_tree_struct.tex}
 
 In our abstraction refinement loop, we start with the fully merged network.
-Then, whenever we get a \gencex $\vct{\beta}$ (Section \ref{s:qual}), we wish to
+Then, whenever we get a spurious input $\vct{\beta}$ (Section \ref{s:qual}), we wish to
 refine the network, that is, we wish to chose which
 neurons should remain merged. Intuitively, this choice should be guided
 two factors: optimising with respect to the semantic behavior of the network,

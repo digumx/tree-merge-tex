@@ -9,8 +9,9 @@ library for linear algebra operations and the SciPy
 %\cite{scipy}
 library for an
 implementation of \hcluster.
-We have used a linkage-matrix \cite{scipy-hcluster-linkage}  based
-data structure to store the tree, and have precomputed and cached several
+We have used a linkage-matrix based
+data structure similar to one used in SciPy to store the tree, and have
+precomputed and cached several
 operations that may need to be repeated every refinement iteration. This allows
 us to quickly perform the merge and split operations and calculate the
 scores (Section \ref{s:refinement}), without having to do (relatively)
