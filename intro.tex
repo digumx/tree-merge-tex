@@ -2,17 +2,17 @@
 \section{Introduction}
 
 Advances in Deep Neural Networks (\dnn) have enabled the scalable solution of
-several previously intractable problems like image recognition and natural
+several previously intractable problems such as image recognition and natural
 language processing. Due to this, \dnn have increasingly assumed a central role
-across various domains. These include several safety critical domains like
+across various domains. These include several safety-critical domains like
 healthcare \cite{b1}, where they contribute significantly to medical
 diagnosis and predictive analysis \cite{b2}, and autonomous vehicles, where
 DNNs serve as the backbone for sophisticated perception systems, supporting
-tasks such as object recognition and decision-making \cite{b3}. 
+tasks such as object recognition and decision making \cite{b3}. 
 
 However, given the enormous size and the substantial resource requirements of
-these \dnn solutions in terms of CPU, memory, and power, their implementation
-on embedded devices for decision-making is often infeasible.  This obstacle
+these DNN solutions in terms of CPU, memory and power, their implementation
+on embedded devices is often infeasible.  This issue
 becomes especially apparent when integrating DNNs into embedded systems for
 performing safety-critical tasks, such as obstacle recognition in autonomous
 vehicles. Additionally, \dnn are well known to be vulnerable to
@@ -39,36 +39,38 @@ Therefore, for these two reasons, the applicability of \dnn in safety critical
 %often facesi scalability issues.
 
 Structural abstraction based on the \textit{syntax} (the local weights and
-biases at each neuron of the \dnn) form the basis of several techniques
+biases at each neuron of the DNN) forms the basis of several techniques
 attempting to alleviate this issue \cite{cegar-nn, cegarette, cleverest-nn,
 conv-abs-gk}. These techniques work by converting a large \textit{concrete}
-\dnn \cnc into a smaller \textit{abstract} DNN \abs via \textit{merging} groups
+DNN \cnc into a smaller \textit{abstract} DNN \abs via \textit{merging} groups
 of neurons in \cnc into single neurons in \abs. Each such merge is done in a
 way that ensures that there are \textit{concrete}, formal soundness guarantees
 linking the behavior of \cnc and \abs. Then, one can make queries on \abs, and
 using the concrete soundness guarantees, lift the result to \cnc and argue
 about its reliability. However, these techniques do not take into account the
-global \textit{semantic} behavior of the network, thus producing potentially
-sub-optimal abstractions.
+global \textit{semantic} behavior of the network, thus produce potentially
+suboptimal abstractions.
 
 On the other hand, neural network compression techniques \cite{dnn-compression}
 and semantic abstraction techniques \cite{deep-abstract, lin-comb-abs-jan} take
 into account the global \textit{semantic} information within the network.
-However, compression techniques provide no soundness guarantees, while the
+However, compression techniques provide no soundness guarantees, while 
 semantic abstraction techniques provide limited soundness guarantees. In
-particular, the guarantees provided by \cite{deep-abstract} are limited to
+particular, the guarantees provided by clustering based methods like
+\cite{deep-abstract} are limited to
 lifting specific bound propagation based proofs, and those provided by
-\cite{lin-comb-abs-jan} only characterise soundness on a finite subset of the
+linear combination based methods like \cite{lin-comb-abs-jan} only characterize
+soundness on a finite subset of the
 input space. This limits the applicability of these techniques to situations
 where concrete, hard guarantees may be necessary.
 
 In this work we combine the syntactic and semantic approaches into a single
-framework for generating an abstract network. By splitting and labelling the
-neurons \textit{inc} and \textit{dec} similar to \cite{cegar-nn}, and
-restricting ourselves to merges involving only similarly labelled neurons, we
+framework for generating an abstract network. By splitting and labeling the
+neurons \textit{inc} and \textit{dec}, similar to \cite{cegar-nn}, and
+restricting ourselves to merges involving only similarly labeled neurons, we
 provide concrete soundness guarantees linking the behavior of \cnc and \abs via
 syntactic constraints. At the same time, to take into account the global
-semantic behavior we introduce a semantic closeness metric between two neurons
+semantic behavior, we introduce a semantic closeness metric between two neurons
 in the same layer.  Using this metric, we construct a tree of merge operations
 that captures the relative contribution of each merge to the quality of the
 abstraction. We propose a refinement procedure that uses this tree as a guide
@@ -83,7 +85,7 @@ generate high quality \abs by starting with a fully merged network and
 iteratively refining until a strong enough network is obtained. We demonstrate
 the usefulness of this framework by using it to find safe compressions of
 \mnist networks that are guaranteed to not introduce any false negatives, while
-minimising the number of false positives introduced. Apart from this, we also
+minimizing the number of false positives introduced. Apart from this, we also
 demonstrate the quality of the abstract networks produced for \mnist networks
 and $\epsilon$-robustness properties, and evaluate the verification of the
 \acasxu benchmarks via a \cegar loop based on our abstraction-refinement

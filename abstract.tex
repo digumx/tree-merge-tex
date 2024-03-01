@@ -1,27 +1,52 @@
 
 \begin{abstract}
-Deep Neural Networks (DNNs), today, are being trained and trusted for
-performing fairly complex tasks, even in safety-critical applications such as
-automated driving, medical diagnosis, and air-traffic control. This does not
-directly benefit the embedded domain though, primarily because of the resource
-constraints in an embedded system. Real-world applications tend to rely on very
-large DNNs to achieve the desired accuracy, making it a challenge for them to
-be executed on embedded architectures due to power and memory limitations. The
-size of these networks is also a bottleneck in proving their trustworthiness
-through formal verification or explanation. While there exist several methods to
-compress DNNs, there are no formal guarantees linking the behavior of the
-compressed and original networks. To address this issue, several
-abstraction methods have been proposed. This includes techniques that perform
-an abstract analysis of the network, and those that abstract or compress the
-network itself.  We study the latter, in which there are two different
-approaches that have been taken: \emph{syntactic} abstraction, with formal
-soundness guarantees, and \emph{semantic} abstraction where the soundness
-guarantees are usually much weaker, and empirical. In this paper, we propose to
-combine the semantic and syntactic approaches into a single framework, to get
-the best of both worlds.  This allows us to guide the abstraction using global
-semantic information while still providing concrete soundness guarantees based
-on syntactic constraints.  Our experiments on standard neural network
-benchmarks shows that this can be effective for both compression as well as
-verification.
+
+Deep Neural Networks (DNNs) are being trained and trusted for performing fairly
+complex tasks, even in safety-critical applications such as automated driving,
+medical diagnosis, and air-traffic control. This does not directly benefit the
+embedded domain, though, primarily because of the resource constraints in an
+embedded system. Real-world applications tend to rely on very large DNNs to
+achieve the desired accuracy, making it a challenge for them to be executed on
+embedded architectures due to power and memory limitations. The size of these
+networks is also a bottleneck in proving their trustworthiness through formal
+verification or explanation. While there are several methods to compress DNNs,
+there are no formal guarantees linking the behavior of the compressed and
+original networks. To address these issues, several abstraction methods have
+been
+proposed. This includes techniques that perform an abstract analysis of the
+network and those that abstract or compress the network itself. We study the
+latter, in which there are two different approaches that have been taken:
+\emph{syntactic} abstraction, with formal soundness guarantees, and
+\emph{semantic} abstraction, where the soundness guarantees are usually much
+weaker and empirical. In this paper, we propose to combine the semantic and
+syntactic approaches into a single framework to get the best of both worlds.
+This allows us to guide the abstraction using global semantic information while
+still providing concrete soundness guarantees based on syntactic constraints.
+Our experiments on standard neural network benchmarks show that this can be
+effective for both compression and verification.
+
+%Deep Neural Networks (DNNs), are being trained and trusted for
+%performing fairly complex tasks, even in safety-critical applications such as
+%automated driving, medical diagnosis, and air-traffic control. This does not
+%directly benefit the embedded domain, though, primarily because of the resource
+%constraints in an embedded system. Real-world applications tend to rely on very
+%large DNNs to achieve the desired accuracy, making it a challenge for them to
+%be executed on embedded architectures due to power and memory limitations. The
+%size of these networks is also a bottleneck in proving their trustworthiness
+%through formal verification or explanation. While there are several methods to
+%compress DNNs, there are no formal guarantees linking the behavior of the
+%compressed and original networks. To address these issues, several
+%abstraction methods have been proposed. This includes techniques that perform
+%an abstract analysis of the network, and those that abstract or compress the
+%network itself.  We study the latter, in which there are two different
+%approaches that have been taken: \emph{syntactic} abstraction, with formal
+%soundness guarantees, and \emph{semantic} abstraction where the soundness
+%guarantees are usually much weaker, and empirical. In this paper, we propose to
+%combine the semantic and syntactic approaches into a single framework, to get
+%the best of both worlds.  This allows us to guide the abstraction using global
+%semantic information while still providing concrete soundness guarantees based
+%on syntactic constraints.  Our experiments on standard neural network
+%benchmarks shows that this can be effective for both compression as well as
+%verification.
 \end{abstract}
 
