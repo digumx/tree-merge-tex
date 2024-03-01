@@ -13,25 +13,25 @@ operations into a tree where the lower quality merges involving semantically far
 neurons appear higher and can be refined with higher priority (Section
 \ref{s:tree}). 
 
-Using this tree we build a framework where refinement can
-be done by making cuts of this tree, while still providing concrete soundness
-guarantees (Section \ref{s:refinement}). We show that
-the merges retained in this refinement process is optimal with respect to the
-semantic information (Section \ref{s:optimal-tree}).
-This allows us to avoid restoring large number of single neurons(see Section
-\ref{s:nn-sam}) and lets us retain merge operations of higher quality. Thus, we
-produce an \abs of the desired quality with a much smaller size. 
+Using this tree, we build a framework where refinement can be
+done by making cuts of this tree while still providing concrete soundness
+guarantees (Section \ref{s:refinement}). We show that the merges retained in
+this refinement process are optimal with respect to the semantic information 
+(Section \ref{s:optimal-tree}). This allows us to avoid restoring a large
+number of singleton neurons (see Section \ref{s:nn-sam}) and lets us retain merge 
+operations of higher quality. Thus, we produce an \abs of the desired quality 
+with a much smaller size.
 
 Using these components, we propose a general abstraction-refinement loop based
-framework (Section \ref{s:abs-ref-fw}) that combines syntactic merge operation
+framework (Section \ref{s:abs-ref-fw}) that combines syntactic merge operations 
 with semantic behavior. This framework is able to utilize \gencex from any
-source and continually refine until a \abs of desired quality is achieved.
+ source and continually refine until a \abs of desired quality is achieved.
 
 \subsection{Semantic Closeness Factor}
 \label{s:semantic-closeness}
 
 To guide the semantic abstraction process, we define a \textit{semantic
-closeness metric} $\cls$: $\cls(\nr{i_1}{l}, \nr{i_2}{l})$ is function that
+closeness metric} $\cls$: $\cls(\nr{i_1}{l}, \nr{i_2}{l})$ is a function that
 takes two neurons $\nr{i_1}{l}$ and $\nr{i_2}{l}$ in
 the same layer $l$, and returns a real number that
 captures how close the behaviors of $\nr{i_1}{l}$ and $\nr{i_2}{l}$ are from a
@@ -43,18 +43,18 @@ others.
 
 Depending on the application, the precise definition of this metric may be
 chosen in various ways. We note that our framework is agnostic to the particular
-choice of semantic metric, and a concrete soundness guarantee holds for any such
-choice. Inspired by \cite{deep-abstract}, in we chose as the
-semantic closeness metric how close the functions computed by the two neurons
-are: $||\nrf{i_1}{l} - \nrf{i_2}{l}||$. 
+choice of semantic metric, and the concrete soundness guarantee holds for any such
+choice. Inspired by \cite{deep-abstract}, we choose the
+semantic closeness metric to be the difference between the functions computed 
+by the two neurons: $||\nrf{i_1}{l} - \nrf{i_2}{l}||$. 
 
 However, since $\nrf{i_1}{l}$ and $\nrf{i_2}{l}$ are functions, computing
 $||\nrf{i_1}{l} - \nrf{i_2}{l}||$ precisely is not feasible.
 Therefore, we estimate it using a sample set of inputs $X$: $||\ob{i_1}{l}($X$)
-- \ob{i_2}{l}($X$)||_2$. This $X$ may be chosen in many ways, for example, it
+- \ob{i_2}{l}($X$)||_2$. This $X$ may be chosen in different ways, for example, it
 may be a set of randomly chosen input values satisfying $P$ when
 abstracting with respect to a query $(P, \mcnc, Q)$
-(Section \ref{s:exp-mnist-rob}), or a dataset when attempting to find a
+(Section \ref{s:exp-mnist-rob}) or a dataset when attempting to find a
 safe compression (Section \ref{s:exp-mnist-comp}).
 
 \subsection{Tree of Merges}
