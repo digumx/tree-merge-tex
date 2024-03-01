@@ -129,7 +129,7 @@ We use the \abcrown implementation for \pgd.
 Figure \ref{f:mnist-class} shows some typical plots of the true/false
 negative/positive rates (y-axis) against reduction rate (x-axis). Note that the
 reduction rate plotted is with respect to the size of the network obtained after
-\inc-\dec splitting. While this may mean that \abs produced may be greater in
+\inc-\dec splitting. While this may mean that the \abs produced may be greater in
 size than the original network, note that in such an \abs each neuron can be
 cleanly classified as \inc or \dec with respect to a property of interest, which
 may make formal analysis simpler. Indeed, it has been seen that such \abs, while
@@ -144,10 +144,10 @@ positives, which we see in the graph.
 
 We also find in the graph that there is a
 small window of reduction rate values where almost all of the improvement in the
-false positive rate occurs. This indicates that we eventually are able make 
-significant improvements in false positive rate while sacrificing reduction rate
-as little as possible. Thus our technique is able to use the semantic
-information to order and undo merge operations in an optimal way.
+false positive rate occurs. This indicates that we are eventually able to make 
+significant improvements in the false positive rate while sacrificing the
+reduction rate as little as possible. Thus, our technique is able to use
+semantic information to order and undo merge operations in an optimal way.
 
 \begin{table}
 \begin{tabular}{|c|c|c|c|c|}
@@ -177,11 +177,11 @@ Table \ref{t:mnist-compr-summary} summarizes the results from running all the
 rate achieved for a network whose false positive rate was close to the best
 false positive rate seen
 throughout the refinement process. Note that we currently do not stop our
-refinement loop at the precise point where this network is produced, but may
+refinement loop at the precise point where this network is produced but may
 continue to refine beyond this point.
 
 Firstly, we find that \textit{pgd} performs relatively poorly, with fewer
-refinements being performed, producing an small network that is too abstract and
+refinements being performed, producing a small network that is too abstract and
 has a high false positive rate. This is because the \abcrown
 implementation of \pgd fails to find a spurious counterexample early on in the
 refinement process for these instances, leading to early termination. 
@@ -194,17 +194,16 @@ semantic information to guide the refinement to reach equally optimal \abs.
 
 Further, we see some difference in the number of steps taken by \textit{random}
 and the other methods in finding the abstract network. This indicates that while
-the \abs reached may be equally optimal, 
-heuristics for finding $\gamma$ indeed
-shortens the search for the refined network.
+the \abs reached may be equally optimal, heuristics for finding $\gamma$ indeed
+shorten the search for the refined network.
 
-We note that in \cite{cleverest-nn}, an eager \pgd before each solver call
-has been effectively used to accelerate the CEGAR loop. We do not see such
+We note that in \cite{cleverest-nn}, an eager \pgd performed before each solver
+call has been effectively used to accelerate the CEGAR loop. We do not see such
 benefits from using \pgd, and instead observe that the global view given by
 the large number of samples in the \textit{samples} method performs better.
 While the relative performance of \textit{pgd} and \textit{samples} may be
 different for a different set of target network and property, our framework
-allows the use of either, and in-fact, any other method for generating the
+allows the use of either, and in fact, any other method for generating 
 counterexamples.
 
 \subsection{Eliminating Spurious Counterexamples}
@@ -258,9 +257,9 @@ adversarial robustness properties and \acasxu with the properties from
 \cite{reluplex}. For each, we tried the 4 strategies for choosing $\gamma$ from
 Section \ref{s:exp-mnist-comp}.
 Figure \ref{f:ncex} shows some typical plots
-for these experiments. Here the x-axis measures the reduction rate with respect
-to the \inc-\dec split networks and the y-axis is the rate of true
-counterexamples within a random sample - thus a low value indicates a good
+for these experiments. Here, the x-axis measures the reduction rate with respect
+to the \inc-\dec split networks, and the y-axis is the rate of true
+counterexamples within a random sample. A low y-axis value indicates a good
 abstraction.
 
 Similar to Section \ref{s:exp-mnist-comp}, we see that there is a small window
@@ -293,12 +292,12 @@ semantic information and undo merge operations optimally.
 
 Table \ref{t:mnist-prop-summary} summarizes our observations for \mnist. We
 choose a network to report the reduction rate in a manner similar to Section
-\ref{s:exp-mnist-comp} and make similar observations. However, for these benchamrks 
-\pgd also had a similar reduction rate and was able to eliminate the
-counterexamples. Infact all the methods arrive at
-\abs with similar reduction and counterexample rates and are able to eliminate all
-counterexamples. Again, we see that \textit{random} takes more number of steps
-to arrive at the \abs, indicating that heuristics for finding $\gamma$ shortens
+\ref{s:exp-mnist-comp} and make similar observations. However, for these
+benchmarks, \pgd did not underperform compared to the other strategies. In fact
+all the methods arrive at
+\abs with similar reduction rates, and are able to eliminate all
+counterexamples. Again, we see that \textit{random} takes more steps
+to arrive at the \abs, indicating that heuristic for finding $\gamma$ shortens
 the search for \abs.
 
 \begin{table}
@@ -317,22 +316,25 @@ samples-pgd & 45.1\%     &  5.3\%      & 299.272  \\
 \end{table}
 
 Table \ref{t:acas-ncex} summarizes the results for the \acasxu networks. Here,
-we see that all 4 strategies for selecting $\gamma$ seem to produce much more
-similar \abs. Indeed, \pgd was much more successful in finding
-$\vct{\beta}$ for these networks, only producing slightly more counterexamples.
+we see that all 4 strategies for selecting $\gamma$ seem to produce 
+similar quality \abs. Indeed, the \pgd was more successful in finding
+$\vct{\beta}$ for these networks, only producing \abs with slightly more
+spurious counterexamples.
 Again, we find that \textit{random} takes many more steps but arrives at a
 network of similar size.
 
 \subsection{Verification of \acasxu}
 \label{s:acas-verif}
 
-In these set of experiments, we have taken the \acasxu set of
-networks and properties and attempt to verify them using a \cegar approach. We
-use our technique to generate the abstraction, and attempt to verify the
+In this set of experiments, we have taken the \acasxu set of
+networks and original as well as adversarial robustness properties from
+\cite{reluplex, cegar-nn}. We have attempted to verify them using a \cegar
+approach. We
+use our technique to generate the abstraction and attempt to verify the
 property on the abstract network using an existing neural network verification
 solver. If the solver returns a counterexample, and if that counterexample is
-not spurious, we use that counterexample as a reference point for score
-calculation  to select the culprit neuron (\ref{s:refinement}). With the culprit
+spurious, we use that counterexample as a spurious input $\vct{\beta}$ for score
+calculation to select $\gamma$ (Section \ref{s:refinement}). With the culprit
 neuron selected, we then refine the network.
 
 \begin{table}
@@ -354,22 +356,22 @@ safe/unsafe instances of the original properties from \cite{reluplex},
 
 The results are summarized in table \ref{t:acas-verif}. The solver we used was
 \abcrown. The average times reported here do not include instances where the
-verification failed due to timeout.
+verification failed due to a timeout. We have used a timeout of 200 seconds.
 
 We notice that for the unsafe cases, we are able to refute the
 properties via a counterexample obtained on a significantly smaller network. In
 fact, for most networks, we are able to refute based on a counterexample from
 the fully abstracted network of size $18$. Note that since we use only two classes in our
-fully abstracted network as opposed to 4 in \cite{cegar-nn}, the size of this
+fully abstracted network as opposed to four in \cite{cegar-nn}, the size of this
 network is significantly smaller. 
 
 For safe cases, we see only negligible improvement in the size of the network.
-We believe that this is because for these benchmarks, there is not much room for
+We believe that this is because, for these benchmarks, there is not much room for
 improvement via abstraction. We are also able to only verify a smaller
-percentage of these benchmarks, because the underlying solver call would time
+percentage of these benchmarks because the underlying solver call would time
 out on mid-sized abstract networks, stalling
 the CEGAR loop. We note that some timeouts were also reported in
-\cite{cegar-nn}, and thus may be expected.
+\cite{cegar-nn} and thus may be expected.
 
 \begin{figure}
     \begin{subfigure}{0.475\linewidth}
@@ -393,19 +395,21 @@ the CEGAR loop. We note that some timeouts were also reported in
 In Figure \ref{f:acas-verif-ref} we show scatter plots of the number of neurons
 un-merged in between each solver call. We observe that the number is highly
 dependent on the specific benchmark instance,
-and on how late in the \cegar loop we are. This is unlike previous methods
+and on how late in the CEGAR loop we are. This is unlike previous methods
 that arbitrarily and uniformly choose the number of un-merges
 \cite{cegar-nn} to be performed between each solver call. We believe
-that this is more evidence for the fact that our framework is able to take into
+that this is more evidence of the fact that our framework is able to take into
 account the larger semantic context of each refinement step. 
 
-In our experiments we also find that the time taken for a solver call are more
-dependent on the particular solver, solver configuration and benchmark than on
-the size of the network. Thus it may seem that the effort needed to verify a
-network is dependent on other factors than simply the size of the network. While
-this may be interesting to explore in future work, we nonetheless argue that
-network size is a relevant metric. This is as more and more solvers are designed
-and optimized for various kinds of networks, the underlying worst case
-performance will almost certainly remain exponential in the size of the network
+In our experiments, we also found that the time taken for a solver call is more
+dependent on the particular solver, solver configuration and benchmark rather
+than on the size of the network. Thus, it may seem that the effort needed to
+verify a network is dependent on other factors than simply the size of the
+network. While this may be interesting to explore in future work, we nonetheless
+argue that network size is a relevant metric. This is because, even as more and
+more solvers
+are designed and optimized for various kinds of networks, the underlying worst
+case performance will almost certainly remain exponential in the size of the
+network
 \cite{reluplex}.
 
