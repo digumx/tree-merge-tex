@@ -1,15 +1,15 @@
 \section{Methodology}
 \label{s:semantic-closeness}
 
-In this work we aim to utilize information from the semantic behavior of \cnc to
-better control and guide the refinement process producing higher quality \abs
-while retaining concrete soundness. 
+In this work, we aim to utilize information from the semantic behavior of \cnc
+to better control and guide the refinement process, producing a higher quality
+\abs while retaining concrete soundness guarantees. 
 
 In particular, we define a \textit{semantic
-closeness metric} that captures how close the semantic-behavior of two 
-neurons are (Section \ref{s:semantic-closeness}). We utilise this semantic
+closeness metric} that captures how close the semantic behavior of two 
+neurons is (Section \ref{s:semantic-closeness}). We utilize this semantic
 closeness metric to arrange the merge
-operations into a tree where lower quality merges involving semantically far
+operations into a tree where the lower quality merges involving semantically far
 neurons appear higher and can be refined with higher priority (Section
 \ref{s:tree}). 
 
@@ -24,7 +24,7 @@ produce an \abs of the desired quality with a much smaller size.
 
 Using these components, we propose a general abstraction-refinement loop based
 framework (Section \ref{s:abs-ref-fw}) that combines syntactic merge operation
-with semantic behavior. This framework is able to utilise \gencex from any
+with semantic behavior. This framework is able to utilize \gencex from any
 source and continually refine until a \abs of desired quality is achieved.
 
 \subsection{Semantic Closeness Factor}
@@ -37,8 +37,8 @@ the same layer $l$, and returns a real number that
 captures how close the behaviors of $\nr{i_1}{l}$ and $\nr{i_2}{l}$ are from a
 semantic point of view. The number returned by $\cls$ should be smaller for
 neurons whose semantic behavior is closer. Intuitively, this metric would
-characterise the semantic behavior of the
-neurons in layer $l$ relative to each other, and prioritise certain merges over
+characterize the semantic behavior of the
+neurons in layer $l$ relative to each other, and prioritize certain merges over
 others. 
 
 Depending on the application, the precise definition of this metric may be
@@ -60,7 +60,7 @@ safe compression (Section \ref{s:exp-mnist-comp}).
 \subsection{Tree of Merges}
 \label{s:tree}
 
-We use $\cls$ to create a tree structure to prioritise merges wherein leaf nodes
+We use $\cls$ to create a tree structure to prioritize merges wherein leaf nodes
 represent the original neurons, and 
 non-leaf nodes represent merge operations. The construction of the tree 
 follows a bottom-up approach, starting from individual neurons, 
