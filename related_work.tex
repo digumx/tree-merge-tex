@@ -2,29 +2,30 @@
 
 In response to the increasing use of neural networks in safety-critical settings, 
 various techniques have been developed to analyze their behavior, including 
-verification, explainability etc. 
+verification, explainability, etc. 
 
 The closest works related to our work are 
 syntactic and semantic structural abstraction techniques that
 have been proposed to reduce the network size by merging similar neurons. 
 In \cite {cegar-nn, cegarette}, the authors have 
 employed counterexample-guided syntactic abstraction
-refinement. They have used syntactic constraints to achieve concrete soundness 
-guarantees. But unlike our approach their work does not take into account the global 
-\textit{semantic} behavior of the network, thus producing potentially sub-optimal
-abstractions.
+refinement. They have used syntactic constraints to achieve concrete soundness
+guarantees. But unlike our approach, their work does not take into account the
+global \textit{semantic} behavior of the network, thus producing potentially
+suboptimal abstractions.
 
-On the other hand the approach proposed in \cite{deep-abstract} utilizes
+On the other hand, the approach proposed in \cite{deep-abstract} utilizes
 clustering-based semantic abstraction to decrease the network's size. 
 However, this technique only allows lifting certain bound propagation
-based proofs. Also in \cite{lin-comb-abs-jan} the authors have used linear 
-combination of neurons to compress the networks but their method only provides 
-guarantees on a finite dataset. In comparision we provide concrete soundness
-guarantees that allow us to lift any proofs from the abstract 
+based proofs. Also, in \cite{lin-comb-abs-jan} the authors have used linear 
+combinations of neurons to compress the networks, but their method only provides 
+guarantees on a finite dataset. In comparison, we provide concrete soundness
+guarantees that allows us to lift any proofs from the abstract 
 network back to the original network.
 
-In general methodologies for verifying neural networks generally fall into two main
-categories: sound and complete methods \cite{reluplex, formal-ver-piece-wise, 
+In general, methodologies for verifying neural networks generally fall into two
+main categories: sound and complete methods \cite{reluplex,
+    formal-ver-piece-wise, 
 comp-reachability-analysis, comp-milp, comp-out-range, comp-max-resilience, marabou,
 comp-safety-ver-dnn, beta-crown, alpha-crown-bab-fnc, gcp-crown}, and sound and
 incomplete methods \cite{deeppoly, crown, incomp-dual-approach, incomp-abs-inp, 
@@ -51,10 +52,12 @@ scalability at the cost of overapproximation. \cite{alpha-crown-bab-fnc}
 optimizes the bounds of \cite{crown} 
 using gradient descent. 
 \cite{beta-crown} incorporates ReLU split
-constraints into the CROWN bound propagation process allowing integration
-the branch and bound (BaB) framework \cite{bab-fw,bab-piecewise-nn, bab-lagrangian-decomp}. 
+constraints into the CROWN bound propagation process, allowing integration
+into the branch and bound (BaB) framework \cite{bab-fw,bab-piecewise-nn,
+bab-lagrangian-decomp}. 
 This combined implementation makes the \abcrown framework sound and complete.
 
 DNN compression has been explored \cite{dnn-compression} in general to obtain a
-network of a smaller size as opposed to abstraction they donot provide any guarantees
-connecting the original network to the smaller compressed network. 
+network of a smaller size, however, as opposed to abstraction, they do not
+provide any guarantees connecting the original network to the smaller compressed
+network. 
