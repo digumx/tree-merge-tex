@@ -1,44 +1,42 @@
 \section{Background}
 \subsection{Notation}
 
-We restrict ourselves to fully connected, feed forward neural networks with
+We restrict ourselves to fully-connected, feed-forward neural networks with
 \relu activation function. 
-Neurons in our network are denoted as $\nr{i}{j}$, where `$i$' signifies the 
-neuron number in layer `$j$'.  % Used
-The weight matrix between layers `${j-1}$' and `$j$' is denoted as `$W_{{j-1},
-j}$', and the bias matrix for layer `$i$' is denoted as `$B_{i}$'. 
-The function taking a given input $\vct{x}$ to the value of $\nr{i}{j}$ is
-represented by `$\nrf{i}{j}(\vct{x})$', % Used 
-and `$V_{j}$' encompasses all such `$v_{(i,j)}$' values for layer `$j$'. 
-The function $\ob{i}{j}$ takes a list of input vectors
+Neurons in our network are denoted as $\nr{i}{l}$, where $i$ signifies the 
+neuron number in layer $l$.  % Used
+The function taking a given input $\vct{x}$ to the value of $\nr{i}{l}$ is
+represented by $\nrf{i}{l}(\vct{x})$, % Used 
+The function $\ob{i}{l}$ takes a list of input vectors
 $[\vct{x_1} {\cdots} \vct{x_N}]$ and returns a vector with
-$[\nrf{i}{j}(\vct{x_1}) {\cdots} \nrf{i}{j}(\vct{x_N})]$ for a particular
-neuron $\nr{i}{j}$.  %Used
+$[\nrf{i}{l}(\vct{x_1}) {\cdots} \nrf{i}{l}(\vct{x_N})]$ for a particular
+neuron $\nr{i}{l}$.  %Used
 
 \subsection{Formal Analysis of Neural Networks }
 \label{s:form-an}
 
 Several techniques and methods have been studied to improve the reliability and
-trustworthiness of \dnn deployed in safety critical settings via formal
+trustworthiness of \dnn deployed in safety-critical settings via formal
 analysis. This includes verifying \dnn with respect to a given
 safety property \cite{reluplex, cegar-nn, deeppoly, cegarette, cleverest-nn,
 conv-abs-gk, deep-abstract, lin-comb-abs-jan}, providing formal explanations of
-the behavior of the \dnn \cite{minimal-image-fxai, overview-fxai}, and defending
+the behavior of \dnn \cite{minimal-image-fxai, overview-fxai}, and defending
 against backdoor attacks \cite{backdoor-verification}.
  To provide the formal guarantees behind the
-analysis performed, all of these techniques rely on making \textit{neural
+analyses performed, all of these techniques rely on making \textit{neural
 network queries}. 
 
-These neural network queries are of the form $(P, \mcnc, Q)$, and ask if
-for all inputs $x$ to $\mcnc$ for which the formula $P$ holds
-the formula $Q$ also holds on the output $\mcnc(x)$. While there are several
+These neural network queries are of the form $(P, \mcnc, Q)$, and asks: if
+for all inputs $\vct{x}$ to $\mcnc$ for which the formula $P$ holds, 
+the formula $Q$ also hold on the output $\mcnc(\vct{x})$. While there are
+several
 tools that can handle such queries, like \marabou and \abcrown, scalability
 remains an issue, and so reducing the size of \cnc is desirable.
 
 \subsection{Semantic Compressions and Abstractions with Empirical Guarantees}
 \label{s:emp-abs}
 
-Several techniques utilise semantic information, typically extracted via
+Several techniques utilize semantic information, typically extracted via
 simulation of the \dnn, to obtain a smaller \abs. 
 Neural network compression techniques \cite{dnn-compression}, produce small
 \abs, but the
@@ -65,7 +63,7 @@ guarantees in many settings. Two such settings are as follows:
 
 Firstly, since any general neural network query can be converted to a query of
 the form $(P, \mcnc, y < c)$ for some $c$ \cite{cegar-nn, reluplex,
-lipschitz-reach} , such a guarantee is
+lipschitz-reach}, such a guarantee is
 useful for dispatching the query on a smaller network \cite{cegar-nn, cegarette,
 cleverest-nn}. This immediately makes an \abs with these guarantees useful for
 accelerating several formal analysis techniques (Section \ref{s:form-an}).
