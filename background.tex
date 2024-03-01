@@ -106,7 +106,7 @@ necessary to perform \posc-\negc splitting to soundly obtain an \inc-\dec
 split, as seen in \cite{chauhan2022efficiently,liu2022abstraction,
 10.1145/3644387}. Then, following \cite{cegar-nn}, a sound 
 abstraction can be obtained by \textit{merging} all similarly 
-labelled neurons as follows: if the neurons have
+labeled neurons as follows: if the neurons have
 the label \inc (\dec), replace incoming edges from the same
 previous layer neuron with a single edge with the maximum (minimum) of the
 original edge weights. Outgoing edges to the same next layer neuron are replaced
@@ -120,7 +120,7 @@ with a single edge with the sum of the weights for both the \inc and \dec case.
 For example, consider the network and property in Figure
 \ref{fig:Original_Net_Property}. For this example, all the neurons in the output
 and middle layer get classified as \inc. Thus, they are all merged together,
-leading to to the network in Figure \ref{fig:full_abstract_net}.
+leading to the network in Figure \ref{fig:full_abstract_net}.
 
 Note that this process only considers the syntactic structure of the network, no
 semantic information is used.
@@ -133,9 +133,10 @@ formal analysis, there may be too many spurious counterexamples. In such
 situations, a common approach to obtain a better quality \abs is to perform
 refinement steps based on a \gencex $\vct{\beta}$ \cite{cegar-nn,
 cegarette, cleverest-nn}. In
-existing techniques this is typically done restoring a single neuron coming from \cnc
-that had been merged with other neuorns in \abs. The neuron chosen is typically one 
-whose contribution to $\vct{\beta}$ is estimated to be the highest.
+existing techniques, this is typically done by restoring a single neuron coming
+from \cnc that had been merged with other neurons in \abs. The neuron chosen is
+typically one whose contribution to $\vct{\beta}$ is estimated to be the
+highest.
 
 These techniques, however, do not consider any semantic behavior to guide their
 refinement. As such, the refinement process tends to produce a large number of
