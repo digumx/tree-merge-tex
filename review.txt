@@ -1,0 +1,93 @@
+Dear authors,
+
+We regret to inform you that your submission was rejected and will not appear at ACM SIGPLAN/SIGBED International Conference on Languages, Compilers, and Tools for Embedded Systems (LCTES 2024).
+
+LCTES'24 has received 52 submissions including 48 full-paper submissions and 4 work-in-progress submissions. After rigorous review and discussion (involving at least 3 program committee members per paper), 16 full papers and 1 work-in-progress paper were accepted. We have received many strong submissions this year, but unfortunately, not all of them could be accepted.  Please find the reviews attached to the end of this email. We hope the comments will be useful to enhance your work for future submissions.
+
+We welcome authors to submit their work to special issues in TECS (https://dl.acm.org/pb-assets/static_journal_pages/tecs/pdf/TECS-SI-LCTES-2024.pdf) and IEEE ESL (https://ieee-ceda.org/publication/esl-call-papers).
+
+
+Regards,
+LCTES 2024 Chairs.
+
+* Title: Unifying Syntactic and Semantic Abstractions for Deep Neural  Networks
+* Site: https://lctes24.hotcrp.com/paper/48
+* Review #48A
+ ===========================================================================
+  Overall merit
+ -------------
+ 2. Weak reject
+  Reviewer expertise
+ ------------------
+ 3. Knowledgeable
+  Paper summary
+ -------------
+ The paper proposes an approach of neural network abstraction, relying  on both syntactic and semantic structure of the neural networks.  Essentially, the approach merges the neurons of the network based on  an order over the neurons, and then refines the network by identifying  the most crucial neuron and cutting the tree accordingly. The  technique can be applied to neural network verification to solve its  scalability issue since it significantly reduces the sizes of the  neural networks. The experiments evaluate the performance of the  proposed technique and apply it to the verification of ACASXu.
+  Strengths
+ ---------
+ - the paper is easy to follow
+ - the approach is natural and sound
+  Weaknesses
+ ----------
+ - the contribution is incremental and heuristical
+ - lack of some evaluation details
+  Comments for authors
+ --------------------
+ As a major concern, the approach is proposed based on the existing  CEGAR framework, and the technical contributions are rather  incremental. The paper basically introduces an order over the merges  of the neurons and thus it can exploit the order for an effective  refinement. However, the order, which relies on the concept of  semantic closeness metric, is rather simple and heuristic. A naive  approach to the estimation of this metric is given in Section 3.1,  however, the quality of this metric may depend heavily on sampling and  therefore, it may be very unstable. Moreover, this part is not  experimentally evaluated.   Another concern is regarding the experiment, especially the usefulness  of the approach. One application should be neural network  verification, as stated in the introduction and as performed in  Section 4.3. However, there is no comparison with any baseline  approach. There could be many possible baselines, including the  existing neural network verification approaches for the original  network, or existing abstraction and refinement approach. In the  current shape, the value of the proposed approach is not clearly  demonstrated.
+  In Section 4.1, I don’t get the statement “there are certain  ‘critical‘ classes for which a false negative classification is far  more dangerous than a false positive one.”
+  Also, the experiment design of Section 4.1 is not very clear. First,  the evaluation metrics, such as Reduction, Steps are not rigorously  defined. Second, I cannot map very well the content in this part with  the previous contents in Section 3.3.1. In particular, it’s not clear  which approach is the one introduced in Section 3.3.1, and which  approach is the one that the authors want to sell. The experimental  results show that random, namely, the baseline approach, already gives  a very good performance.
+  In Section 4.1, it seems the authors want to claim that the strategy  of finding gamma is not very important, but in my view, the approach  becomes less interesting because it doesn’t matter which technique it  adopts.
+   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * *
+   Review #48B
+ ===========================================================================
+  Overall merit
+ -------------
+ 2. Weak reject
+  Reviewer expertise
+ ------------------
+ 1. No familiarity
+  Paper summary
+ -------------
+ This paper proposes a framework that can reduce the size of large DNNs  and simultaneously guarantee the soundness of DNNs. Previous works  have mainly two categories of solving this problem: syntactic  abstraction and semantic abstraction. Syntactic abstraction can  guarantee soundness but ignores global semantic information. Semantic  abstraction cannot guarantee strong soundness. The framework proposed  by this paper combines syntactic and semantic abstractions. It starts  from a fully merged network and then refines the network step by step.  It defines a semantic closeness metric and builds a tree of merges  according to the metric. Then it identifies the culprit neuron.  Finally, it cuts the tree so that the culprit neuron is not merged but  keeps as many other neurons merged as possible.
+  Strengths
+ ---------
+ + This work considers both syntactic and semantic abstractions, which  can guarantee soundness and at the same time consider semantic  information.
+ + The framework can reduce the size of DNN, making DNN better executed  on embedded architectures.
+ + The examples in the paper are helpful.
+  Weaknesses
+ ----------
+ - The writing requires some improvement.
+ - Some technical details require further clarification.
+ - The baseline of this work is somewhat unclear to me. It would be  helpful to clarify (and justify) it.
+  Comments for authors
+ --------------------
+ I have several concerns or questions as follows:
+  1. It would be helpful to improve the writing of the introduction,  making it more organized so that readers can better understand the  basic idea of this work more systematically.
+  2. The explanation and proof of the building of the tree lack some  details. A more detailed explanation of the PairwiseMax algorithm  would be helpful:
+ 1) How does the framework use a greedy algorithm to initialize the  tree of merges?  2) For the building process of the tree of merges, does the framework  calculate the semantic closeness of each pair of neutrons and keep the  combination that has the largest semantic closeness?
+ 3) What does the PairwiseMax algorithm do to calculate the semantic  closeness? How to calculate the PairwiseMax of m1 and m2 since they  are two neutrons?
+  3. The framework cuts until the tree of merges reaches the desired  quality. How to measure the quality of the merges?
+  4. Tale 1 provides false positive values. However, more metrics might  be helpful to show the performance and quality of the framework.
+   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * *
+   Review #48C
+ ===========================================================================
+  Overall merit
+ -------------
+ 2. Weak reject
+  Reviewer expertise
+ ------------------
+ 3. Knowledgeable
+  Paper summary
+ -------------
+ The authors propose a new refinement heuristic for the  abstraction-based framework for neural network verification proposed  by Yisrael et al. [25]. The authors use an estimated semantic distance  between two neurons to form a tree of merges (using hierarchical  clustering). For a counterexample, they identify the culprit neuron  using the gradient-guided refinement proposed by Chau et al. [10] and  traverse upward through the tree of merges to find the refined  network.
+  Strengths
+ ---------
+ + intuitive, simple heuristic
+  Weaknesses
+ ----------
+ - weak experimental evaluation
+  Comments for authors
+ --------------------
+ The proposed heuristic is simple (which is a positive) and makes a lot  of sense. However, the negative of the paper is its experimental  evaluation: the author do not evaluate the runtime performance of  their algorithm against any other algorithm. While they use  alpha-beta-Crown for some sub-tasks (eg. generating PGD samples), so  they could have at least compared against that. Further, the  evaluation is only on a few MNIST networks from VNNComp; there is no  rationale provided why these benchmarks were used and others were  omitted.   The paper is, for most parts, well-written, and quite easy to follow.  However, the plots could have been better: none of the plots label the  x- and y-axis, and neither are the labels mentioned in the text,  making it difficult to understand the experimental results.
+
+CAUTION: This email originated from outside of IIT Delhi. Do not click links or open attachments unless you recognize the sender and know the content is safe.
