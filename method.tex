@@ -184,6 +184,7 @@ $\gamma$. Then, we find a cut in the tree that ensures that $\gamma$ is not
 merged with any other neuron.
 
 \subsubsection{Finding $\gamma$}
+\label{s:finding-gamma}
 
 Many possible heuristics may be used to identify the culprit neuron $\gamma$,
 and our framework is agnostic to the specific heuristic chosen. In this work, we
@@ -204,6 +205,57 @@ value of the neuron that $\gamma$ has been merged into within our current \abs.
 $\frac{\delta y(\vct{\beta})}{\delta v_{\gamma}}$ is the partial derivative of
 the output
 $y$ of \cnc with respect to the value at $\gamma$ for the input $\vct{\beta}$.
+
+\dmcmt{Alternate section. Following review 1, I think it may be better to say
+    upfront over here that we can do this in various ways, and describe these a
+bit.}
+
+Many possible heuristics may be used to identify the culprit neuron $\gamma$,
+and our framework is agnostic to the specific strategy chosen. We explore a few
+strategies: 
+
+\paragraph*{Random:} Choose $\gamma$ at random. We use this as a
+baseline for comparing other $\gamma$ selection strategies. 
+
+\paragraph*{Uniform-score:} An uniform sampling of the input space is used to
+generate a large set $\mathbf{X}$ of \gencex $\vct{\beta}$. Then, for each
+potential $\gamma$ we calculate a score similar to the \textit{gradient-guided
+refinement} described in \cite{lin-comb-abs-jan}, and pick the $\gamma$ with the
+largest score:
+
+\begin{equation*}
+\begin{aligned}
+    \frac{1}{|\mathbf{X}|} \sum_{\vct{\beta} \in \mathbf{X}} 
+    \|v^{*}_{\gamma}(\vct{\beta}) - v_{\gamma}(\vct{\beta})\|_{2} \cdot 
+    \big| \frac{\delta y(\vct{\beta})}{\delta v_{\gamma}} \big|
+\end{aligned}
+\end{equation*}
+
+Here, $| \mathbf{X}|$ represents the number of samples in $\mathbf{X}$, 
+$v_{\gamma}(\vct{\beta})$ is the value at the neuron $\gamma$ for input
+$\vct{\beta}$ in the original \cnc, while $v^{*}_{\gamma}(\vct{\beta})$ is the
+value of the neuron that $\gamma$ has been merged into within our current \abs.
+$\frac{\delta y(\vct{\beta})}{\delta v_{\gamma}}$ is the partial derivative of
+the output $y$ of \cnc with respect to the value at $\gamma$ for the input
+$\vct{\beta}$.
+
+\dmcmt{Should we talk about pgd-based things at all? It may not add much to the
+story, and the experiments using these I feel don't provide much insight beyond
+saying that pgd does not work. Ofc we may explain why that is the case, and try
+to understand that, but does that add much to the story?}
+
+\paragraph*{PGD-score:} This is exactly the same as \emph{Uniform-score}, but
+instead of sampling $\vct{\beta}$ from an uniform distribution we use PGD attack
+to generate $\vct{\beta}$. The rest of the score calculation is exactly the
+same.
+
+\paragraph*{Samples-PGD-Score:} In this strategy, the initial iterations of the
+abstraction refinement uses the \emph{Samples-score} method, and once all
+samples have been eliminated, we switch to the \emph{PGD-Score} method. 
+
+%\dmcmt{Also in general, should we be talking about these different methods at
+%    all? We are not able to demonstrate much difference about this in our
+%experiments. In fact, the randomized baseline seems to perform quite well}
 
 \subsubsection{Cutting the Tree}
 
@@ -295,3 +347,7 @@ call, in which case our general abstraction-refinement loop reduces to a
 standard CEGAR loop. On the other hand, when attempting to produce a safe
 compression (Section \ref{s:exp-mnist-comp}), the \gencex may come from a false
 positive classification on a training dataset.
+
+\dmcmt{Is adding some discussion here as to what are the knobs in our framework,
+    with refernce to / matching with the various things shown later in
+experiments, a good idea?}
