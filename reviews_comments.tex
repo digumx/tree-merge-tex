@@ -54,8 +54,10 @@
     How to calculate the PairwiseMax of m1 and m2 since they  are two neutrons?
   3. The framework cuts until the tree of merges reaches the desired  quality.
      How to measure the quality of the merges?
+     \todo{Address above concerns}
   4. Tale 1 provides false positive values. However, more metrics might  be
      helpful to show the performance and quality of the framework.
+     \dmcmt{How? Can we do something here?}
 
 \subsection{Review 3}
      
@@ -64,12 +66,15 @@
  author do not evaluate the runtime performance of  their algorithm against any
  other algorithm. While they use  alpha-beta-Crown for some sub-tasks (eg.
  generating PGD samples), so  they could have at least compared against that.
+ \dmcmt{This is fair, but i don't think we will get much improvement in perf
+     over alpha beta crown. Integrating neural sat is another option. What
+ should we do? For compression, maybe we can use guy katz as a baseline?}
  Further, the  evaluation is only on a few MNIST networks from VNNComp; there is
  no  rationale provided why these benchmarks were used and others were  omitted.
+ \dmcmt{Another fair point, but I don't know if we will have time to expand
+ this to others?}
  The paper is, for most parts, well-written, and quite easy to follow.  However,
  the plots could have been better: none of the plots label the  x- and y-axis,
  and neither are the labels mentioned in the text,  making it difficult to
- understand the experimental results.
+ understand the experimental results. \todo{Fix this}
 
-CAUTION: This email originated from outside of IIT Delhi. Do not click links or
-open attachments unless you recognize the sender and know the content is safe.
