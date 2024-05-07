@@ -30,7 +30,7 @@ with semantic behavior. This framework is able to utilize \gencex from any
 \subsection{Semantic Closeness Factor}
 \label{s:semantic-closeness}
 
-To guide the semantic abstraction process, we define a \textit{semantic
+To guide the semantic abstraction process, we define a \emph{semantic
 closeness metric} $\cls$: $\cls(\nr{i_1}{l}, \nr{i_2}{l})$ is a function that
 takes two neurons $\nr{i_1}{l}$ and $\nr{i_2}{l}$ in
 the same layer $l$, and returns a real number that
@@ -60,7 +60,7 @@ safe compression (Section \ref{s:exp-mnist-comp}).
 \subsection{Tree of Merges}
 \label{s:tree}
 
-We use $\cls$ to create a tree structure to prioritize merges where: leaf nodes
+We use $\cls$ to create a tree structure to prioritize merges where leaf nodes
 represent the original neurons and 
 non-leaf nodes represent merge operations. The construction of the tree 
 follows a bottom-up approach, where we start from individual neurons, 
@@ -152,7 +152,8 @@ represents a less coarse abstraction than $m_6$.
 For our choice of $\cls$, (Section \ref{s:semantic-closeness}), Algorithm
 \ref{a:build-tree} reduces to \hcluster, allowing us to leverage existing
 efficient implementations. Nonetheless, the
-general algorithm presented here will work for any choice of $\cls$.
+general algorithm presented here will work for any choice of $\cls$. \dmcmt{Can
+we omit this line, or push it to a footnote?}
 
 \subsection{Tree-cuts and Refinement}
 \label{s:refinement}
@@ -164,7 +165,8 @@ Then, whenever we get a spurious input $\vct{\beta}$ (Section \ref{s:qual}), we
 wish to refine the network. That is, we wish to choose which
 neurons should remain merged. Intuitively, this choice should be guided
 two factors: optimizing with respect to the semantic behavior of the network,
-and attempting to eliminate $\vct{\beta}$.
+and attempting to eliminate $\vct{\beta}$. \todo{Connect the experiments back to
+this intuition.}
 
 The tree produced in the previous Section \ref{s:tree} captures the semantic
 behavior, and we use it to guide the refinement process as follows:
