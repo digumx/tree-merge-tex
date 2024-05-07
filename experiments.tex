@@ -1,6 +1,5 @@
 \section{Experiments} 
 \todo{Add axis labels to all graphs}
-\todo{Remove PGD experiments}
 
 \dmcmt{ Would it be a good idea to have an applications and experiments section,
     where we phrase each experiment as a potential application of our
@@ -86,6 +85,20 @@ This lack of guarantees also limits the usefulness of these compression
 techniques as optimization steps when deploying a safety-critical network in a
 resource-constrained environment. 
 
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \vspace*{-1cm}
+    \includegraphics[scale=0.4]{figs/mnist-compr-4-256-samples.png}
+    \caption{Accuracy and True/False Positive/Negative Rates vs Reduction Rate
+        plot for \mnist of size $4 \times 256$ with critical class 0. Refinement
+    done via the \emph{Score} strategy. In all graphs the Y-axis shows
+    true/false negative/positive rates (see legend) and the X-axis shows
+    reduction rates.  \todo{Add labels on graphs here} \dmcmt{I have removed an
+        old graph that talks about pgd, perhaps add more graphs for some other
+    experiments}}
+    \label{f:mnist-class}
+    \vspace*{-1cm}
+\end{wrapfigure}
+
 Our theoretical framework for abstraction allows us to produce compressed
 networks with the formal guarantee that the abstraction process will not
 introduce any new \emph{false negatives} with respect to a certain
@@ -115,32 +128,11 @@ loop.
 
 We demonstrate the effectiveness of our abstraction method as a
 compression-with-guarantees technique via some experiments on \mnist. We set the
-class `0' as the critical class. Then, starting with the fully merged network, we
-iteratively perform refinements while measuring the accuracy, false/true
+class `0' as the critical class. Then, starting with the fully merged network,
+we iteratively perform refinements while measuring the accuracy, false/true
 positive/negative rates. We perform these experiments with four strategies of
 selecting the culprit neuron $\gamma$ mentioned in Section
-\ref{s:finding-gamma}. We use the \abcrown implementation for \pgd.
-
-\begin{figure}
-    \begin{subfigure}{0.475\linewidth}
-        \includegraphics[scale=0.275]{figs/mnist-compr-4-256-samples.png}
-        \caption{}
-        \label{f:mnist-compr-samples}
-    \end{subfigure}
-    \begin{subfigure}{0.475\linewidth}
-        \includegraphics[scale=0.275]{figs/mnist-compr-4-256-pgd-after-samples.png}
-        \caption{}
-        \label{f:mnist-compr-samples-pgd}
-    \end{subfigure}
-    \caption{Accuracy and True/False Positive/Negative Rates vs Reduction Rate
-        plot for \mnist of size $4 \times 256$ with critical class 0. Refinement
-    done via the \textit{samples-pgd} and \textit{samples} strategy in
-    \ref{f:mnist-compr-samples} and \ref{f:mnist-compr-samples-pgd} 
-respectively. In all graphs the Y-axis shows true/false negative/positive rates
-(see legend) and the X-axis shows reduction rates. 
-\todo{Add labels on graphs here}}
-    \label{f:mnist-class}
-\end{figure}
+\ref{s:finding-gamma}.
 
 Figure \ref{f:mnist-class} shows some typical plots of the true/false
 negative/positive rates (y-axis) against reduction rate (x-axis). Note that the
@@ -174,15 +166,9 @@ Net Size     & $\gamma$ Selection & Reduction & False Positives & Steps  \\
 $2\times256$ & Random             & 50.0 \%   & 0.2  \%         &  923   \\  
 $4\times256$ & Random             & 50.0 \%   & 0.2  \%         & 1917    \\ 
 $6\times256$ & Random             & 50.0 \%   & 0.2  \%         & 2999    \\ 
-$2\times256$ & Uniform-Score      & 45.7 \%   & 0.3  \%         &  326    \\ 
-$4\times256$ & Uniform-Score      & 38.7 \%   & 2.2  \%         & 1037    \\ 
-$6\times256$ & Uniform-Score      & 45.5 \%   & 0.2  \%         & 2425    \\ 
-$2\times256$ & PGD-Score          & 53.4 \%   & 95.6 \%         &   85    \\ 
-$4\times256$ & PGD-Score          & 96.9 \%   & 100  \%         &    0    \\ 
-$6\times256$ & PGD-Score          & 30.6 \%   & 94.1 \%         & 1482    \\ 
-$2\times256$ & Samples-PGD-Score  & 46.0 \%   & 0.5  \%         &  316    \\ 
-$4\times256$ & Samples-PGD-Score  & 39.2 \%   & 2.1  \%         & 1027    \\ 
-$6\times256$ & Samples-PGD-Score  & 45.5 \%   & 0.2  \%         & 2425    \\ 
+$2\times256$ & Score      & 45.7 \%   & 0.3  \%         &  326    \\ 
+$4\times256$ & Score      & 38.7 \%   & 2.2  \%         & 1037    \\ 
+$6\times256$ & Score      & 45.5 \%   & 0.2  \%         & 2425    \\ 
 \hline
 \end{tabular}
 \caption{Summary of \mnist compression Results}
@@ -211,33 +197,15 @@ footnote?}
     would need some new experiments comparing with other methods of compression
 (maybe some implementation of guy katz?) }
 
-Overall, we find that (with the exception of PGD-Score) the quality of the
-networks are similar across the various strategies, while the number of steps
-taken to arrive at the network is lower for each strategy compared to the Random
+Overall, we find that the quality of the networks are similar across the two
+$\gamma$ selection strategies, while the number of steps
+taken to arrive at the network is lower for \emph{Score} compared to the Random
 baseline. This would indicate that the strategy used to select $\gamma$ only
 affects the effort needed to do the search, not the quality of \abs obtained at
 the end of the search. This is in contrast with other structural abstraction
 refinement base techniques like \cite{cegar-nn,cegarette,cleverest-nn}, where
 the choice of which abstract node to refine at each step plays a critical role
 on both the size and the amount of over-approximation in the network.
-
-We find that \textit{pgd} performs relatively poorly, with fewer
-refinements being performed, producing a small network that is too abstract and
-has a high false positive rate. This is because the \abcrown
-implementation of \pgd fails to find \gencex early on in the
-refinement process for these instances, leading to early termination. 
-
-\dmcmt{In line with following para, and discussion in sec 3.3.1, should we even
-look at pgd?}
-
-We note that in \cite{cleverest-nn}, an eager \pgd performed before each solver
-call has been effectively used to accelerate the CEGAR loop. We do not see such
-benefits from using \pgd, and instead observe that the global view given by
-the large number of samples in the \textit{samples} method performs better.
-While the relative performance of \textit{pgd} and \textit{samples} may be
-different for a different set of target network and property, our framework
-allows the use of either, and in fact, any other method for generating 
-counterexamples.
 
 \subsection{Eliminating Spurious Counterexamples}
 \label{s:exp-mnist-rob}
@@ -250,45 +218,30 @@ counterexamples at each step.
 \begin{figure}
 
     \begin{subfigure}{0.475\linewidth}
-        \includegraphics[scale=0.275]{figs/mnist_2_256_prop_0_0.03_samples.png}
+        \includegraphics[scale=0.4]{figs/mnist_2_256_prop_0_0.03_samples.png}
         \caption{}
         \label{f:mnist-prop-samples}
     \end{subfigure}
     \begin{subfigure}{0.475\linewidth}
-        \includegraphics[scale=0.275]{figs/mnist_2_256_prop_0_0.03_pgd.png}
-        \caption{}
-        \label{f:mnist-prop-pgd}
-    \end{subfigure}
-
-    \begin{subfigure}{0.475\linewidth}
-        \includegraphics[scale=0.275]{figs/acas_ncex_5_8_3_samples.png}
+        \includegraphics[scale=0.4]{figs/acas_ncex_5_8_3_samples.png}
         \caption{}
         \label{f:acas-ncex-samples}
-    \end{subfigure}
-    \begin{subfigure}{0.475\linewidth}
-        \includegraphics[scale=0.275]{figs/acas_ncex_5_8_3_pgd.png}
-        \caption{}
-        \label{f:acas-ncex-pgd}
     \end{subfigure}
 
     \caption{
         Spurious counterexample vs Reduction Rate plot for \mnist of size $2
         \times 256$ with $\epsilon$-Robustness property are given in 
-        \ref{f:mnist-prop-samples} and \ref{f:mnist-prop-pgd}, and for \acasxu
-        network 5-8, property 3 in \ref{f:acas-ncex-samples} and
-        \ref{f:acas-ncex-pgd}.
-        Refinement via the \textit{pgd} and \textit{samples} strategy in
-        \ref{f:mnist-prop-pgd}, \ref{f:acas-ncex-pgd} and 
-        \ref{f:mnist-prop-samples},
-        \ref{f:acas-ncex-samples} respectively.
+        \ref{f:mnist-prop-samples}, and for \acasxu
+        network 5-8, property 3 in \ref{f:acas-ncex-samples}.
+        $\gamma$ selection is via \emph{Score}. \todo{Label axis on graph}
     }
     \label{f:ncex}
 \end{figure}
 
 We experimented with two sets of networks and properties: \mnist with
 adversarial robustness properties and \acasxu with the properties from
-\cite{reluplex}. For each, we tried the 4 strategies for choosing $\gamma$ from
-Section \ref{s:exp-mnist-comp}.
+\cite{reluplex}. For each, we tried the 2 strategies for choosing $\gamma$ from
+Section \ref{s:finding-gamma}.
 Figure \ref{f:ncex} shows some typical plots
 for these experiments. Here, the x-axis measures the reduction rate with respect
 to the \inc-\dec split networks, and the y-axis is the rate of true
@@ -301,60 +254,49 @@ occurs. As before, we believe that this is evidence that we are able to use
 semantic information and undo merge operations optimally.
 
 \begin{table}
+\parbox{0.60\textwidth}{
 \begin{tabular}{|c|c|c|c|c|}
     \hline
-    Net Size     & Refinement  & Reduction & Cex. Rate & No. Steps \\
+    Net Size     & $\gamma$ Selection  & Reduction & Cex. Rate & No. Steps \\
     \hline
-    $2\times256$ & random      & $49.1\%$  & $  0\%$  & $ 899$    \\
-    $4\times256$ & random      & $49.6\%$  & $  0\%$  & $1929$    \\
-    $6\times256$ & random      & $49.7\%$  & $  0\%$  & $2818$    \\
-    $2\times256$ & samples     & $50.3\%$  & $  0\%$  & $  27$    \\
-    $4\times256$ & samples     & $49.9\%$  & $  0\%$  & $ 648$    \\
-    $6\times256$ & samples     & $47.9\%$  & $  0\%$  & $1199$    \\
-    $2\times256$ & pgd         & $50.4\%$  & $  0\%$  & $  28$    \\
-    $4\times256$ & pgd         & $49.8\%$  & $  0\%$  & $ 648$    \\
-    $6\times256$ & pgd         & $47.9\%$  & $  0\%$  & $1203$    \\
-    $2\times256$ & samples-pgd & $50.4\%$  & $  0\%$  & $  28$    \\
-    $4\times256$ & samples-pgd & $49.8\%$  & $  0\%$  & $ 648$    \\
-    $6\times256$ & samples-pgd & $47.9\%$  & $  0\%$  & $1201$    \\
+    $2\times256$ & Random              & $49.1\%$  & $  0\%$  & $ 899$    \\
+    $4\times256$ & Random              & $49.6\%$  & $  0\%$  & $1929$    \\
+    $6\times256$ & Random              & $49.7\%$  & $  0\%$  & $2818$    \\
+    $2\times256$ & Score               & $50.3\%$  & $  0\%$  & $  27$    \\
+    $4\times256$ & Score               & $49.9\%$  & $  0\%$  & $ 648$    \\
+    $6\times256$ & Score               & $47.9\%$  & $  0\%$  & $1199$    \\
     \hline
 \end{tabular}
 \caption{Summary of \mnist Results on a single robustness property }
 \label{t:mnist-prop-summary}
-\end{table}
-
-Table \ref{t:mnist-prop-summary} summarizes our observations for \mnist. We
-choose a network to report the reduction rate in a manner similar to Section
-\ref{s:exp-mnist-comp} and make similar observations. However, for these
-benchmarks, \pgd did not underperform compared to the other strategies. In fact
-all the methods arrive at
-\abs with similar reduction rates, and are able to eliminate all
-counterexamples. Again, we see that \textit{random} takes more steps
-to arrive at the \abs, indicating that heuristic for finding $\gamma$ shortens
-the search for \abs.
-
-\begin{table}
-\begin{tabular}{|c|c|c|c|c|}
+}
+\quad
+\parbox{0.30\textwidth}{
+\begin{tabular}{|c|cc|}
 \hline
-Benchmark   & Reduction  & \% Sp. Cex. & Steps    \\
+$\gamma$ Selection  & Score   & Random  \\
 \hline
-samples     & 45.5\%     &  13.0\%     & 294.111  \\
-random      & 50.9\%     &  3.6\%      & 512.011  \\
-pgd         & 50.8\%     &  16.1\%     & 235.606  \\
-samples-pgd & 45.1\%     &  5.3\%      & 299.272  \\
+Reduction  & 45.5\%  & 50.9\%  \\
+Sp. Cex.   & 13.0\%  & 3.6\%   \\
+Avg. Steps & 294.111 & 512.011 \\
 \hline
 \end{tabular}
-\caption{Summary of \acasxu, measuring the percentage of spurious counterexample }
+\caption{Summary of \acasxu, $\gamma$ selection is along columns.}
 \label{t:acas-ncex}
+}
+\vspace{-1cm}
 \end{table}
 
-Table \ref{t:acas-ncex} summarizes the results for the \acasxu networks. Here,
-we see that all 4 strategies for selecting $\gamma$ seem to produce 
-similar quality \abs. Indeed, the \pgd was more successful in finding
-$\vct{\beta}$ for these networks, only producing \abs with slightly more
-spurious counterexamples.
-Again, we find that \textit{random} takes many more steps but arrives at a
-network of similar size.
+Table \ref{t:mnist-prop-summary} summarizes our observations for \mnist, and
+\ref{t:acas-ncex} for the \acasxu networks. The meaning of the columns are
+exactly the same as in Table \ref{t:mnist-compr-summar} in Section
+\ref{s:exp-mnist-comp}. In fact, we see that both $\gamma$ selection methods
+arrive at \abs with similar reduction rates. For the \mnist networks, both
+methods are able to eliminate all counterexamples.  Again, we see that
+\textit{Random} takes more steps to arrive at the \abs. Thus, this reinforces
+our intuition that $\gamma$ selection mainly affects the number of refinement
+steps taken by the search, and does not strongly affect the quality of \abs
+found.
 
 \subsection{Verification of \acasxu}
 \label{s:acas-verif}
