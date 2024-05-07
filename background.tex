@@ -18,9 +18,10 @@ neuron $\nr{i}{l}$.  %Used
 Several techniques and methods have been studied to improve the reliability and
 trustworthiness of \dnn deployed in safety-critical settings via formal
 analysis. This includes verifying \dnn with respect to a given
-safety property \cite{reluplex, cegar-nn, deeppoly, cegarette, cleverest-nn,
-conv-abs-gk, deep-abstract, lin-comb-abs-jan}, providing formal explanations of
-the behavior of \dnn \cite{minimal-image-fxai, overview-fxai}, and defending
+safety property
+\cite{reluplex,cegar-nn,deeppoly,cegarette,cleverest-nn,conv-abs-gk,deep-abstract,lin-comb-abs-jan},
+providing formal explanations of
+the behavior of \dnn \cite{minimal-image-fxai,overview-fxai}, and defending
 against backdoor attacks \cite{backdoor-verification}.
  To provide the formal guarantees behind the
 analyses performed, all of these techniques rely on making \textit{neural
@@ -62,10 +63,11 @@ form $\forall x, \mabs(x) \geq \mcnc(x)$ are useful as a general notion of concr
 guarantees in many settings. Two such settings are as follows: 
 
 Firstly, since any general neural network query can be converted to a query of
-the form $(P, \mcnc, y < c)$ for some $c$ \cite{cegar-nn, reluplex,
-lipschitz-reach}, such a guarantee is
-useful for dispatching the query on a smaller network \cite{cegar-nn, cegarette,
-cleverest-nn}. This immediately makes an \abs with these guarantees useful for
+the form $(P, \mcnc, y < c)$ for some $c$
+\cite{cegar-nn,reluplex,lipschitz-reach}, such a guarantee is
+useful for dispatching the query on a smaller network
+\cite{cegar-nn,cegarette,cleverest-nn}. This immediately makes an \abs with
+these guarantees useful for
 accelerating several formal analysis techniques (Section \ref{s:form-an}).
 
 Furthermore, such guarantees are also useful for safe compression of \dnn.
@@ -86,7 +88,7 @@ A generally useful notion with respect to abstraction is \textit{quality},
 which we define as the number of \textit{\gencex} that witness a difference in
 the relevant behavior of \abs and \cnc. In the context of using \abs to
 accelerate formal analysis of \dnn, these \gencex may simply be
-\textit{spurious counterexamples} \cite{cegar-nn, cleverest-nn} to a query
+\textit{spurious counterexamples} \cite{cegar-nn,cleverest-nn} to a query
 involving \abs that are not counterexamples for the same query involving \cnc.
 This notion may be generalized to other uses of abstractions as well. For
 instance, for safe compressions, they may be inputs from a dataset which
@@ -97,14 +99,16 @@ are falsely classified as positive by \abs (Section \ref{s:exp-mnist-comp}).
 
 In order to ensure the soundness guarantees when transforming \cnc into \abs, 
 instead of adopting the four-way split approach proposed in \cite{cegar-nn},
-we opt for a two-way split method \cite{chauhan2022efficiently,liu2022abstraction,
-10.1145/3644387}. This involves partitioning neurons in \cnc into duplicate
+we opt for a two-way split method
+\cite{chauhan2022efficiently,liu2022abstraction,10.1145/3644387}. This involves
+partitioning neurons in \cnc into duplicate
 copies labeled with either {\inc or \dec}, ensuring that any increase 
 (decrease) in the value of a neuron labeled \inc (\dec) only results in 
 an increase in the output value. This can be done because it is not
 necessary to perform \posc-\negc splitting to soundly obtain an \inc-\dec
-split, as seen in \cite{chauhan2022efficiently,liu2022abstraction,
-10.1145/3644387}. Then, following \cite{cegar-nn}, a sound 
+split, as seen in
+\cite{chauhan2022efficiently,liu2022abstraction,10.1145/3644387}. Then,
+following \cite{cegar-nn}, a sound 
 abstraction can be obtained by \textit{merging} all similarly 
 labeled neurons as follows: if the neurons have
 the label \inc (\dec), replace incoming edges from the same
@@ -112,7 +116,14 @@ previous layer neuron with a single edge with the maximum (minimum) of the
 original edge weights. Outgoing edges to the same next layer neuron are replaced
 with a single edge with the sum of the weights for both the \inc and \dec case.
 
-%\kmcmt{Let us use these references for the 2-class classification:~\cite{chauhan2022efficiently,liu2022abstraction,10.1145/3644387}. Also, I think it might be better to state the 2-class directly as a modification. Something like, ``Instead of the four-way split, we consider only a two-way split of neurons as \emph{inc} and \emph{dec}.'' And then let us preserve the term ``re-merging'' for merging an increment and its corresponding decrement neuron back into one. I think the following para, and possibly relevant parts of the following sections, will have to be changed accordingly.}
+%\kmcmt{Let us use these references for the 2-class
+%classification:~\cite{chauhan2022efficiently,liu2022abstraction,10.1145/3644387}.
+%Also, I think it might be better to state the 2-class directly as a
+%modification. Something like, ``Instead of the four-way split, we consider only
+%a two-way split of neurons as \emph{inc} and \emph{dec}.'' And then let us
+%preserve the term ``re-merging'' for merging an increment and its corresponding
+%decrement neuron back into one. I think the following para, and possibly
+%relevant parts of the following sections, will have to be changed accordingly.}
 
 \input{original_net.tex}
 \input{gk_abs_sat.tex}
@@ -131,8 +142,8 @@ The fully merged network obtained in Section \ref{s:nn-sam} may not have
 sufficient quality (Section \ref{s:qual}) to be useful. For instance, when doing
 formal analysis, there may be too many spurious counterexamples. In such
 situations, a common approach to obtain a better quality \abs is to perform
-refinement steps based on a \gencex $\vct{\beta}$ \cite{cegar-nn,
-cegarette, cleverest-nn}. In
+refinement steps based on a \gencex $\vct{\beta}$
+\cite{cegar-nn,cegarette,cleverest-nn}. In
 existing techniques, this is typically done by restoring a single neuron coming
 from \cnc that had been merged with other neurons in \abs. The neuron chosen is
 typically one whose contribution to $\vct{\beta}$ is estimated to be the

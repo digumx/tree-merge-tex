@@ -1,8 +1,11 @@
-\documentclass[sigplan,screen]{acmart}
+\documentclass[runningheads]{llncs}
+
+% According to template
+\usepackage[T1]{fontenc}
 
 \usepackage{blindtext}
 \usepackage{amsmath}
-\usepackage{amsthm}
+%\usepackage{amsthm}
 %\usepackage{amssymb}
 \usepackage{xspace}
 \usepackage{graphicx}
@@ -12,11 +15,11 @@
 \usepackage{algpseudocode}
 \usepackage[skip=0.3\baselineskip]{caption}
 \usepackage{subcaption}
+\usepackage{hyperref}
 
+% Tikz setup
 \usetikzlibrary{decorations.text}
 \usetikzlibrary{arrows}
-
-\newtheorem{lemma}{Lemma}
 
 \tikzset{
     myarrow/.style={
@@ -26,18 +29,13 @@
     }
 }
 
-%\graphicspath{ {./} }
-%\addbibresource{bibliography.bib}
+%\newtheorem{lemma}{Lemma}
 
-%\usetikzlibrary{positioning}
-%\usetikzlibrary{shapes}
-
-%\newcommand{\relu}{\mathit{ReLU}}
-%\newlength{\vnd}
-%\newlength{\hnd}
-%\newlength{\vds}
-%\newcommand{\scl}{1}
-%\tikzset{>=stealth}
+% If you use the hyperref package, please uncomment the following two lines
+% to display URLs in blue roman font according to Springer's eBook style:
+\usepackage{color}
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+\urlstyle{rm}
 
 %% Use the following for comments
 \newcommand{\dmcmt}[1]{\textcolor{blue}{#1}}
@@ -59,14 +57,12 @@
 \newcommand{\abs}{$\mathcal{N'}$\xspace}
 \newcommand{\mcnc}{\mathcal{N}}
 \newcommand{\mabs}{\mathcal{N'}}
-\newcommand{\abcrown}{$\alpha,\beta-\mathit{CROWN}$ \cite{crown, autolirpa,
-    convex-relax-barrier,alpha-crown-bab-fnc,beta-crown, bab-fw, gcp-crown,
-    bab-nonlin} }
-\newcommand{\marabou}{Marabou \cite{reluplex, marabou, marabouv2}\xspace}
-\newcommand{\acasxu}{ACASXu \cite{acasxu, reluplex}\xspace}
-\newcommand{\mnist}{VNNComp MNIST \cite{vnncomp-1-3, vnncomp-4, mnist}\xspace}
-\newcommand{\pgd}{PGD-attack \cite{pgd, pgd-attack}\xspace} 
-\newcommand{\cegar}{CEGAR \cite{cegar-nn, cegar}\xspace}
+\newcommand{\abcrown}{$\alpha,\beta-\mathit{CROWN}$ \cite{crown,autolirpa,convex-relax-barrier,alpha-crown-bab-fnc,beta-crown,bab-fw,gcp-crown,bab-nonlin} }
+\newcommand{\marabou}{Marabou \cite{reluplex,marabou,marabouv2}\xspace}
+\newcommand{\acasxu}{ACASXu \cite{acasxu,reluplex}\xspace}
+\newcommand{\mnist}{VNNComp MNIST \cite{vnncomp-1-3,vnncomp-4,mnist}\xspace}
+\newcommand{\pgd}{PGD-attack \cite{pgd,pgd-attack}\xspace} 
+\newcommand{\cegar}{CEGAR \cite{cegar-nn,cegar}\xspace}
 \newcommand{\dnn}{DNNs\xspace}
 \newcommand{\quality}{quality\xspace} % The word for measure of quality of abs
 \newcommand{\inc}{\textit{inc}\xspace}
@@ -84,83 +80,83 @@
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 
+\begin{document}
 
 \title{Unifying Syntactic and Semantic Abstractions for Deep Neural Networks}
 
-\iffalse
+%\titlerunning{Abbreviated paper title}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
 
-\author{Sanaa Siddiqui}
-%\authornote{}
-\email{sanaasiddiqui@cse.iitd.ac.in}
-\orcid{0009-0008-2665-3508}
-%\orcid{}
-\affiliation{
-        \institution{IIT Delhi}
-        \city{New Delhi}
-        \country{India}
-}
-\author{Diganta Mukhopadhyay}
-%\authornote{}
-\email{diganta.m@tcs.com}
-%\orcid{}
-\affiliation{
-        \institution{TCS Research}
-        \city{Pune}
-        \country{India}
+\author{
+    Sanaa Siddiqui\inst{1}\orcidID{0009-0008-2665-3508} \and
+    Diganta Mukhopadhyay\inst{2}\orcidID{0000-0000-0000-0000} \and
+    Mohammad Afzal\inst{2,3}\orcidID{0000-0002-6173-3959} \and
+    Hrishikesh Karmarkar\inst{2}\orcidID{0000-0002-9132-8356} \and
+    Kumar Madhukar\inst{1}\orcidID{0000-0001-5686-9758} \and
 }
 
-\author{Mohammad Afzal}
-\email{afzal.2@tcs.com}
-\orcid{0000-0002-6173-3959}
-\affiliation{
-        \institution{TCS Research, Pune, India,}
-        \city{and}
-        \country{IIT Bombay, Mumbai, India}
+\authorrunning{S. Siddiqui et al.}
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+ 
+\institute{
+    Indian Institute of Technology Delhi, New Delhi, India 
+    \email{sanaasiddiqui@cse.iitd.ac.in} 
+    \email{madhukar@cse.iitd.ac.in}
+    \and
+    TCS Research, Pune, India 
+    \email{diganta.m@tcs.com}
+    \email{afzal.2@tcs.com}
+    \email{hrishi.karmarkar@tcs.com}
+    \and
+    Indian Institute of Bombay, Mumbai, India
+%Springer Heidelberg, Tiergartenstr. 17, 69121 Heidelberg, Germany
+%\email{lncs@springer.com}\\
+%\url{http://www.springer.com/gp/computer-science/lncs} \and
+%ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
+%\email{\{abc,lncs\}@uni-heidelberg.de}
 }
 
-\author{Hrishikesh Karmarkar}
-\email{hrishi.karmarkar@tcs.com}
-\orcid{0000-0002-9132-8356}
-\affiliation{
-        \institution{TCS Research}
-        \city{Pune}
-        \country{India}
-}
+\maketitle             
 
-\author{Kumar Madhukar}
-\email{madhukar@cse.iitd.ac.in}
-\orcid{0000-0001-5686-9758}
-\affiliation{
-        \institution{IIT Delhi}
-        \city{New Delhi}
-        \country{India}
-}
-
-\renewcommand{\shortauthors}{Sanaa et al.}
-
-\fi
-
-\begin{document}
-
+\begin{abstract}
 \input{abstract.tex}
-\maketitle
+\todo{Add correct keywords from submission}
+\keywords{First keyword  \and Second keyword \and Another keyword.}
+\end{abstract}
+ 
+ 
 \input{intro.tex}
 \input{background.tex}
 \input{method.tex}
 \input{experiments.tex}
 \input{related_work.tex}
 \input{future_work.tex}
-% \input{ways_of_merging.tex}
+ 
+
+\begin{credits}
+    \todo{Put something here}
+\subsubsection{\ackname} A bold run-in heading in small font size at the end of the paper is
+used for general acknowledgments, for example: This study was funded
+by X (grant number Y).
+
+\subsubsection{\discintname}
+It is now necessary to declare any competing interests or to specifically
+state that the authors have no competing interests. Please place the
+statement with a bold run-in heading in small font size beneath the
+(optional) acknowledgments\footnote{If EquinOCS, our proceedings submission
+system, is used, then the disclaimer can be provided directly in the system.},
+for example: The authors have no competing interests to declare that are
+relevant to the content of this article. Or: Author A has received research
+grants from Company W. Author B has received a speaker honorarium from
+Company X and owns stock in Company Y. Author C is a member of committee Z.
+\end{credits}
 
 %% Comment this out to get rid of reviews etc.
 \input{reviews_comments.tex}
 
-\balance
-
-\bibliographystyle{ACM-Reference-Format}
-%\bibliography{bibliography}
+\bibliographystyle{splncs04}
 \bibliography{bib2}
 
 \end{document}
- 
-

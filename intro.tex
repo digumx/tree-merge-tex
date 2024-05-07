@@ -16,17 +16,17 @@ on embedded devices is often infeasible.  This issue
 becomes especially apparent when integrating DNNs into embedded systems for
 performing safety-critical tasks, such as obstacle recognition in autonomous
 vehicles. Additionally, \dnn are well known to be vulnerable to
-adversarial~\cite{l-bfgs,
-fgsm, deep-fool, pgd, ground-truth-adv-attack, cw-attack} and backdoor
+adversarial~\cite{l-bfgs,fgsm,deep-fool,pgd,ground-truth-adv-attack,cw-attack}
+and backdoor
 attacks~\cite{backdoor-poisoning}, and are also difficult to interpret.
 Therefore, to build trust on safety and business-critical embedded systems
 that utilize \dnn, it is critical to understand, interpret and validate their
-behaviour via formal analysis \cite{overview-fxai, minimal-image-fxai,
-backdoor-verification, nn-lander-verif, camera-verif-dsouza,
-generalization-verif}. While a number of techniques have been proposed to build
+behaviour via formal analysis
+\cite{overview-fxai,minimal-image-fxai,backdoor-verification,nn-lander-verif,camera-verif-dsouza,generalization-verif}.
+While a number of techniques have been proposed to build
 trust on the reliability of \dnn in safety-critical settings, including
-verification \cite{reluplex, deeppoly, crown, beta-crown, cegar-nn}  and formal
-explainability \cite{overview-fxai, minimal-image-fxai}, the size of the DNNs
+verification \cite{reluplex,deeppoly,crown,beta-crown,cegar-nn}  and formal
+explainability \cite{overview-fxai,minimal-image-fxai}, the size of the DNNs
 continues to be the limiting factor for the scalability of these techniques.
 Therefore, for these two reasons, the applicability of \dnn in safety critical
  embedded systems remains limited.
@@ -40,8 +40,9 @@ Therefore, for these two reasons, the applicability of \dnn in safety critical
 
 Structural abstraction based on the \textit{syntax} (the local weights and
 biases at each neuron of the DNN) forms the basis of several techniques
-attempting to alleviate this issue \cite{cegar-nn, cegarette, cleverest-nn,
-conv-abs-gk}. These techniques work by converting a large \textit{concrete}
+attempting to alleviate this issue
+\cite{cegar-nn,cegarette,cleverest-nn,conv-abs-gk}. These techniques work by
+converting a large \textit{concrete}
 DNN \cnc into a smaller \textit{abstract} DNN \abs via \textit{merging} groups
 of neurons in \cnc into single neurons in \abs. Each such merge is done in a
 way that ensures that there are \textit{concrete}, formal soundness guarantees
@@ -52,7 +53,7 @@ global \textit{semantic} behavior of the network, thus produce potentially
 suboptimal abstractions.
 
 On the other hand, neural network compression techniques \cite{dnn-compression}
-and semantic abstraction techniques \cite{deep-abstract, lin-comb-abs-jan} take
+and semantic abstraction techniques \cite{deep-abstract,lin-comb-abs-jan} take
 into account the global \textit{semantic} information within the network.
 However, compression techniques provide no soundness guarantees, while 
 semantic abstraction techniques provide limited soundness guarantees. In

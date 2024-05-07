@@ -5,8 +5,9 @@ various techniques have been developed to analyze their behavior, including
 verification, explainability, etc. 
 
 Our work closely relates to the syntactic structural abstraction technique that
-proposes to reduce the network size by merging similar neurons~\cite{cegar-nn,
-cegarette, cleverest-nn}, and employs a counterexample-guided refinement. They have used
+proposes to reduce the network size by merging similar
+neuronsæ\cite{cegar-nn,cegarette,cleverest-nn}, and employs a
+counterexample-guided refinement. They have used
 syntactic constraints to achieve concrete soundness guarantees. But unlike our
 approach, their work does not take into account the global \textit{semantic}
 behavior of the network, thus producing potentially suboptimal abstractions.
@@ -21,13 +22,12 @@ provide concrete soundness guarantees that allows us to lift any proofs from
 the abstract network back to the original network.
 
 In general, methodologies for verifying neural networks generally fall into two
-main categories: sound and complete methods \cite{reluplex,
-    formal-ver-piece-wise, 
-comp-reachability-analysis, comp-milp, comp-out-range, comp-max-resilience, marabou,
-comp-safety-ver-dnn, beta-crown, alpha-crown-bab-fnc, gcp-crown}, and sound and
-incomplete methods \cite{deeppoly, crown, incomp-dual-approach, incomp-abs-inp, 
-incomp-robustness-certi, incomp-boost-robustness}. Sound and complete methods aim to 
-explore the entire state space to verify the properties of neural networks.
+main categories: sound and complete methods
+\cite{reluplex,formal-ver-piece-wise,comp-reachability-analysis,comp-milp,comp-out-range,comp-max-resilience,marabou,comp-safety-ver-dnn,beta-crown,alpha-crown-bab-fnc,gcp-crown},
+and sound and incomplete methods
+\cite{deeppoly,crown,incomp-dual-approach,incomp-abs-inp,incomp-robustness-certi,incomp-boost-robustness}.
+Sound and complete methods aim to explore the entire state space to verify the
+properties of neural networks.
 In contrast, sound and incomplete methods employ an overapproximation
 of the state space, sacrificing completeness for 
 scalability and efficiency.
@@ -43,15 +43,15 @@ space, which is similar to classical SMT solving approaches. However, these meth
 often encounter scalability issues due to their exhaustive exploration of the
 entire state space. 
 
-On the other hand, alternative techniques like \cite{crown, deeppoly}, which
+On the other hand, alternative techniques like \cite{crown,deeppoly}, which
 propagates linear upper and lower bound constraints, exhibit better
 scalability at the cost of overapproximation. \cite{alpha-crown-bab-fnc} 
 optimizes the bounds of \cite{crown} 
 using gradient descent. 
 \cite{beta-crown} incorporates ReLU split
 constraints into the CROWN bound propagation process, allowing integration
-into the branch and bound (BaB) framework \cite{bab-fw,bab-piecewise-nn,
-bab-lagrangian-decomp}. 
+into the branch and bound (BaB) framework
+\cite{bab-fw,bab-piecewise-nn,bab-lagrangian-decomp}. 
 This combined implementation makes the \abcrown framework sound and complete.
 
 DNN compression has been explored \cite{dnn-compression} in general to obtain a
