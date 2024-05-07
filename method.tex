@@ -1,6 +1,5 @@
 \section{Methodology}
 %\label{s:semantic-closeness}
-\todo{Avoid the word heuristic}
 
 In this work, we aim to utilize information from the semantic behavior of \cnc
 to better control and guide the refinement process, producing a higher quality
@@ -188,30 +187,6 @@ merged with any other neuron.
 \label{s:finding-gamma}
 
 Many possible strategies may be used to identify the culprit neuron $\gamma$,
-and our framework is agnostic to the specific heuristic chosen. In this work, we
-use a heuristic based on the \textit{gradient-guided refinement} described in
-\cite{lin-comb-abs-jan}. A neuron is designated as the culprit neuron $\gamma$
-when the following value is maximum for that neuron: 
-
-\begin{equation*}
-\begin{aligned}
-    \|v^{*}_{\gamma}(\vct{\beta}) - v_{\gamma}(\vct{\beta})\|_{2} \cdot 
-    \big| \frac{\delta y(\vct{\beta})}{\delta v_{\gamma}} \big|
-\end{aligned}
-\end{equation*}
-
-Here, $v_{\gamma}(\vct{\beta})$ is the value at the neuron $\gamma$ for input
-$\vct{\beta}$ in the original \cnc, while $v^{*}_{\gamma}(\vct{\beta})$ is the
-value of the neuron that $\gamma$ has been merged into within our current \abs.
-$\frac{\delta y(\vct{\beta})}{\delta v_{\gamma}}$ is the partial derivative of
-the output
-$y$ of \cnc with respect to the value at $\gamma$ for the input $\vct{\beta}$.
-
-\dmcmt{Alternate section. Following review 1, I think it may be better to say
-    upfront over here that we can do this in various ways, and describe these a
-bit.}
-
-Many possible heuristics may be used to identify the culprit neuron $\gamma$,
 and our framework is agnostic to the specific strategy chosen. We explore a few
 strategies: 
 
