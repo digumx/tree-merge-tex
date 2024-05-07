@@ -1,5 +1,6 @@
 \section{Experiments} 
 \todo{Add axis labels to all graphs}
+\todo{If possible, have baselines for sec 4.1 and 4.2}
 
 \dmcmt{ Would it be a good idea to have an applications and experiments section,
     where we phrase each experiment as a potential application of our
@@ -62,17 +63,6 @@ machine running on an Intel(R) Core(TM) i7-13700 with 24 CPUs running at
 
 \subsection{Compression with Guarantees on Critical Classes}
 \label{s:exp-mnist-comp}
-
-\dmcmt{The motivation behind defining critical classes was not clear to one
-    reviewer. Therefore, I have changed this section to start with motivating
-compression, then talk about critical classes and formal guarantees}
-
-\dmcmt{Prev para was:
-In several safety-critical applications of \dnn as classifiers, there are
-certain `critical` classes for which a false negative classification is far more
-dangerous than a false positive one. For example, for medical diagnosis and
-collision detection, a false negative is far more dangerous than a false
-positive.}
 
 Safety-critical analysis of neural networks is highly sensitive to the size of
 the network. While several neural network compression techniques exist 
@@ -183,10 +173,10 @@ close to the best false positive rate seen (Column `False Positives')
 throughout the refinement process. Intuitively, these two columns characterise
 the quality of the \abs obtained. The `Steps' column shows the
 number of refinement steps it took to arrive at these networks, and represents
-how much effort the search for the \abs took. Note that we currently do
+how much effort the search for the \abs took. \footnote{ Note that we currently do
 not stop our refinement loop at the precise point where this network is produced
-but may continue to refine beyond this point. \dmcmt{Put this last sentence as a
-footnote?} 
+but may continue to refine beyond this point. \dmcmt{Is it okay to keep as a
+footnote? Can we remove this point entirely? }}
 
 \dmcmt{Intuitively, we can claim that we are seeing two things here: one is
     comparing $\gamma$ selection strategies, and another is seeing if doing the
