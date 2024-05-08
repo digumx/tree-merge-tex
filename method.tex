@@ -309,7 +309,8 @@ exact arrangement of the loop depends on the particular application, but the
 general structure is as follows:
 
 We start with the fully merged network. Then, utilizing \gencex, we iteratively
-refine the network until we have obtained an \abs with the desired quality.
+refine the network until we have obtained an \abs where there is no \gencex, or
+until \abs has adequate accuracy.
 
 Depending on the application, the \gencex used for refinement may come from
 several places, and our framework is agnostic to this. For example, when solving
