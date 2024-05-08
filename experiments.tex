@@ -346,14 +346,15 @@ queries, or may be useful as a safely deployable compressed network.
 \dmcmt{Is this okay?} 
 
 \dmcmt{Do we need the following?}
-In general, we have
-observed that solver times are highly dependent on solver configuration and the
-benchmark rather than on size. Thus, it may seem that the effort needed to
-verify a network is dependent on other factors than simply the size of the
-network. While this may be interesting to explore in future work, we nonetheless
-argue that network size is a relevant metric. This is because, even as more and
-more solvers are designed and optimized for various kinds of networks, the
-underlying worst-case performance will almost certainly remain exponential in
-the size of the network \cite{reluplex}. \todo{Modify if
-we get final call times from cegar-nn}.
+Additionally, we find that the final solver times on the \abs are actually
+comparable with the times obtained on the original un-abstracted \cnc. In
+general it has may observed, both by our experiments and in \cite{cegar-nn},
+that the effort needed to verify a network is dependent
+on more than just network size. In fact, in \cite{cegar-nn},
+they are able to achieve smaller solver times on larger networks. 
+While it is true that in general the worst-case performance of neural network
+solvers will almost certainly remain exponential in the size of the network
+\cite{reluplex}, other factors on which the performance of neural network
+solvers may depend on remains an interesting direction of future work. \dmcmt{Is
+this okay?}
 
