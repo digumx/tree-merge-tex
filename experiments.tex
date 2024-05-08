@@ -1,6 +1,5 @@
 \section{Experiments} 
 \todo{Add axis labels to all graphs}
-\todo{If possible, have baselines for sec 4.1 and 4.2}
 
 \dmcmt{ Would it be a good idea to have an applications and experiments section,
     where we phrase each experiment as a potential application of our
@@ -12,15 +11,10 @@ and space may be a concern.}
 We have implemented our method in python\footnote{The entirety of the code,
     networks, datasets, and properties utilized in our evaluation will be made
     available via a publicly hosted code repository in the
-camera ready version.}, utilizing the NumPy
-%\cite{numpy}
-library for linear algebra operations and the SciPy
-%\cite{scipy}
-library for an
-implementation of \hcluster.
-We have used a linkage-matrix based
-data structure similar to the one used in SciPy to store the tree, and have
-precomputed and cached several
+camera ready version.}, utilizing the NumPy library for linear algebra
+operations and the SciPy library for an implementation of \hcluster.
+We have used a linkage-matrix based data structure similar to the one used in
+SciPy to store the tree, and have precomputed and cached several
 operations that may need to be repeated every refinement iteration. This allows
 us to quickly perform the merge and split operations and calculate the
 scores (Section \ref{s:refinement}), without having to do (relatively)
@@ -49,6 +43,7 @@ redundant. Therefore, as an added optimization step, we safely \textit{re-merge}
 them by taking the sum of the outgoing edges. Note that this does not change the
 behavior of \abs.
 
+\todo{Make the following proper}
 The experimental results in Tables
 \ref{t:mnist-compr-summary}, 
 \ref{t:acas-ncex}, \ref{t:acas-verif} and Figures \ref{f:acas-ncex-samples},
@@ -82,9 +77,7 @@ resource-constrained environment.
         plot for \mnist of size $4 \times 256$ with critical class 0. Refinement
     done via the \emph{Score} strategy. In all graphs the Y-axis shows
     true/false negative/positive rates (see legend) and the X-axis shows
-    reduction rates.  \todo{Add labels on graphs here} \dmcmt{I have removed an
-        old graph that talks about pgd, perhaps add more graphs for some other
-    experiments}}
+    reduction rates.  \todo{Add labels on graphs here} }
     \label{f:mnist-class}
     \vspace*{-1cm}
 \end{wrapfigure}
@@ -178,15 +171,6 @@ not stop our refinement loop at the precise point where this network is produced
 but may continue to refine beyond this point. \dmcmt{Is it okay to keep as a
 footnote? Can we remove this point entirely? }}
 
-\dmcmt{Intuitively, we can claim that we are seeing two things here: one is
-    comparing $\gamma$ selection strategies, and another is seeing if doing the
-    tree based refinement helps at all. Both the gamma selection and the tree
-    makes use of various kinds of sampling, so both could be capturing some
-    global semantic info. The former we compare in this table, and we find that
-    mostly, $\gamma$ selection does not matter. For the latter question, we
-    would need some new experiments comparing with other methods of compression
-(maybe some implementation of guy katz?) }
-
 Overall, we find that the quality of the networks are similar across the two
 $\gamma$ selection strategies, while the number of steps
 taken to arrive at the network is lower for \emph{Score} compared to the Random
@@ -195,7 +179,9 @@ affects the effort needed to do the search, not the quality of \abs obtained at
 the end of the search. This is in contrast with other structural abstraction
 refinement base techniques like \cite{cegar-nn,cegarette,cleverest-nn}, where
 the choice of which abstract node to refine at each step plays a critical role
-on both the size and the amount of over-approximation in the network.
+on both the size and the amount of over-approximation in the network. \dmcmt{Can
+anything at all be said about the quality of the \abs here, without a baseline
+to compare to?}
 
 \subsection{Eliminating Spurious Counterexamples}
 \label{s:exp-mnist-rob}
