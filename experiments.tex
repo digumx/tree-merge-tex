@@ -58,7 +58,6 @@ machine running on an Intel(R) Core(TM) i7-13700 with 24 CPUs running at
 
 \subsection{Verification of \acasxu}
 \label{s:acas-verif}
-\todo{Push to front}
 
 In this set of experiments, we demonstrate the effectiveness of our abstraction
 technique for verification of neural network queries on the \acasxu set of
@@ -70,7 +69,7 @@ that as $\vct{\beta}$ to refine our network according to Section
 
 For these experiments, we have used \neuralsat as the solver. 
 We compare our abstraction framework with an existing \cegar framework proposed
-in \cite{cegar-nn}. \footnote{We have used a faithful re-implementation of this framework that
+in \cite{cegar-nn} \footnote{We have used a faithful re-implementation of this framework that
 follows exactly the procedure in the paper, with the only distinction being that
 the call to verify the \abs obtained in each iteration is sent to an instance of
 the \neuralsat solver as opposed to \marabou. \dmcmt{Is this okay?}}. We set a
@@ -78,44 +77,44 @@ timeout of 200 seconds for each instance in the benchmark and for both the
 our technique and the existing work \cite{cegar-nn}.
 
 \begin{table}
-%\footnotesize
-\begin{tabular}{ |c|c|c|c|c| }
-\hline
-Method                   & No. Safe    & No. Unsafe & No. Timeout & Average Size \\ 
-\hline
-Ours                     &   121       & 43         & 16          &  335.2555556\\
-Existing \cite{cegar-nn} &   118       & 43         & 19          &  536.0444444\\
-\hline                                                                
-\end{tabular}
-\caption{Summary of \acasxu verification. }
-\label{t:acas-verif}
-\end{table}
+    \centering
+        \begin{tabular}{ |c|c|c|c|c| }
+        \hline
+        Method                   & No. Safe    & No. Unsafe & No. Timeout & Average Size \\ 
+        \hline
+        Ours                     &   121       & 43         & 16          &  335.2555556\\
+        Existing \cite{cegar-nn} &   118       & 43         & 19          &  536.0444444\\
+        \hline                                                                
+        \end{tabular}
+        \caption{Summary of \acasxu verification. }
+        \label{t:acas-verif}
+    \footnotesize
+    \begin{tabular}{ |c|c|c| }
+    \hline
+    Method                   & Percentage Verified  & Average Size \\ 
+    \hline
+    Ours                     &   100\%              &  27.90333333\\
+    Existing \cite{cegar-nn} &   100\%              &  31.47555556\\
+    \hline                                                                
+    \end{tabular}
+    \caption{Summary of \acasxu verification for robustness properties. }
+    \label{t:acas-verif-robustness}
+    \vspace{-1cm}
+    \end{table}
 
-\begin{table}
-%\footnotesize
-\begin{tabular}{ |c|c|c| }
-\hline
-Method                   & Percentage Verified  & Average Size \\ 
-\hline
-Ours                     &   100\%              &  27.90333333\\
-Existing \cite{cegar-nn} &   100\%              &  31.47555556\\
-\hline                                                                
-\end{tabular}
-\caption{Summary of \acasxu verification for robustness properties. }
-\label{t:acas-verif-robustness}
-\end{table}
 
 Table \ref{t:acas-verif} summarizes the results on these benchmarks. We find that
 using our framework, we are able to perform better than the existing \cegar
 approach \cite{cegar-nn}, verifying more networks to be safe.
 
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.25]{figs/scatter-cegar-our-nerualsat.png}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \vspace*{-1cm}
+    \includegraphics[scale=0.3]{figs/scatter-cegar-our-nerualsat.png}
     \caption{Scatter plot of network sizes produced by our framework vs existing
     work \cite{cegar-nn} \todo{Add diagonal line}}
     \label{f:scatter-netsizes}
-\end{figure}
+    \vspace*{-1cm}
+\end{wrapfigure}
 
 For each framework, we collected the final \abs at the end of the \cegar
 iterations, for which either the property can be proved to be safe, or 
@@ -123,7 +122,7 @@ the solver is able to find an actual counterexample, or the solver times out.
 Figure \ref{f:scatter-netsizes} shows a scatter plot comparing the sizes of these final \abs
 obtained by our framework and by existing work \cite{cegar-nn} for each instance
 in the benchmark. It is apparent from the Figure \ref{f:scatter-netsizes}, 
-table \ref{t:acas-verif} and table \ref{t:acasxu-verif-robustness} that compared 
+table \ref{t:acas-verif} and table \ref{t:acas-verif-robustness} that compared 
 to the existing techniques, we are explore smaller \abs that are effective 
 at proving or disproving the property in question.
 This shows that using semantic information to guide the \cegar process can
@@ -174,7 +173,7 @@ resource-constrained environment.
         plot for \mnist of size $4 \times 256$ with critical class 0. Refinement
     done via the \emph{Score} strategy. In all graphs the Y-axis shows
     true/false negative/positive rates (see legend) and the X-axis shows
-    reduction rates.  \todo{Add labels on graphs here} }
+    reduction rates. }
     \label{f:mnist-class}
     \vspace*{-1cm}
 \end{wrapfigure}
@@ -237,8 +236,10 @@ false positive rate occurs. This indicates that we are eventually able to make
 significant improvements in the false positive rate while sacrificing the
 reduction rate as little as possible. Thus, our technique is able to use
 semantic information to order and undo merge operations in an optimal way.
+\vspace{-0.75cm}
 
 \begin{table}
+\centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 Net Size     & $\gamma$ Selection & Reduction & False Positives & Steps  \\ 
@@ -253,6 +254,7 @@ $6\times256$ & Score      & 45.5 \%   & 0.2  \%         & 2425    \\
 \end{tabular}
 \caption{Summary of \mnist compression Results}
 \label{t:mnist-compr-summary}
+\vspace{-1cm}
 \end{table}
 
 Table \ref{t:mnist-compr-summary} summarizes the results from running all the
@@ -289,7 +291,7 @@ iteratively perform refinements, measuring the number of spurious
 counterexamples at each step. 
 
 \begin{figure}
-
+    \vspace{-0.75cm}
     \begin{subfigure}{0.475\linewidth}
         \includegraphics[scale=0.4]{figs/mnist_2_256_prop_0_0.03_samples.png}
         \caption{}
@@ -306,9 +308,10 @@ counterexamples at each step.
         \times 256$ with $\epsilon$-Robustness property are given in 
         \ref{f:mnist-prop-samples}, and for \acasxu
         network 5-8, property 3 in \ref{f:acas-ncex-samples}.
-        $\gamma$ selection is via \emph{Score}. \todo{Label axis on graph}
+        $\gamma$ selection is via \emph{Score}.
     }
     \label{f:ncex}
+    \vspace{-0.75cm}
 \end{figure}
 
 We experimented with two sets of networks and properties: \mnist with
@@ -327,6 +330,7 @@ occurs. As before, we believe that this is evidence that we are able to use
 semantic information and undo merge operations optimally.
 
 \begin{table}
+    \vspace{-0.75cm}
 \parbox{0.60\textwidth}{
 \begin{tabular}{|c|c|c|c|c|}
     \hline
