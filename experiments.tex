@@ -95,6 +95,7 @@ behavior of \abs.
 %our technique and the existing work \cite{cegar-nn}.
 
 \begin{table}
+    \vspace*{-0.25cm}
     \centering
         \begin{tabular}{ |c|c|c|c|c| }
         \hline
@@ -106,7 +107,7 @@ behavior of \abs.
         \end{tabular}
         \caption{Summary of \acasxu on original safety properties }
         \label{t:acas-verif}
-    \vspace{-1cm}
+    \vspace{-1.5cm}
 \end{table}
 \begin{table}
     \centering
@@ -121,6 +122,7 @@ behavior of \abs.
     \caption{Summary of \acasxu on robustness properties }
     \label{t:acas-verif-robustness}
     %\vspace{-1cm}
+    \vspace*{-0.75cm}
 \end{table}
 
 
@@ -133,7 +135,7 @@ properties.
 
 \begin{wrapfigure}{r}{0.5\textwidth}
     \vspace*{-0.5cm}
-    \includegraphics[scale=0.2]{figs/scatter-cegar-our-nerualsat.png}
+    \includegraphics[scale=0.2]{figs/scatter-cegar-our-nerualsat-diag.png}
     \caption{Scatter plot of network sizes produced by our framework vs existing
     work \cite{cegar-nn}}
     \label{f:scatter-netsizes}
@@ -143,9 +145,13 @@ properties.
 For each framework, we collected the final \abs at the end of the \cegar
 iterations, for which either the property can be proved to be safe, or 
 the solver is able to find an actual counterexample, or the solver times out.  
-Figure \ref{f:scatter-netsizes} shows a scatter plot comparing the sizes of these final \abs
-obtained by our framework and by existing work \cite{cegar-nn} for each instance
-in the benchmark. The average sizes of these \abs over all instances are
+Figure \ref{f:scatter-netsizes} shows a scatter plot comparing the sizes of
+these final \abs obtained by our framework and by existing work \cite{cegar-nn}
+for each instance in the benchmark.
+A point below the red diagonal line represents an instance for which we obtain a
+smaller final \abs than the existing work, therefore points below the line
+represent instances for which we perform better.
+The average sizes of these \abs over all instances are
 reported in the `Average Size' columns in tables \ref{t:acas-verif} and
 \label{t:acas-verif-robustness}. 
 
