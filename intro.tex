@@ -144,20 +144,10 @@ size.
 
 We assemble these pieces into an abstraction-refinement framework that can
 generate a small size \abs by starting with a fully merged network and
-iteratively refining until a strong enough network is obtained. We demonstrate
-the usefulness of this framework using two applications. Firstly, we set up a
-\cegar loop to verify the \acasxu networks, and find that we are able to produce
-smaller networks than existing works that are still strong enough to verify the
-property. Secondly, we use it \dmcmt{Maybe remove}
-to find safe compressions of
-\mnist networks that are guaranteed to not introduce any false negatives, while
-minimizing the number of false positives introduced. 
-
-\dmcmt{No ref to exp 4.3}
-%Apart from this, we also
-%demonstrate the quality of the abstract networks produced for \mnist networks
-%and $\epsilon$-robustness properties. and evaluate the verification of the
-%\acasxu benchmarks via a \cegar loop based on our abstraction-refinement
-%framework.
+iteratively refining until a strong enough network is obtained. To demonstrate
+the usefulness of this framework we set up a
+\cegar loop to verify the \acasxu networks. In these experiments we find that we
+are able to produce smaller networks than existing works that are still strong
+enough to verify the property.
 
 

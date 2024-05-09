@@ -31,8 +31,8 @@ These neural network queries are of the form $(P, \mcnc, Q)$, and asks: if
 for all inputs $\vct{x}$ to $\mcnc$ for which the formula $P$ holds, 
 the formula $Q$ also hold on the output $\mcnc(\vct{x})$. While there are
 several
-tools that can handle such queries, like \marabou and \abcrown, scalability
-remains an issue, and so reducing the size of \cnc is desirable.
+tools that can handle such queries, like \marabou, \abcrown and \neuralsat,
+scalability remains an issue, and so reducing the size of \cnc is desirable.
 
 \subsection{Semantic Compressions and Abstractions with Empirical Guarantees}
 \label{s:emp-abs}
@@ -54,32 +54,58 @@ interval bound propagation performed on \abs to get sound bounds on \cnc. While
 this does provide a sound proof, interval bounds are typically not strong enough
 to prove many interesting and practically relevant neural network queries.
 
-\subsection{Concrete Guarantees on Neural Network Abstractions}
+\subsection{Strong Formal Connections between \cnc and \abs}
 \label{s:conc-abs}
 
-The notion of providing concrete guarantees on the behavior of \abs relative to
-\cnc has been formalized in \cite{cegar-nn}. In particular, guarantees of the
-form $\forall x, \mabs(x) \geq \mcnc(x)$ are useful as a general notion of concrete
-guarantees in many settings. Two such settings are as follows: 
-
-Firstly, since any general neural network query can be converted to a query of
-the form $(P, \mcnc, y < c)$ for some $c$
-\cite{cegar-nn,reluplex,lipschitz-reach}, such a guarantee is
-useful for dispatching the query on a smaller network
-\cite{cegar-nn,cegarette,cleverest-nn}. This immediately makes an \abs with
-these guarantees useful for
-accelerating several formal analysis techniques (Section \ref{s:form-an}).
-
-Furthermore, such guarantees are also useful for safe compression of \dnn.
-Consider the case of medical diagnosis \cite{b1} or aircraft
-collisions~\cite{acasxu}, where
-for safety reasons, a classifier should be biased towards not producing false
-negatives. Guarantees such as above can formally ensure that the compressed \abs
-never produces any more false negatives than \cnc (Section
-\ref{s:exp-mnist-comp}).
-
+Structural abstraction techniques including \cite{cegar-nn} provide the
+following strong formal connection between the behavior of \cnc and \abs:
+$\forall x, \mabs(x) \geq \mcnc(x)$. 
+Any general neural network query can be converted to a query of
+the form \linebreak $(P, \mcnc, y < c)$ for some $c$
+by encoding the postcondition as extra layers in \cnc 
+\cite{cegar-nn,reluplex,lipschitz-reach}.
+Therefore this notion of formal connection allows one to abstract the larger
+\cnc to a smaller \abs, dispatch the
+easier query $(P, \mabs, y < c)$ using a solver call, and argue that the
+original query holds \cite{cegar-nn,cegarette,cleverest-nn}. 
+This immediately makes such an \abs useful
+for accelerating several formal analysis techniques (Section \ref{s:form-an}).
 Therefore, in this work we focus on developing a framework that produces
-abstract networks with this guarantee.
+abstract networks that maintains this formal connection.
+
+%\subsection{Preserving Safety Properties on Neural Network Abstractions}
+%\label{s:conc-abs}
+%
+%The notion of preserving safety properties when going from \cnc to \abs
+%has been formalized in \cite{cegar-nn} as follows:
+%Any general neural network safety property $(P, \mcnc, Q)$ where $Q$ is a
+%conjunction of linear constraints (a situation that occurs commonly in practice)
+%can be converted to an equivalent property of the form $(P, \mcnc, y < c)$ for
+%some $c$ by appending extra layers to \cnc encoding the postcondition $Q$. Then,
+%one can ensure that 
+%
+%In particular, guarantees of the
+%form $\forall x, \mabs(x) \geq \mcnc(x)$ are useful as a general notion of concrete
+%guarantees in many settings. Two such settings are as follows: 
+%
+%Firstly, since any general neural network query can be converted to a query of
+%the form $(P, \mcnc, y < c)$ for some $c$
+%\cite{cegar-nn,reluplex,lipschitz-reach}, such a guarantee is
+%useful for dispatching the query on a smaller network
+%\cite{cegar-nn,cegarette,cleverest-nn}. This immediately makes an \abs with
+%these guarantees useful for
+%accelerating several formal analysis techniques (Section \ref{s:form-an}).
+%
+%Furthermore, such guarantees are also useful for safe compression of \dnn.
+%Consider the case of medical diagnosis \cite{b1} or aircraft
+%collisions~\cite{acasxu}, where
+%for safety reasons, a classifier should be biased towards not producing false
+%negatives. Guarantees such as above can formally ensure that the compressed \abs
+%never produces any more false negatives than \cnc (Section
+%\ref{s:exp-mnist-comp}).
+%
+%Therefore, in this work we focus on developing a framework that produces
+%abstract networks with this guarantee.
 
 \subsection{Quality of Abstractions and \gencex}
 \label{s:qual}
