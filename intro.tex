@@ -68,14 +68,18 @@ In particular, one can verify properties on \abs, and
 using the concrete soundness guarantees, lift the result to \cnc and argue
 about its reliability. 
 However, while these techniques have been shown to extend the scalability of
-neural network verification techniques, they are not guaranteed to produce \abs
-that is smaller in size than \cnc \cite{cegar-nn}. 
-\dmcmt{We also don't guarantee \abs smaller
-in size than \cnc. Given this, is it okay to say this? Maybe we can claim that
-they are relatively bigger than the compression methods, which is in general
-true?}
-This prevents these techniques from being useful for compressing \dnn for
-deployment in safety-critical resource-constrained environments.
+neural network verification techniques, they do not take the \emph{semantic}
+behavior of the network into account, thereby producing sub-optimally large
+\abs. \cite{cegar-nn}. 
+\dmcmt{This is instead of saying that they
+don't guarantee \abs smaller than \cnc. I am not saying that since we don't
+guarantee / demonstrate that either. Is that okay?}
+In fact, in \cite{cegar-nn}, the \abs produced was sometimes observed to be
+larger than the original \cnc. \dmcmt{Should we mention this? Maybe a footnote?
+Note that \cite{cegar-nn} does explicitly say that this is the case.}
+This sub-optimality with respect to size prevents these techniques from being
+useful for compressing \dnn for deployment in safety-critical
+resource-constrained environments.
 
 On the other hand, neural network compression techniques \cite{dnn-compression}
 and semantic abstraction techniques \cite{deep-abstract,lin-comb-abs-jan} take

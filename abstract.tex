@@ -15,9 +15,10 @@ preserving desirable safety properties.
 Several \emph{syntactic} abstraction techniques have been proposed that produce
 an abstract network with a formal guarantee that safety properties will be
 preserved.
-These, however, do not guarantee a
-reduction in size for the network produced. \dmcmt{Neither do we... maybe it is
-better to say that they produce relatively larger networks?} On the other hand,
+These, however, do not take the \emph{semantic} behavior of the network and thus
+produce sub-optimally large networks. \dmcmt{This is instead of saying that they
+don't guarantee \abs smaller than \cnc. I am not saying that since we don't
+guarantee / demonstrate that either. Is that okay?} On the other hand,
 compression and \emph{semantic} abstraction techniques have been proposed which
 achieve significant reduction in network size but only weakly preserve a limited
 set of safety properties. 
