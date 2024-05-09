@@ -10,9 +10,6 @@ diagnosis and predictive analysis \cite{b2}, and autonomous vehicles, where
 DNNs serve as the backbone for sophisticated perception systems, supporting
 tasks such as object recognition and decision making \cite{b3}. 
 
-\dmcmt{I felt that here talking leading with embedded angle could be slightly
-confusing, so I am leading with the formal analysis angle.} 
-
 However, given the enormous size and the substantial resource requirements
 of these \dnn in terms of CPU, memory and power, their implementation
 on embedded devices and real-time systems is often infeasible.
@@ -71,12 +68,10 @@ In particular, one can verify properties on \abs, and
 using the concrete soundness guarantees, lift the result to \cnc and argue
 about its reliability. 
 However, while these techniques have been shown to extend the scalability of
-neural network verification techniques, the
-reduction in size obtained remains limited, \footnote{For instance, in
-\cite{cegar-nn}, the size of \abs is often slightly larger than \cnc
-\dmcmt{Should I keep this here?}} which prevents these techniques from being
-useful for compressing \dnn for deployment in safety-critical
-resource-constrained environments.
+neural network verification techniques, they are not guaranteed to produce \abs
+that is smaller in size than \cnc.
+This prevents these techniques from being useful for compressing \dnn for
+deployment in safety-critical resource-constrained environments.
 
 On the other hand, neural network compression techniques \cite{dnn-compression}
 and semantic abstraction techniques \cite{deep-abstract,lin-comb-abs-jan} take
