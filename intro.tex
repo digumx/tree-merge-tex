@@ -13,7 +13,13 @@ tasks such as object recognition and decision making \cite{b3}.
 \dmcmt{I felt that here talking leading with embedded angle could be slightly
 confusing, so I am leading with the formal analysis angle.} 
 
-However, \dnn are well known to be vulnerable to
+However, given the enormous size and the substantial resource requirements
+of these \dnn in terms of CPU, memory and power, their implementation
+on embedded devices and real-time systems is often infeasible.
+This issue becomes especially apparent when integrating DNNs into embedded and
+real-time systems for performing safety-critical tasks, such as obstacle
+recognition in autonomous vehicles. 
+Furthermore, \dnn are well known to be vulnerable to
 adversarial~\cite{l-bfgs,fgsm,deep-fool,pgd,ground-truth-adv-attack,cw-attack}
 and backdoor
 attacks~\cite{backdoor-poisoning}, and are also difficult to interpret.
@@ -22,15 +28,9 @@ trust on the reliability of \dnn in safety-critical settings, including
 verification \cite{reluplex,deeppoly,crown,beta-crown,cegar-nn}  and formal
 explainability \cite{overview-fxai,minimal-image-fxai}, the size of the DNNs
 continues to be the limiting factor for the scalability of these techniques.
-Furthermore, given the enormous size and the substantial resource requirements
-of these \dnn in terms of CPU, memory and power, their implementation
-on embedded devices and real-time systems is often infeasible.
-This issue becomes especially apparent when integrating DNNs into embedded and
-real-time systems for performing safety-critical tasks, such as obstacle
-recognition in autonomous vehicles. 
 To tackle both these issues, it is imperative to reduce the size of the \dnn
 involved while maintaining a strong formal connection the original network, and
-preserving verifiability.
+preserving desirable safety properties.
 
 %However, given the enormous size and the substantial resource requirements of
 %these DNN solutions in terms of CPU, memory and power, their implementation
@@ -93,9 +93,7 @@ and those provided by linear combination based methods like
 \cite{lin-comb-abs-jan} only bound the difference in behavior of \abs and \cnc
 on a finite subset of the input space.
 Thus, without strong formal guarantees connecting the behaviors of \abs and
-\cnc, the \abs cannot be used for extending the scalability of formal analysis,
-or provide reliability guarantees when deploying to safety-critical
-resource-constrained environments.
+\cnc, the \abs may not preserve desired safety properties.
 
 %Structural abstraction based on the \textit{syntax} (the local weights and
 %biases at each neuron of the DNN) forms the basis of several techniques
@@ -131,17 +129,19 @@ In this work we combine the syntactic and semantic approaches into a single
 framework for generating an abstract network. By splitting and labeling the
 neurons \textit{inc} and \textit{dec}, similar to \cite{cegar-nn}, and
 restricting ourselves to merges involving only similarly labeled neurons, we
-provide concrete soundness guarantees linking the behavior of \cnc and \abs via
+provide a concrete formal link the behavior of \cnc and \abs via
 syntactic constraints. At the same time, to take into account the global
 semantic behavior, we introduce a semantic closeness metric between two neurons
-in the same layer.  Using this metric, we construct a tree of merge operations
+in the same layer. Using this metric, we construct a tree of merge operations
 that captures the relative contribution of each merge to the quality of the
 abstraction. We propose a refinement procedure that uses this tree as a guide
 to undo the merge operations that contribute most to the poor quality of \abs.
 We show that in the resulting refined network, groups of neurons that remain
 merged are semantically closer than neurons that get un-merged. Thus, we are
 able to refine \abs in a way that is optimal with respect to the semantic
-behavior.
+behavior. Thus, combining both syntactic and semantic approaches, our framework
+is able to find an \abs that preserves desired safety properties of a smaller
+size.
 
 We assemble these pieces into an abstraction-refinement framework that can
 generate a small size \abs by starting with a fully merged network and
@@ -149,13 +149,15 @@ iteratively refining until a strong enough network is obtained. We demonstrate
 the usefulness of this framework using two applications. Firstly, we set up a
 \cegar loop to verify the \acasxu networks, and find that we are able to produce
 smaller networks than existing works that are still strong enough to verify the
-property. Secondly,
+property. Secondly, we use it \dmcmt{Maybe remove}
+to find safe compressions of
+\mnist networks that are guaranteed to not introduce any false negatives, while
+minimizing the number of false positives introduced. 
 
-%by using it to find safe compressions of
-%\mnist networks that are guaranteed to not introduce any false negatives, while
-%minimizing the number of false positives introduced. Apart from this, we also
+\dmcmt{No ref to exp 4.3}
+%Apart from this, we also
 %demonstrate the quality of the abstract networks produced for \mnist networks
-%and $\epsilon$-robustness properties, and evaluate the verification of the
+%and $\epsilon$-robustness properties. and evaluate the verification of the
 %\acasxu benchmarks via a \cegar loop based on our abstraction-refinement
 %framework.
 
