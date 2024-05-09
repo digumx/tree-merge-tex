@@ -69,7 +69,10 @@ using the concrete soundness guarantees, lift the result to \cnc and argue
 about its reliability. 
 However, while these techniques have been shown to extend the scalability of
 neural network verification techniques, they are not guaranteed to produce \abs
-that is smaller in size than \cnc.
+that is smaller in size than \cnc. \dmcmt{We also don't guarantee \abs smaller
+in size than \cnc. Given this, is it okay to say this? Maybe we can claim that
+they are relatively bigger than the compression methods, which is in general
+true?}
 This prevents these techniques from being useful for compressing \dnn for
 deployment in safety-critical resource-constrained environments.
 
