@@ -1,32 +1,18 @@
 
 \section{Introduction}
 
-Advances in Deep Neural Networks (\dnn) have enabled the scalable solution of
-several previously intractable problems such as image recognition and natural
-language processing. Due to this, \dnn have increasingly assumed a central role
-across various domains. These include several safety-critical domains like
-healthcare \cite{b1}, where they contribute significantly to medical
-diagnosis and predictive analysis \cite{b2}, and autonomous vehicles, where
-DNNs serve as the backbone for sophisticated perception systems, supporting
-tasks such as object recognition and decision making \cite{b3}. 
+Advances in Deep Neural Networks (\dnn) have enabled the scalable solution of several previously intractable problems such as image recognition and natural language processing. Due to this, \dnn have increasingly assumed a central role across various domains. These include several safety-critical domains like healthcare \cite{b1}, where they contribute significantly to medical diagnosis and predictive analysis \cite{b2}, and autonomous vehicles, where DNNs serve as the backbone for sophisticated perception systems, supporting tasks such as object recognition and decision making \cite{b3}. 
 
-However, given the enormous size and the substantial resource requirements
-of these \dnn in terms of CPU, memory and power, their implementation
-on embedded devices and real-time systems is often infeasible.
-This issue becomes especially apparent when integrating DNNs into embedded and
-real-time systems for performing safety-critical tasks, such as obstacle
-recognition in autonomous vehicles. 
-Furthermore, \dnn are well known to be vulnerable to
-adversarial~\cite{l-bfgs,fgsm,deep-fool,pgd,ground-truth-adv-attack,cw-attack}
+However, given the enormous size and the substantial resource requirements of these \dnn in terms of CPU, memory and power, their implementation on embedded devices and real-time systems is often infeasible. This issue becomes especially apparent when integrating DNNs into embedded and real-time systems for performing safety-critical tasks, such as obstacle recognition in autonomous vehicles. Furthermore, \dnn are well known to be vulnerable to adversarial~\cite{l-bfgs,fgsm,deep-fool,pgd,ground-truth-adv-attack,cw-attack}
 and backdoor
 attacks~\cite{backdoor-poisoning}, and are also difficult to interpret.
 While a number of formal analysis techniques have been proposed to build
 trust on the reliability of \dnn in safety-critical settings, including
-verification \cite{reluplex,deeppoly,crown,beta-crown,cegar-nn}  and formal
+verification \cite{reluplex,deeppoly,crown,beta-crown,cegar-nn}  and formal
 explainability \cite{overview-fxai,minimal-image-fxai}, the size of the DNNs
 continues to be the limiting factor for the scalability of these techniques.
 To tackle both these issues, it is imperative to reduce the size of the \dnn
-involved while maintaining a strong formal connection the original network, and
+involved while maintaining a strong formal connection to the original network, and
 preserving desirable safety properties.
 
 %However, given the enormous size and the substantial resource requirements of
