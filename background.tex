@@ -164,22 +164,23 @@ semantic information is used.
 
 \subsection{ Syntactic Refinement }
 
-The fully merged network obtained in Section \ref{s:nn-sam} may not have
-sufficient quality (Section \ref{s:qual}) to be useful. For instance, when doing
-formal analysis, there may be too many spurious counterexamples. In such
-situations, a common approach to obtain a better quality \abs is to perform
-refinement steps based on a \gencex $\vct{\beta}$
-\cite{cegar-nn,cegarette,cleverest-nn}. In
-existing techniques, this is typically done by restoring a single neuron coming
-from \cnc that had been merged with other neurons in \abs. The neuron chosen is
-typically one whose contribution to $\vct{\beta}$ is estimated to be the
-highest.
+The fully merged network obtained in Section \ref{s:nn-sam} may not be
+sufficiently strong to be able to dispatch, that is, there may be 
+spurious counterexamples. 
+In such situations, a common approach to obtain a better quality \abs is to
+perform refinement steps based on a \gencex $\vct{\beta}$
+\cite{cegar-nn,cegarette,cleverest-nn}. 
+In existing techniques, this is typically done by restoring a single neuron
+coming from \cnc that had been merged with other neurons in \abs. The neuron
+chosen is typically one whose contribution to $\vct{\beta}$ is estimated to be
+the highest.
 
 These techniques, however, do not consider any semantic behavior to guide their
 refinement. As such, the refinement process tends to produce a large number of
 restored neurons that are not merged with any other neurons. A proliferation of
-these \emph{singleton} neurons leads to \abs having a larger size. At the same time, 
-a large group of neurons remains merged in \abs, which affects the quality of \abs. 
+these \emph{singleton} neurons leads to \abs having a larger size. At the same
+time, a large group of neurons remains merged in \abs, which affects the quality
+of \abs. 
 
 We can see this in our example. Say the fully merged network in Figure
 \ref{fig:full_abstract_net} we get a $\vct{\beta}$ given by the values in \textbf{bold}.
