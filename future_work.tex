@@ -3,23 +3,23 @@
 This paper puts forth a framework to combine syntactic and semantic approaches
 for DNN abstraction. While this opens several directions for future work, an
 immediate question that can be asked is about achieving ``optimal refinement''.
-In the abstract network, there shouldn't be any neurons that can be merged back
-without introducing spurious counterexamples. This implies that we should have
-added the minimum number of neurons necessary to prevent spurious
+In the abstract network, it would be ideal to not have neurons that can be
+merged back without introducing spurious counterexamples. This implies that we
+should have added the minimum number of neurons necessary to prevent spurious
 counterexamples. This seems to depend on the direction in which one starts
 refining. Of the multiple refinement paths that are possible, is there one that
 is guaranteed to do a \emph{minimal} refinement?
 
 Exploring alternative measures for the semantic closeness factor $\cls$ is
 another intriguing prospect. Note that our framework allows one to seamlessly
-experiment  with any $\cls$.  Our current $\cls$ does capture optimality with
+experiment with any $\cls$. Our current $\cls$ does capture optimality with
 respect to the I/O behavior of the neurons, but we are not able to guarantee
-minimization of the over-approximation at the output layer. In future, we want
-to identify an improved metric for the semantic closeness factor that minimizes
+minimization of the over-approximation at the output layer. It would help to
+identify better metrics for the semantic closeness factor that minimize
 over-approximation at the output neuron. 
 
 In our experiments, we noticed that the time needed to verify a specific
-property of a network is not solely determined by the network's size. It's
+property of a network is not solely determined by the network's size. It is
 possible that a larger network can be verified quickly, while a smaller one may
 take longer or even fail to be verified altogether. Obtaining a more accurate
 measure of the effort required to verify a network would provide a better
