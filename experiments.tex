@@ -36,7 +36,11 @@ Ubuntu 22.04 LTS.
 
 If the \abs produced has multiple neurons with the exact same set of incoming
 edges in the same layer, these neurons compute the same function and are
-redundant. Therefore, as an added optimization step, we safely \textit{re-merge}
+redundant. Therefore, as an added optimization step in our method, 
+\dmcmt{This is regd comment from review 2, saying its not clear if this is done
+    for guy katz's method as well. It was not. Is it okay to just say this, or
+do we need to be more explicit?}
+we safely \textit{re-merge}
 them by taking the sum of the outgoing edges. Note that this does not change the
 behavior of \abs.
 
@@ -137,7 +141,7 @@ properties.
     \vspace*{-0.5cm}
     \includegraphics[scale=0.2]{figs/scatter-cegar-our-nerualsat-diag.png}
     \caption{Scatter plot of network sizes produced by our framework vs existing
-    work \cite{cegar-nn}}
+    work \cite{cegar-nn} on \acasxu \todo{Make label bigger on graph}}
     \label{f:scatter-netsizes}
     \vspace*{-0.5cm}
 \end{wrapfigure}
@@ -159,11 +163,11 @@ It is apparent from the Figure \ref{f:scatter-netsizes},
 table \ref{t:acas-verif} and table \ref{t:acas-verif-robustness} that compared 
 to the existing techniques, we are explore smaller \abs that are effective 
 at proving or disproving the property in question.
-This shows that using semantic information to guide the \cegar process can
+This shows that using semantic information to guide the CEGAR process can
 effectively find more efficient abstractions than the existing technique.
 
-Note that in our experiments, we found that the time taken by both our \cegar
-approach and the existing \cegar approach \cite{cegar-nn} was more than what the
+Note that in our experiments, we found that the time taken by both our CEGAR
+approach and the existing CEGAR approach \cite{cegar-nn} was more than what the
 \neuralsat solver takes for the \acasxu benchmarks. However, while we would
 expect the solver call times to exponentially scale with network size, the
 overheads from the abstraction procedure will not scale exponentially. Thus, for

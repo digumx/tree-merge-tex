@@ -1,5 +1,8 @@
 \section{Conclusion and Future Work}
 
+\dmcmt{Regd comment from Review 3, there seems to not be much repetation between
+this and Intro right?}
+
 This paper puts forth a framework to combine syntactic and semantic approaches
 for DNN abstraction. While this opens several directions for future work, an
 immediate question that can be asked is about achieving ``optimal refinement''.
@@ -8,7 +11,7 @@ merged back without introducing spurious counterexamples. This implies that we
 should have added the minimum number of neurons necessary to prevent spurious
 counterexamples. This seems to depend on the direction in which one starts
 refining. Of the multiple refinement paths that are possible, is there one that
-is guaranteed to do a \emph{minimal} refinement?
+is guaranteed to do a \emph{minimal} refinement? \dmcmt{Maybe re-written?}
 
 Exploring alternative measures for the semantic closeness factor $\cls$ is
 another intriguing prospect. Note that our framework allows one to seamlessly
@@ -16,7 +19,8 @@ experiment with any $\cls$. Our current $\cls$ does capture optimality with
 respect to the I/O behavior of the neurons, but we are not able to guarantee
 minimization of the over-approximation at the output layer. It would help to
 identify better metrics for the semantic closeness factor that minimize
-over-approximation at the output neuron. 
+over-approximation at the output neuron. \dmcmt{If we talk about characteristic
+merge as other option, maybe we can add this here?}
 
 In our experiments, we noticed that the time needed to verify a specific
 property of a network is not solely determined by the network's size. It is

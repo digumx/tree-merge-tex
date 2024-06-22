@@ -45,14 +45,27 @@ chosen in various ways. We note that our framework is agnostic to the particular
 choice of semantic metric, and the concrete soundness guarantee holds for any such
 choice. Inspired by \cite{deep-abstract}, we choose the
 semantic closeness metric to be the difference between the functions computed 
-by the two neurons: $||\nrf{i_1}{l} - \nrf{i_2}{l}||$. 
+by the two neurons: $||\nrf{i_1}{l} - \nrf{i_2}{l}||_2$, where $|| \cdot ||_2$ is
+the $L_2$ norm on the space of continuous functions on the input region $P
+\subset \mathbb{R}^i \;{\rightarrow}\; \mathbb{R}$. 
+\footnote{ Generally, inputs to \dnn
+    are bounded, and therefore so is $P$, ensuring that the $L_2$ norm is well
+defined.}
 
-However, since $\nrf{i_1}{l}$ and $\nrf{i_2}{l}$ are functions, computing
-$||\nrf{i_1}{l} - \nrf{i_2}{l}||$ precisely is not feasible.
-Therefore, we estimate it using a sample set of inputs $X$: $||\ob{i_1}{l}($X$)
+However, since computing
+$||\nrf{i_1}{l} - \nrf{i_2}{l}||_2$ precisely is not feasible,
+we estimate it using a sample set of inputs $X$: $||\ob{i_1}{l}($X$)
 - \ob{i_2}{l}($X$)||_2$. In general this $X$ may be chosen in different ways,
 and our framework is agnostic to the sampling strategy used. In our experiments,
-we use a uniform sampling of the input region where $P$ holds.
+we use a uniform sampling of the input region where $P$ holds. Since generally
+the input region is, in our case, interval, such a sampling is straightforward,
+however our method generalizes to other input regions via other sampling methods
+as well.
+
+\dmcmt{ changed few things here. 1, there are clarifications wrt the norm used
+    to define the semantic closeness factor, including when it is well defined.
+    2, the infeasibility of calculating the exact l2 norm comes from the
+complexity of the network, 3, clarifications regarding uniform sampling}
 
 \subsection{Tree of Merges}
 \label{s:tree}
@@ -78,7 +91,7 @@ We start with an initial structure
 consisting only of leaf nodes corresponding to original neurons (line
 \ref{a:build-tree:init}). At
 this stage, no merge operation has yet been done, and each node is a potential
-candidate for a merge, stored in $\mathit{Cand}$ at line
+candidate for a merge, stored in $\cand$ at line
 \ref{a:build-tree:init-cand}.
 
 Now, as long as we have at-least two candidates that we can merge, we keep
@@ -112,7 +125,7 @@ This is formalized in Section \ref{s:optimal-tree}).
     \State Initialize G with nodes $\{ \nr{i_1}{l}, {\cdots}, \nr{i_r}{l} \}$
     and no edges. \label{a:build-tree:init}
 
-    \State Initialize $\mathit{Cand}=\{ \nr{i_1}{l}, {\cdots}, \nr{i_r}{l} \}$
+    \State Initialize $\cand=\{ \nr{i_1}{l}, {\cdots}, \nr{i_r}{l} \}$
     \label{a:build-tree:init-cand}
 
     \Function{PairwiseMax}{$m_1, m_2$} \label{a:build-tree:fn-start}
@@ -128,14 +141,15 @@ This is formalized in Section \ref{s:optimal-tree}).
 
     \EndFunction \label{a:build-tree:fn-end}
 
-    \While{$|Q|>1$} \label{a:build-tree:loop}
+    \While{$|\cand|>1$} \label{a:build-tree:loop}
     
-        \State $m_{j_1}, m_{j_2} = \arg\min_{\substack{m_1, m_2 \in Q}} 
+        \State $m_{j_1}, m_{j_2} = \arg\min_{\substack{m_1, m_2 \in \cand}} 
             \text{PairwiseMax}(m_1, m_2)$ \label{a:build-tree:get-mij}
 
         \State Add new node $m_{j_3}$ to $T$ \label{a:build-tree:merge-start}
         \State Make $m_{j_1}, m_{j_2}$ children of $m_{j_3}$ in $T$
-        \State Remove $m_{j_1}, m_{j_2}$ from $Q$ and add $m_{j_3}$ to $Q$.
+        \State Remove $m_{j_1}, m_{j_2}$ from $\cand$ and add $m_{j_3}$ to
+        $\cand$.
             \label{a:build-tree:merge-end}
     \EndWhile
 
