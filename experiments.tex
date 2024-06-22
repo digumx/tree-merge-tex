@@ -79,7 +79,7 @@ behavior of \abs.
 %5.20GHz, having 32 GB RAM and running Ubuntu 23.10.
 
 %\subsection{Verification of \acasxu}
-%\label{s:acas-verif}
+%\ref{s:acas-verif}
 
 %In this set of experiments, we demonstrate the effectiveness of our abstraction
 %technique for verification of neural network queries on the \acasxu set of
@@ -130,7 +130,7 @@ behavior of \abs.
 \end{table}
 
 
-Tables \ref{t:acas-verif} and \label{t:acas-verif-robustness} summarizes the
+Tables \ref{t:acas-verif} and \ref{t:acas-verif-robustness} summarizes the
 results on these benchmarks. We
 find that using our framework, we are able to perform better than the existing
 \cegar approach \cite{cegar-nn} on the original safety properties, verifying
@@ -138,12 +138,20 @@ more networks to be safe, while we do not loose performance on the robustness
 properties. 
 
 \begin{wrapfigure}{r}{0.5\textwidth}
-    \vspace*{-0.5cm}
+    %\vspace*{-0.5cm}
     \includegraphics[scale=0.2]{figs/scatter-cegar-our-nerualsat-diag.png}
+    \caption{\dmcmt{Old version} \todo{Remove}}
+    \label{f:scatter-netsizes-old}
+    %\vspace*{-0.5cm}
+\end{wrapfigure}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+    %\vspace*{-0.5cm}
+    \includegraphics[scale=0.4]{figs/scatter-cegar-our-nerualsat-diag-new.png}
     \caption{Scatter plot of network sizes produced by our framework vs existing
-    work \cite{cegar-nn} on \acasxu \todo{Make label bigger on graph}}
+    work \cite{cegar-nn} on \acasxu }
     \label{f:scatter-netsizes}
-    \vspace*{-0.5cm}
+    %\vspace*{-0.5cm}
 \end{wrapfigure}
 
 For each framework, we collected the final \abs at the end of the \cegar
@@ -157,7 +165,7 @@ smaller final \abs than the existing work, therefore points below the line
 represent instances for which we perform better.
 The average sizes of these \abs over all instances are
 reported in the `Average Size' columns in tables \ref{t:acas-verif} and
-\label{t:acas-verif-robustness}. 
+\ref{t:acas-verif-robustness}. 
 
 It is apparent from the Figure \ref{f:scatter-netsizes}, 
 table \ref{t:acas-verif} and table \ref{t:acas-verif-robustness} that compared 
