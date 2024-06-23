@@ -27,9 +27,9 @@ against backdoor attacks \cite{backdoor-verification}.
 analyses performed, all of these techniques rely on making \textit{neural
 network queries}. 
 
-These neural network queries are of the form $(P, \mcnc, Q)$, and asks: if
+These neural network queries are of the form $(P, \mcnc, Q)$ and ask: if
 for all inputs $\vct{x}$ to $\mcnc$ for which the formula $P$ holds, 
-the formula $Q$ also hold on the output $\mcnc(\vct{x})$. While there are
+the formula $Q$ also holds for the output $\mcnc(\vct{x})$. While there are
 several
 tools that can handle such queries, like \marabou, \abcrown and \neuralsat,
 scalability remains an issue, and so reducing the size of \cnc is desirable.
@@ -48,8 +48,8 @@ bi-simulation guarantees bounding the difference in the behavior of \abs and
 dataset. Since these techniques characterize the behavior of \abs only on a
 finite set of
 input points, the trust obtained on the connection between \cnc and \abs is only
-of a empirical nature.
-Other techniques like \cite{deep-abstract} use bi-simulation to lift
+of an empirical nature.
+Other techniques, like \cite{deep-abstract}, use bi-simulation to lift
 interval bound propagation performed on \abs to get sound bounds on \cnc. While
 this does provide a sound proof, interval bounds are typically not strong enough
 to prove many interesting and practically relevant neural network queries.
@@ -57,78 +57,34 @@ to prove many interesting and practically relevant neural network queries.
 \subsection{Strong Formal Connections between \cnc and \abs}
 \label{s:conc-abs}
 
-Structural abstraction techniques including \cite{cegar-nn} provide the
+Structural abstraction techniques, including \cite{cegar-nn}, provide the
 following strong formal connection between the behavior of \cnc and \abs:
 $\forall x, \mabs(x) \geq \mcnc(x)$. 
 Any general neural network query can be converted to a query of
 the form \linebreak $(P, \mcnc, y < c)$ for some $c$
 by encoding the postcondition as extra layers in \cnc 
 \cite{cegar-nn,reluplex,lipschitz-reach}.
-Therefore this notion of formal connection allows one to abstract the larger
+Therefore, this notion of formal connection allows one to abstract the larger
 \cnc to a smaller \abs, dispatch the
 easier query $(P, \mabs, y < c)$ using a solver call, and argue that the
 original query holds \cite{cegar-nn,cegarette,cleverest-nn}. 
 This immediately makes such an \abs useful
 for accelerating several formal analysis techniques (Section \ref{s:form-an}).
-Therefore, in this work we focus on developing a framework that produces
-abstract networks that maintains this formal connection.
-
-%\subsection{Preserving Safety Properties on Neural Network Abstractions}
-%\label{s:conc-abs}
-%
-%The notion of preserving safety properties when going from \cnc to \abs
-%has been formalized in \cite{cegar-nn} as follows:
-%Any general neural network safety property $(P, \mcnc, Q)$ where $Q$ is a
-%conjunction of linear constraints (a situation that occurs commonly in practice)
-%can be converted to an equivalent property of the form $(P, \mcnc, y < c)$ for
-%some $c$ by appending extra layers to \cnc encoding the postcondition $Q$. Then,
-%one can ensure that 
-%
-%In particular, guarantees of the
-%form $\forall x, \mabs(x) \geq \mcnc(x)$ are useful as a general notion of concrete
-%guarantees in many settings. Two such settings are as follows: 
-%
-%Firstly, since any general neural network query can be converted to a query of
-%the form $(P, \mcnc, y < c)$ for some $c$
-%\cite{cegar-nn,reluplex,lipschitz-reach}, such a guarantee is
-%useful for dispatching the query on a smaller network
-%\cite{cegar-nn,cegarette,cleverest-nn}. This immediately makes an \abs with
-%these guarantees useful for
-%accelerating several formal analysis techniques (Section \ref{s:form-an}).
-%
-%Furthermore, such guarantees are also useful for safe compression of \dnn.
-%Consider the case of medical diagnosis \cite{b1} or aircraft
-%collisions~\cite{acasxu}, where
-%for safety reasons, a classifier should be biased towards not producing false
-%negatives. Guarantees such as above can formally ensure that the compressed \abs
-%never produces any more false negatives than \cnc (Section
-%\ref{s:exp-mnist-comp}).
-%
-%Therefore, in this work we focus on developing a framework that produces
-%abstract networks with this guarantee.
-
-%\subsection{Quality of Abstractions and \gencex}
-%\label{s:qual}
-%
-%A generally useful notion with respect to abstraction is \textit{quality},
-%which we define as the number of \textit{\gencex} that witness a difference in
-%the relevant behavior of \abs and \cnc. In the context of using \abs to
-%accelerate formal analysis of \dnn, these \gencex may simply be
-%\textit{spurious counterexamples} \cite{cegar-nn,cleverest-nn} to a query
-%involving \abs that are not counterexamples for the same query involving \cnc.
-%This notion may be generalized to other uses of abstractions as well. For
-%instance, for safe compressions, they may be inputs from a dataset which
-%are falsely classified as positive by \abs (Section \ref{s:exp-mnist-comp}).
+Therefore, in this work, we focus on developing a framework that produces
+abstract networks that maintain this formal connection.
 
 \subsection{Syntactic Neural Network Splitting and Merging}
 \label{s:nn-sam}
 
-In order to ensure the soundness guarantees when transforming \cnc into \abs, 
-instead of adopting the four-way split approach proposed in \cite{cegar-nn},
-we opt for a two-way split method
-\cite{chauhan2022efficiently,liu2022abstraction,10.1145/3644387}. This involves
+In order to ensure soundness guarantees when transforming \cnc into \abs, 
+we adopt a modification of the four-way split approach proposed in
+\cite{cegar-nn}.
+In this approach, a two-way split is used instead
+\cite{chauhan2022efficiently,liu2022abstraction,10.1145/3644387}, 
 partitioning neurons in \cnc into duplicate
-copies labeled with either {\inc or \dec}, ensuring that any increase 
+copies labeled with either {\inc or \dec}. 
+This partitioning is done in a way that 
+ensures that any increase 
 (decrease) in the value of a neuron labeled \inc (\dec) only results in 
 an increase in the output value. This can be done because it is not
 necessary to perform \posc-\negc splitting to soundly obtain an \inc-\dec
@@ -140,16 +96,7 @@ labeled neurons as follows: if the neurons have
 the label \inc (\dec), replace incoming edges from the same
 previous layer neuron with a single edge with the maximum (minimum) of the
 original edge weights. Outgoing edges to the same next layer neuron are replaced
-with a single edge with the sum of the weights for both the \inc and \dec case.
-
-%\kmcmt{Let us use these references for the 2-class
-%classification:~\cite{chauhan2022efficiently,liu2022abstraction,10.1145/3644387}.
-%Also, I think it might be better to state the 2-class directly as a
-%modification. Something like, ``Instead of the four-way split, we consider only
-%a two-way split of neurons as \emph{inc} and \emph{dec}.'' And then let us
-%preserve the term ``re-merging'' for merging an increment and its corresponding
-%decrement neuron back into one. I think the following para, and possibly
-%relevant parts of the following sections, will have to be changed accordingly.}
+with a single edge with the sum of the weights for both the \inc and \dec cases.
 
 \input{original_net.tex}
 \input{gk_abs_sat.tex}
@@ -167,7 +114,7 @@ semantic information is used.
 The fully merged network obtained in Section \ref{s:nn-sam} may not be
 sufficiently strong to be able to dispatch, that is, there may be 
 spurious counterexamples. 
-In such situations, a common approach to obtain a better quality \abs is to
+In such situations, a common approach to obtaining a better-quality \abs is to
 perform refinement steps based on a \gencex $\vct{\beta}$
 \cite{cegar-nn,cegarette,cleverest-nn}. 
 In existing techniques, this is typically done by restoring a single neuron
@@ -178,7 +125,7 @@ the highest.
 These techniques, however, do not consider any semantic behavior to guide their
 refinement. As such, the refinement process tends to produce a large number of
 restored neurons that are not merged with any other neurons. A proliferation of
-these \emph{singleton} neurons leads to \abs having a larger size. At the same
+these \emph{singleton} neurons lead to \abs having a larger size. At the same
 time, a large group of neurons remains merged in \abs, which affects the quality
 of \abs. 
 
@@ -188,7 +135,7 @@ Then, in the next refinement step, the neuron $\nr{3}{1}$ gets restored, giving
 us the network in Figure \ref{fig:refine_step_1}. Again, the $\vct{\beta}$
 obtained is shown in \textbf{bold}, and the next refinement step restores $\nr{0}{1}$
 leading to Figure \ref{fig:refine_step_2}. We see that in the resultant network,
-two semantically dis-similar neurons $\nr{1}{1}$ and $\nr{2}{1}$ remain merged,
+two semantically dissimilar neurons, $\nr{1}{1}$ and $\nr{2}{1}$, remain merged,
 while the merges between the similar pairs of neurons $\nr{3}{1}$, $\nr{2}{1}$
 and $\nr{1}{1}$, $\nr{0}{1}$ have been un-done. Indeed, the network in Figure
 \ref{fig:refine_step_2} still admits spurious counterexamples, as seen by the
