@@ -1,7 +1,7 @@
 \section{Methodology}
 %\label{s:semantic-closeness}
 
-In this work, we aim to utilize information from the semantic behavior of \cnc to better control and guide the refinement process, producing a smaller \abs while retaining the strong formal connection to \abs.
+In this work, we aim to utilize information from the semantic behavior of \cnc to better control and guide the refinement process, producing a smaller \abs while retaining the strong formal connection to \cnc.
 
 
 
@@ -17,7 +17,7 @@ Using this tree, we build a framework where refinement can be done by making cu
 
 
 
-Using these components, we propose a general \cegar loop-based framework (Section \ref{s:abs-ref-fw}) that combines syntactic merge operations with semantic behavior. This framework is able to produce an \abs strong enough to not have any spurious counterexamples and with a much smaller size.
+Using these components, we propose a general \cegar loop-based framework (Section \ref{s:abs-ref-fw}) that combines syntactic merge operations with semantic behavior. This framework is able to produce an \abs strong enough to not have any spurious counterexamples while having a much smaller size.
 
 
 
@@ -129,7 +129,7 @@ The resulting tree captures an optimal ordering of merge operations. That is, a
 \end{algorithmic}
 \end{algorithm}
 
-As an example, consider the middle layer in Figure \ref{fig:Original_Net_Property}. Here, $\nr{0}{1}$ and $\nr{1}{1}$ are semantically closest. Thus, in the tree (top half of Figure \ref{fig:Order_of_merging}), we first merge these two to get the node $m_4$, representing the merge group $\{\nr{0}{1}, \nr{1}{1}\}$. At this point, we have three choices for the next merge operation: $m_4$ and $\nr{2}{1}$, $m_4$ and $\nr{3}{1}$, or $\nr{2}{1}$ and $\nr{3}{1}$. Since $\nr{2}{1}$ and $\nr{3}{1}$ are semantically closer to each other than to $\nr{0}{1}$ or $\nr{1}{1}$, the algorithm merges $\nr{2}{1}$ and $\nr{3}{1}$ to get $m_5$. This produces the merge group $\{\nr{2}{1}, \nr{3}{1}\}$, which has elements that are semantically closer than the groups $\{\nr{0}{1}, \nr{1}{1}\, \nr{2}{1}\}$ or $\{\nr{0}{1}, \nr{1}{1},
+As an example, consider the middle layer in Figure \ref{fig:Original_Net_Property}. Here, $\nr{0}{1}$ and $\nr{1}{1}$ are semantically closest. Thus, in the tree (top half of Figure \ref{fig:Order_of_merging}), we first merge these two to get the node $m_4$, representing the merge group $\{\nr{0}{1}, \nr{1}{1}\}$. At this point, we have three choices for the next merge operation: $m_4$ and $\nr{2}{1}$, $m_4$ and $\nr{3}{1}$, or $\nr{2}{1}$ and $\nr{3}{1}$. Since $\nr{2}{1}$ and $\nr{3}{1}$ are semantically closer to each other than $\nr{0}{1}$ or $\nr{1}{1}$, the algorithm merges $\nr{2}{1}$ and $\nr{3}{1}$ to get $m_5$. This produces the merge group $\{\nr{2}{1}, \nr{3}{1}\}$, which has elements that are semantically closer than the groups $\{\nr{0}{1}, \nr{1}{1}\, \nr{2}{1}\}$ or $\{\nr{0}{1}, \nr{1}{1},
 \nr{3}{1} \}$ obtained from following the other two choices. Finally, $m_4$ and $m_5$ get merged to $m_6$, giving us the complete tree.
  
 \subsection{Tree-cuts and Refinement}
