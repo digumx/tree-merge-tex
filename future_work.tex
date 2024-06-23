@@ -1,32 +1,14 @@
 \section{Conclusion and Future Work}
 
-This paper puts forth a framework to combine syntactic and semantic approaches
-for DNN abstraction. While this opens several directions for future work, an
-immediate question that can be asked is about achieving ``optimal refinement''.
-In the abstract network, it would be ideal to not have neurons that can be
-merged back without introducing spurious counterexamples. This implies that we
-should have added the minimum number of neurons necessary to prevent spurious
-counterexamples. 
-It would  be interesting to explore if there is a refinement path 
-is guaranteed to do such a \emph{minimal} refinement. 
-It would also be interesting to explore if other methods of finding abstractions
-beyond the merge and un-merge operations described here and in other existing
-works \cite{cegar-nn,cegarette,cleverest-nn,deep-abstract} produce optimal abstract networks.
 
-Exploring alternative measures for the semantic closeness factor $\cls$ is
-another intriguing prospect. Note that our framework allows one to seamlessly
-experiment with any $\cls$. Our current $\cls$ does capture optimality with
-respect to the I/O behavior of the neurons, but we are not able to guarantee
-minimization of the over-approximation at the output layer. It would help to
-identify better metrics for the semantic closeness factor that minimize
-over-approximation at the output neuron. 
+This paper puts forth a framework to combine syntactic and semantic approaches for DNN abstraction. While this opens several directions for future work, an immediate question that can be asked is about achieving ``optimal refinement''. In the abstract network, it would be ideal to not have neurons that can be merged back without introducing spurious counterexamples. This implies that we should have added the minimum number of neurons necessary to prevent spurious counterexamples. It would  be interesting to explore if there is a refinement path guaranteed to do such a \emph{minimal} refinement. It would also be interesting to explore if other methods of finding abstractions beyond the merge and unmerge operations described here and in other existing works \cite{cegar-nn,cegarette,cleverest-nn,deep-abstract} produce optimal abstract networks. 
 
-In our experiments, we noticed that the time needed to verify a specific
-property of a network is not solely determined by the network's size. It is
-possible that a larger network can be verified quickly, while a smaller one may
-take longer or even fail to be verified altogether. Obtaining a more accurate
-measure of the effort required to verify a network would provide a better
-optimization target for abstraction used in the context of verification.
+Exploring alternative measures for the semantic closeness factor $\cls$ is another intriguing prospect. Note that our framework allows one to seamlessly experiment with any $\cls$. Our current $\cls$ does capture optimality with respect to the I/O behavior of the neurons, but we are not able to guarantee
+minimization of the over-approximation at the output layer. It would help to identify better metrics for the semantic closeness factor that minimize over-approximation at the output neuron.
+
+In our experiments, we noticed that the time needed to verify a specific property of a network is not solely determined by the network's size. It is possible that a larger network can be verified quickly, while a smaller one may take longer or even fail to be verified altogether. Obtaining a more accurate
+measure of the effort required to verify a network would provide a better optimization target for abstraction used in the context of verification.
+
 
 
 

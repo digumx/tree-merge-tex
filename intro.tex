@@ -118,30 +118,9 @@ Thus, without strong formal guarantees connecting the behaviors of \abs and
 %input space. This limits the applicability of these techniques to situations
 %where concrete, hard guarantees may be necessary.
 
+In this work, we combine the syntactic and semantic approaches into a single framework for generating an abstract network. By splitting and labeling the neurons \textit{inc} and \textit{dec} and restricting ourselves to merges involving only similarly labeled neurons, as described in \cite{cegar-nn}, we
+provide a concrete formal link between the behavior of \cnc and \abs via syntactic constraints. At the same time, to take into account the global semantic behavior, we introduce a semantic closeness metric between two neurons in the same layer. Using this metric, we construct a tree of merge operations
+that captures the relative contribution of each merge to the quality of the abstraction. We propose a CEGAR framework where the refinement procedure uses this tree as a guide to choose an optimal set of merge operations that produces a small size \abs. In the resulting refined network, groups of neurons that remain merged are semantically closer than neurons that get un-merged. Thus, combining both syntactic and semantic approaches, our framework is able to find an \abs that preserves desired safety properties and is of a smaller size. To demonstrate the usefulness of this framework we set up
+experiments verifying the \acasxu networks, and find that we are able to produce smaller networks than existing works that are still strong enough to verify the property.
 
-In this work, we combine the syntactic and semantic approaches into a single
-framework for generating an abstract network. By splitting and labeling the
-neurons \textit{inc} and \textit{dec} and
-restricting ourselves to merges involving only similarly labeled neurons, 
-as described in \cite{cegar-nn}, we
-provide a concrete formal link between the behavior of \cnc and \abs via
-syntactic constraints. At the same time, to take into account the global
-semantic behavior, we introduce a semantic closeness metric between two neurons
-in the same layer. Using this metric, we construct a tree of merge operations
-that captures the relative contribution of each merge to the quality of the
-abstraction. We propose a CEGAR framework where
-the refinement procedure
-uses this tree as a guide 
-to choose an optimal set of merge operations that produces a small size \abs.
-In the resulting refined network, groups of neurons that remain
-merged are semantically closer than neurons that get un-merged. 
-Thus, combining both syntactic and semantic approaches, our framework
-is able to find an \abs that preserves desired safety properties and is of a
-smaller size.
-To demonstrate
-the usefulness of this framework we set up 
-experiments
-verifying the \acasxu networks, and find that we
-are able to produce smaller networks than existing works that are still strong
-enough to verify the property.
 

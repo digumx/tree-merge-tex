@@ -1,37 +1,11 @@
 \section{Related Work}
 
-In general, methodologies for verifying neural networks generally fall into two
-main categories: sound and complete methods
-\cite{reluplex,formal-ver-piece-wise,comp-reachability-analysis,comp-milp,comp-out-range,comp-max-resilience,marabou,comp-safety-ver-dnn,beta-crown,alpha-crown-bab-fnc,gcp-crown},
-and sound and incomplete methods
-\cite{deeppoly,crown,incomp-dual-approach,incomp-abs-inp,incomp-robustness-certi,incomp-boost-robustness}.
-Sound and complete methods aim to explore the entire state space to verify the
-properties of neural networks.
-In contrast, sound and incomplete methods employ an overapproximation
-of the state space, sacrificing completeness for 
-scalability and efficiency.
+In general, methodologies for verifying neural networks generally fall into two main categories: sound and complete methods \cite{reluplex,formal-ver-piece-wise,comp-reachability-analysis,comp-milp,comp-out-range,comp-max-resilience,marabou,comp-safety-ver-dnn,beta-crown,alpha-crown-bab-fnc,gcp-crown}, and sound and incomplete methods \cite{deeppoly,crown,incomp-dual-approach,incomp-abs-inp,incomp-robustness-certi,incomp-boost-robustness}. Sound and complete methods aim to explore the entire state space to verify the properties of neural networks. In contrast, sound and incomplete methods employ an overapproximation of the state space, sacrificing completeness for scalability and efficiency.
 
-An instance of a sound and complete methodology is Reluplex, which extends the 
-simplex algorithm \cite{simplex} to 
-handle ReLU constraints. Initially, it focuses on finding an assignment that 
-satisfies the linear constraints, subsequently incorporating non-linear constraints 
-to validate their satisfaction. In \cite{formal-ver-piece-wise}
-the authors introduce triangular over-approximation, infer neuron phase fixtures,
-learn conflict clauses and safe neuron phase fixtures to aid in pruning the search 
-space, which is similar to classical SMT solving approaches. Another complete
-technique is \neuralsat, which performs exhaustive theory propagation and
-conflict clause learning similar to DPLL(T) used in classical SMT solving.
-However, these methods often encounter scalability issues due to their
-exhaustive exploration of the entire state space. 
+An instance of a sound and complete methodology is Reluplex, which extends the simplex algorithm \cite{simplex} to handle ReLU constraints. Initially, it focuses on finding an assignment that satisfies the linear constraints, subsequently incorporating non-linear constraints to validate their satisfaction. In \cite{formal-ver-piece-wise} the authors introduce triangular over-approximation, infer neuron phase fixtures, learn conflict clauses and safe neuron phase fixtures to aid in pruning the search space, which is similar to classical SMT solving approaches. Another complete technique is \neuralsat, which performs exhaustive theory propagation and conflict clause learning similar to DPLL(T) used in classical SMT solving. However, these methods often encounter scalability issues due to their exhaustive exploration of the entire state space.
 
-On the other hand, alternative techniques like \cite{crown,deeppoly}, which
-propagates linear upper and lower bound constraints, exhibit better
-scalability at the cost of overapproximation. \cite{alpha-crown-bab-fnc} 
-optimizes the bounds of \cite{crown} 
-using gradient descent. 
-\cite{beta-crown} incorporates ReLU split
-constraints into the CROWN bound propagation process, allowing integration
-into the branch and bound (BaB) framework
-\cite{bab-fw,bab-piecewise-nn,bab-lagrangian-decomp}. 
+On the other hand, alternative techniques like \cite{crown,deeppoly}, which propagates linear upper and lower bound constraints, exhibit better scalability at the cost of overapproximation. \cite{alpha-crown-bab-fnc} optimizes the bounds of \cite{crown} using gradient descent. \cite{beta-crown} incorporates ReLU split constraints into the CROWN bound propagation process, allowing integration
+into the branch and bound (BaB) framework \cite{bab-fw,bab-piecewise-nn,bab-lagrangian-decomp}.
 This combined implementation makes the \abcrown framework sound and complete.
+
 
