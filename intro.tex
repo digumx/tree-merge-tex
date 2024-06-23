@@ -1,6 +1,5 @@
 
 \section{Introduction}
-\dmcmt{There may be repetation with abstract, but that is fine right?}
 
 Advances in Deep Neural Networks (\dnn) have enabled the scalable solution of
 several previously intractable problems such as image recognition and natural
@@ -120,9 +119,6 @@ Thus, without strong formal guarantees connecting the behaviors of \abs and
 %where concrete, hard guarantees may be necessary.
 
 
-\dmcmt{In this section, we end up saying "setting up a cegar loop thrice"}
-\dmcmt{Alternate para, without the repeats::}
-
 In this work, we combine the syntactic and semantic approaches into a single
 framework for generating an abstract network. By splitting and labeling the
 neurons \textit{inc} and \textit{dec} and
@@ -135,11 +131,8 @@ in the same layer. Using this metric, we construct a tree of merge operations
 that captures the relative contribution of each merge to the quality of the
 abstraction. We propose a CEGAR framework where
 the refinement procedure
-uses this tree as a guide
-to undo those merge operations which contribute the most to the poor quality of
-\kmcmt{Something other than poor quality} \dmcmt{tree guides optimal set of
-merges to get short abs}
-\abs.
+uses this tree as a guide 
+to choose an optimal set of merge operations that produces a small size \abs.
 In the resulting refined network, groups of neurons that remain
 merged are semantically closer than neurons that get un-merged. 
 Thus, combining both syntactic and semantic approaches, our framework

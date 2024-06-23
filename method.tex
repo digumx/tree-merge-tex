@@ -50,8 +50,8 @@ the $L_2$ norm on the space of continuous functions on the input region $P
 \subset \mathbb{R}^i \;{\rightarrow}\; \mathbb{R}$.
 Generally, inputs to \dnn are bounded, and therefore so is $P$. 
 Since $\nrf{i_1}{l}$ and $\nrf{i_2}{l}$ are neuron evaluations, they are
-Lipschitz continuous, \todo{Add ref} which ensures that the $L_2$ norm is well
-defined.
+Lipschitz continuous \cite{nn-lipschitz},  which ensures that the $L_2$ norm is
+well defined.
 
 However, since computing
 $||\nrf{i_1}{l} - \nrf{i_2}{l}||_2$ precisely is not feasible,
@@ -62,11 +62,6 @@ we use a uniform sampling of the input region where $P$ holds.
 Since 
 the input region is usually an interval, such sampling is
 quite straightforward to do.
-
-%\dmcmt{ changed few things here. 1, there are clarifications wrt the norm used
-%    to define the semantic closeness factor, including when it is well defined.
-%    2, the infeasibility of calculating the exact l2 norm comes from the
-%complexity of the network, 3, clarifications regarding uniform sampling}
 
 \subsection{Tree of Merges}
 \label{s:tree}
