@@ -61,31 +61,13 @@ For each framework, we collected the final \abs at the end of the \cegar iterat
 A point below the red diagonal line represents an instance for which we obtain a smaller final \abs than the existing work; therefore, points below the line represent instances for which we perform better.
 The average sizes of these \abs over all instances are reported in the `Average Size' columns in tables \ref{t:acas-verif} and \ref{t:acas-verif-robustness}.
 
-It is apparent from the Figure \ref{f:scatter-netsizes}, 
-table \ref{t:acas-verif} and table \ref{t:acas-verif-robustness} that compared 
-to the existing techniques, we are explore smaller \abs that are effective 
-at proving or disproving the property in question.
-This shows that using semantic information to guide the CEGAR process can
-effectively find more efficient abstractions than the existing technique.
+It is apparent from Figure \ref{f:scatter-netsizes}, Table \ref{t:acas-verif}, and Table \ref{t:acas-verif-robustness} that, compared to the existing techniques, we explore smaller \abs that are effective at proving or disproving the property in question. This shows that using semantic information to guide the CEGAR process can effectively find more efficient abstractions than the existing technique.
 
-Note that in our experiments, we found that the time taken by both our CEGAR
-approach and the existing CEGAR approach \cite{cegar-nn} was more than what the
-\neuralsat solver takes for the \acasxu benchmarks. However, while we would
-expect the solver call times to exponentially scale with network size, the
-overheads from the abstraction procedure will not scale exponentially. Thus, for
-larger and larger benchmarks, being able to find smaller \abs will produce a
-significant difference in times. Furthermore, we believe that a verified \abs is
-useful beyond verifying a single property - it may be used for other related
-queries, or may be useful as a safely deployable compressed network.
 
-Additionally, we find that the final solver times on the \abs are actually
-comparable with the times obtained on the original un-abstracted \cnc. In
-general it has may observed, both by our experiments and in \cite{cegar-nn},
-that the effort needed to verify a network is dependent
-on more than just network size. In fact, in \cite{cegar-nn},
-they are able to achieve smaller solver times on larger networks. 
-While it is true that in general the worst-case performance of neural network
-solvers will almost certainly remain exponential in the size of the network
-\cite{reluplex}, other factors on which the performance of neural network
-solvers may depend on remains an interesting direction of future work. 
+Note that in our experiments, we found that the time taken by both our CEGAR approach and the existing CEGAR approach \cite{cegar-nn} was more than what the \neuralsat solver takes for the \acasxu benchmarks. However, while we would expect the solver call times to exponentially scale with network size, the overheads from the abstraction procedure will not scale exponentially. Thus, for larger and larger benchmarks, being able to find smaller \abs will produce a significant difference in times. Furthermore, we believe that a verified \abs is useful beyond verifying a single property - it may be used for other related queries or may be useful as a safely deployable compressed network.
+
+
+Additionally, we find that the final solver times on the \abs are actually comparable with the times obtained on the original un-abstracted \cnc. In general, it has been observed both by our experiments and in \cite{cegar-nn} that the effort needed to verify a network is dependent on more than just network size. In fact, in \cite{cegar-nn}, they are able to achieve smaller solver times on larger networks.
+While it is true that in general the worst-case performance of neural network solvers will almost certainly remain exponential in the size of the network \cite{reluplex}, other factors on which the performance of neural network solvers may depend remain an interesting direction of future work.
+
 
