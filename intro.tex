@@ -18,8 +18,8 @@ While a number of formal analysis techniques have been proposed to build
 trust on the reliability of \dnn in safety-critical settings, including
 verification \cite{reluplex,deeppoly,crown,beta-crown,cegar-nn}  and formal
 explainability \cite{overview-fxai,minimal-image-fxai}, the size of the DNNs
-\sncmt{Say here: and the NP-Hardness of solving queries involving DNNs}
-continues to be the limiting factor for the scalability of these techniques.
+continues to be the limiting factor for the scalability of these techniques
+\cite{cegar-nn}.
 To tackle both these issues, it is imperative to reduce the size of the \dnn
 involved while maintaining a strong formal connection to the original network, and
 preserving desirable safety properties.
@@ -119,41 +119,11 @@ Thus, without strong formal guarantees connecting the behaviors of \abs and
 %input space. This limits the applicability of these techniques to situations
 %where concrete, hard guarantees may be necessary.
 
+
 \dmcmt{In this section, we end up saying "setting up a cegar loop thrice"}
-
-In this work we combine the syntactic and semantic approaches into a single
-framework for generating an abstract network. By splitting and labeling the
-neurons \textit{inc} and \textit{dec}, similar to \cite{cegar-nn}, and
-restricting ourselves to merges involving only similarly labeled neurons, we
-provide a concrete formal link the behavior of \cnc and \abs via
-syntactic constraints. At the same time, to take into account the global
-semantic behavior, we introduce a semantic closeness metric between two neurons
-in the same layer. Using this metric, we construct a tree of merge operations
-that captures the relative contribution of each merge to the quality of the
-abstraction. We propose a refinement procedure \dmcmt{here implicitly we say we
-are setting up cegar loop} that uses
-this tree as a guide
-to undo the merge operations that contribute most to the poor quality of \abs.
-We show that in the resulting refined network, groups of neurons that remain
-merged are semantically closer than neurons that get un-merged. Thus, we are
-able to refine \abs in a way that is optimal with respect to the semantic
-behavior. Thus, combining both syntactic and semantic approaches, our framework
-is able to find an \abs that preserves desired safety properties and is of a
-smaller size.
-
-We assemble these pieces into an abstraction-refinement framework \dmcmt{ here
-again we say set up cegar loop} that can
-generate a small size \abs by starting with a fully merged network and
-iteratively refining until a strong enough network is obtained. To demonstrate
-the usefulness of this framework we set up a
-\cegar loop\dmcmt{ here again we say set up cegar loop}  
-to verify the \acasxu networks. In these experiments we find that we
-are able to produce smaller networks than existing works that are still strong
-enough to verify the property.
-
 \dmcmt{Alternate para, without the repeats::}
 
-In this work we combine the syntactic and semantic approaches into a single
+In this work, we combine the syntactic and semantic approaches into a single
 framework for generating an abstract network. By splitting and labeling the
 neurons \textit{inc} and \textit{dec} and
 restricting ourselves to merges involving only similarly labeled neurons, 
@@ -167,6 +137,8 @@ abstraction. We propose a CEGAR framework where
 the refinement procedure
 uses this tree as a guide
 to undo those merge operations which contribute the most to the poor quality of
+\kmcmt{Something other than poor quality} \dmcmt{tree guides optimal set of
+merges to get short abs}
 \abs.
 In the resulting refined network, groups of neurons that remain
 merged are semantically closer than neurons that get un-merged. 

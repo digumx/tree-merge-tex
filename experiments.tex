@@ -37,66 +37,9 @@ Ubuntu 22.04 LTS.
 If the \abs produced has multiple neurons with the exact same set of incoming
 edges in the same layer, these neurons compute the same function and are
 redundant. Therefore, as an added optimization step in our method, 
-\dmcmt{This is regd comment from review 2, saying its not clear if this is done
-    for guy katz's method as well. It was not. Is it okay to just say this, or
-do we need to be more explicit?}
 we safely \textit{re-merge}
-them by taking the sum of the outgoing edges. Note that this does not change the
-behavior of \abs.
-
-%to
-%demonstrate the usefulness of our technique. To begin with, we demonstrate 
-%the application of our method within a CEGAR loop, as outlined in \cite{cegar-nn}, 
-%for verifying the \acasxu properties (refer to Section \ref{s:acas-verif}). 
-%In these experiments, we employed \neuralsat as the solver in the backend.
-%In our subsequent experiments, we illustrate the utility of our abstraction 
-%technique in achieving efficient compression of \dnn within safety-critical 
-%environments. We ensure that this compression doesn't introduce any new 
-%false negative classifications, as detailed in Section \ref{s:exp-mnist-comp}. 
-%This necessity is crucial, especially in scenarios such as medical diagnosis 
-%and collision detection, where the application of \dnn as classifiers necessitates 
-%precise measures to prevent false negative classifications for specific classes.
-%Finally, we demonstrate how our technique may be used to obtain abstract 
-%networks with the aim of proving a given property, plotting the number of 
-%spurious counterexamples introduced as the size of the abstract network 
-%reduces (Section \ref{s:exp-mnist-rob}). 
-
-%If the \abs produced has multiple neurons with the exact same set of incoming
-%edges in the same layer, these neurons compute the same function and are
-%redundant. Therefore, as an added optimization step, we safely \textit{re-merge}
-%them by taking the sum of the outgoing edges. Note that this does not change the
-%behavior of \abs.
-
-%The experimental results in Tables \ref{t:acas-verif}, \ref{t:acas-verif-robustness} and Figure
-%\ref{f:scatter-netsizes} were produced on a machine running on Intel(R) Core(TM) 
-%i7-6700 CPU with 8 CPUs running at 3.40GHz, having 16 GB RAM and running running 
-%Ubuntu 22.04 LTS. The results in Tables \ref{t:mnist-compr-summary}, \ref{t:acas-ncex}
-%and Figures \ref{f:mnist-class}, \ref{f:acas-ncex-samples} were run on a 
-%machine running on an Intel(R) Core(TM) i7-9700K with 8 CPUs running at
-%3.60GHz, having 16 GB RAM and running Ubuntu 22.04 LTS. 
-%The results in Figures \ref{f:mnist-prop-samples} and Table \ref{t:mnist-prop-summary} were produced on a 
-%machine running on an Intel(R) Core(TM) i7-13700 with 24 CPUs running at
-%5.20GHz, having 32 GB RAM and running Ubuntu 23.10.
-
-%\subsection{Verification of \acasxu}
-%\ref{s:acas-verif}
-
-%In this set of experiments, we demonstrate the effectiveness of our abstraction
-%technique for verification of neural network queries on the \acasxu set of
-%benchmarks. To do so, we set up a \cegar loop (Section \ref{s:abs-ref-fw}) using
-%our abstraction technique, where on each \abs generated we call \neuralsat. 
-%If the solver returns a spurious counterexample, we use
-%that as $\vct{\beta}$ to refine our network according to Section
-%\ref{s:refinement}.  
-
-%For these experiments, we have used \neuralsat as the solver. 
-%We compare our abstraction framework with an existing \cegar framework proposed
-%in \cite{cegar-nn} \footnote{We have used a faithful re-implementation of this framework that
-%follows exactly the procedure in the paper, with the only distinction being that
-%the call to verify the \abs obtained in each iteration is sent to an instance of
-%the \neuralsat solver as opposed to \marabou. \dmcmt{Is this okay?}}. We set a
-%timeout of 200 seconds for each instance in the benchmark and for both the
-%our technique and the existing work \cite{cegar-nn}.
+them by summing up the weights of the outgoing edges. 
+Note that this does not change the behavior of \abs.
 
 \begin{table}
     \vspace*{-0.25cm}
@@ -137,21 +80,22 @@ find that using our framework, we are able to perform better than the existing
 more networks to be safe, while we do not loose performance on the robustness
 properties. 
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-    %\vspace*{-0.5cm}
-    \includegraphics[scale=0.2]{figs/scatter-cegar-our-nerualsat-diag.png}
-    \caption{\dmcmt{Old version} \todo{Remove}}
-    \label{f:scatter-netsizes-old}
-    %\vspace*{-0.5cm}
-\end{wrapfigure}
+%\begin{wrapfigure}{r}{0.5\textwidth}
+%    %\vspace*{-0.5cm}
+%    \includegraphics[scale=0.2]{figs/scatter-cegar-our-nerualsat-diag.png}
+%    \caption{\dmcmt{Old version} \todo{Remove}}
+%    \label{f:scatter-netsizes-old}
+%    %\vspace*{-0.5cm}
+%\end{wrapfigure}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
-    %\vspace*{-0.5cm}
+    \vspace*{-0.5cm}
     \includegraphics[scale=0.4]{figs/scatter-cegar-our-nerualsat-diag-new.png}
+    \vspace{0.15cm}
     \caption{Scatter plot of network sizes produced by our framework vs existing
     work \cite{cegar-nn} on \acasxu }
     \label{f:scatter-netsizes}
-    %\vspace*{-0.5cm}
+    \vspace*{-0.5cm}
 \end{wrapfigure}
 
 For each framework, we collected the final \abs at the end of the \cegar

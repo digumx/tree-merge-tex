@@ -1,30 +1,5 @@
 \section{Related Work}
 
-\sncmt{Remove first two paras here} \dmcmt{Agreed}
-
-In response to the increasing use of neural networks in safety-critical settings, 
-various techniques have been developed to analyze their behavior, including 
-verification, explainability, etc. 
-
-Our work closely relates to the syntactic structural abstraction techniques that
-propose to reduce the network size by merging similar
-neurons \cite{cegar-nn,cegarette,cleverest-nn}, and employs a
-counterexample-guided refinement. They have used
-syntactic constraints to achieve concrete soundness guarantees. But unlike our
-approach, their work does not take into account the global \textit{semantic}
-behavior of the network, thus producing potentially suboptimal abstractions.
-At the same time, the approach proposed in \cite{deep-abstract} performs a
-semantic analysis to decrease the network size, but it leads to an
-\emph{approximation} instead of an abstraction. The approximation allows
-lifting certain bound propagation based proofs, but not the concrete gurantee
-that one gets from~\cite{cegar-nn}. Also, in \cite{lin-comb-abs-jan} the
-authors have used linear combinations of neurons to compress the networks, but
-their method only provides guarantees on a finite dataset. In comparison, we
-provide concrete soundness guarantees that allows us to lift any proofs from
-the abstract network back to the original network.
-
-\dmcmt{Alt section starts from here}
-
 In general, methodologies for verifying neural networks generally fall into two
 main categories: sound and complete methods
 \cite{reluplex,formal-ver-piece-wise,comp-reachability-analysis,comp-milp,comp-out-range,comp-max-resilience,marabou,comp-safety-ver-dnn,beta-crown,alpha-crown-bab-fnc,gcp-crown},
@@ -60,7 +35,4 @@ into the branch and bound (BaB) framework
 \cite{bab-fw,bab-piecewise-nn,bab-lagrangian-decomp}. 
 This combined implementation makes the \abcrown framework sound and complete.
 
-DNN compression has been explored \cite{dnn-compression} in general to obtain a
-network of a smaller size, however, as opposed to abstraction, they do not
-provide any guarantees connecting the original network to the smaller compressed
-network. 
+\dmcmt{Removed para 1, 2, and last}
